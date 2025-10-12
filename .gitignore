@@ -1,0 +1,10 @@
+# Object file
+*.o
+
+# Ada Library Information
+*.txt
+*.rom
+*.pdf
+*.csv
+*.R
+*.bin
