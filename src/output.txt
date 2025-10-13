@@ -1,22 +1,6 @@
 ============================================================
 rom_planner Execution Log
-Started at: 2025-10-12 17:29:54
-Binary location: /root/Adventure.bin
-Time budget: 10000.0
-Simulation budget: 5000000
-============================================================
-
-./rom_planner: error while loading shared libraries: libboost_program_options.so.1.83.0: cannot open shared object file: No such file or directory
-
-============================================================
-Execution completed!
-Return code: 127
-Execution time: 0.10 seconds
-Finished at: 2025-10-12 17:29:54
-============================================================
-============================================================
-rom_planner Execution Log
-Started at: 2025-10-12 17:30:47
+Started at: 2025-10-13 18:29:38
 Binary location: /root/Adventure.bin
 Time budget: 10000.0
 Simulation budget: 5000000

@@ -2,7 +2,7 @@
 *.o
 
 # Ada Library Information
-
+*.sif
 *.rom
 *.pdf
 *.csv
