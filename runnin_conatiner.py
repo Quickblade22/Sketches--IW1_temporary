@@ -36,10 +36,10 @@ class ContainerRunner:
             # Change to the src directory and run the Python script
             cmd = [
                 "apptainer", "exec", 
-                "--bind", "/root/Sketches--IW1_temporary",
+                "--bind", "/work/rleap1/aaditya_mehta/Sketches--IW1_temporary",
                 "mycontainer.sif",
                 "sh", "-c",
-                "cd /root/Sketches--IW1_temporary/src && python3 running.py /root/Adventure.bin 10000 5000000 --output-file=output.txt"
+                "cd /work/rleap1/aaditya_mehta/Sketches--IW1_temporary/src && python3 running.py /work/rleap1/aaditya_mehta/Sketches--IW1_temporary/Adventure.bin 10000 5000000 --output-file=output.txt"
             ]
             
             proc = subprocess.Popen(cmd)
@@ -87,7 +87,7 @@ def main():
     signal.signal(signal.SIGTERM, runner.signal_handler)
     
     print("Starting Apptainer build and execution script...")
-    if(not os.path.isfile("mycontainer.sif")):
+    if(not os.path.isfile("/work/rleap1/aaditya_mehta/Sketches--IW1_temporary/mycontainer.sif")):
         # Step 1: Build the container
         if not runner.build_container():
             print("Container build failed. Exiting.")
