@@ -66,9 +66,8 @@ From: ubuntu:22.04
 
 %runscript
     echo "Container with ALE, rollout-iw project, and Python support ready"
-    echo "Project is located at: /opt/Sketches--IW1/rollout-iw"
-    echo "Python 3 and psutil are installed"
-    echo "Use --bind to mount your host project directory if needed for development"
+    exec python3 "$@"
+
 
 %labels
     Author YourName

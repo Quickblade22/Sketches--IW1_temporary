@@ -3,8 +3,8 @@
 #SBATCH --ntasks-per-node=1         # Number of tasks per node
 #SBATCH --cpus-per-task=16          # 16 CPU cores per task
 #SBATCH --mem=64g                   # 64GB memory allocation
-#SBATCH --partition=rleap_gpu_24gb  # Partition (queue) to use
-#SBATCH --output=/work/rleap1/aaditya_mehta/%containe_ran.txt  # Output log file 
+#SBATCH --partition=rleap_cpu  # Partition (queue) to use
+#SBATCH --output=/work/rleap1/aaditya_mehta/%container_run.txt  # Output log file
 
 
 
@@ -12,4 +12,5 @@
 cd /work/rleap1/aaditya_mehta/Sketches--IW1_temporary  # UPDATE THIS PATH
 
 # Run the Python script that handles container execution
-python3 running_container.py && echo "Job finished at: $(date)"
+apptainer  run --bind /work/rleap1/aaditya_mehta/Sketches--IW1_temporary/src mycontainer.sif  running.py /root/Adventure.bin 10000 5000000  --output-file=output.txt
+
