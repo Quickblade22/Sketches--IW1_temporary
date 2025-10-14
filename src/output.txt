@@ -222,3 +222,57 @@ Sending Reset...
 Sending Reset...
 simulator calls: 23 simulator budget: 5000000
 [32;1mlogging::Logger::Info: [0mqueue: sz=1
+============================================================
+rom_planner Execution Log
+Started at: 2025-10-14 15:03:26
+Binary location: /root/Sketches--IW1_temporary/Adventure.bin
+Time budget: 10000.0
+Simulation budget: 5000000
+============================================================
+
+options:
+  --ale-logging::logger-mode error \
+  --alpha 50000 \
+  --debug-threshold 0 \
+  --discount 1 \
+  --features 3 \
+  --fixed-action-sequence none \
+  --frames-background-image 100 \
+  --frameskip 15 \
+  --initial-random-noops 30 \
+  --logging::logger-mode info \
+  --lookahead-caching 2 \
+  --lookahead_depth 100 \
+  --max-depth 1500 \
+  --max-execution-length 18000 \
+  --max-rep 30 \
+  --nodes-threshold 50000 \
+  --num-episodes 1 \
+  --planner bfs \
+  --prefix-length-to-execute 0 \
+  --printing-sketches 0 \
+  --rom /root/Sketches--IW1_temporary/Adventure.bin \
+  --seed 0 \
+  --simulator-budget 5000000 \
+  --time-budget 10000 \
+  --width 1
+A.L.E: Arcade Learning Environment (version 0.11.2+75df226)
+[Powered by Stella]
+A.L.E: Arcade Learning Environment (version 0.11.2+75df226)
+[Powered by Stella]
+Game console created:
+  ROM file:  /root/Sketches--IW1_temporary/Adventure.bin
+  Cart Name: Adventure (1978) (Atari)
+  Cart MD5:  157bddb7192754a45372be196797f284
+  Display Format:  AUTO-DETECT ==> NTSC
+  ROM Size:        4096
+  Bankswitch Type: AUTO-DETECT ==> 4K
+
+Setting `display_screen` is enabled but SDL_SUPPORT is disabled. To display the screen SDL_SUPPORT must be enabled.
+Running ROM file...
+
+WARNING: Possibly unsupported ROM: mismatched MD5.
+Expected MD5:  4b27f5397c442d25f0c418ccdacf1926
+Cartridge MD5: 157bddb7192754a45372be196797f284
+Cartridge Name: Adventure (1978) (Atari)
+
