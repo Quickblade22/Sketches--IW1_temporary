@@ -3,14 +3,36 @@
 #SBATCH --ntasks-per-node=1         # Number of tasks per node
 #SBATCH --cpus-per-task=16          # 16 CPU cores per task
 #SBATCH --mem=64g                   # 64GB memory allocation
-#SBATCH --partition=rleap_cpu  # Partition (queue) to use
-#SBATCH --output=/work/rleap1/aaditya_mehta/%container_run.txt  # Output log file
-
-
+#SBATCH --partition=rleap_cpu       # Partition (queue) to use
+#SBATCH --output=/work/rleap1/aaditya_mehta/container_run.txt  # Output log file
 
 # Change to the directory containing your scripts
-cd /work/rleap1/aaditya_mehta/Sketches--IW1_temporary  # UPDATE THIS PATH
+cd /work/rleap1/aaditya_mehta/Sketches--IW1_temporary
 
-# Run the Python script that handles container execution
-apptainer  run --bind /work/rleap1/aaditya_mehta/Sketches--IW1_temporary/src mycontainer.sif  running.py /root/Adventure.bin 10000 5000000  --output-file=output.txt
+# Check if container exists, build if it doesn't
+if [ ! -f "mycontainer.sif" ]; then
+    echo "Building Apptainer container..."
+    apptainer build mycontainer.sif apptainers.def
+    if [ $? -ne 0 ]; then
+        echo "Container build failed. Exiting."
+        exit 1
+    fi
+    echo "Container built successfully!"
+fi
 
+# Run the Python script inside the container using exec with proper directory navigation
+echo "Running Python script in container using exec..."
+apptainer exec \
+    --bind /work/rleap1/aaditya_mehta/Sketches--IW1_temporary \
+    mycontainer.sif \
+    sh -c "cd /work/rleap1/aaditya_mehta/Sketches--IW1_temporary/src && make clean && python3 running.py /work/rleap1/aaditya_mehta/Sketches--IW1_temporary/Adventure.bin 10000 5000000 --compile-first --output-file=output.txt"
+
+# Check if the execution was successful
+if [ $? -eq 0 ]; then
+    echo "Container execution completed successfully!"
+else
+    echo "Container execution failed."
+    exit 1
+fi
+
+echo "Script completed successfully!"
