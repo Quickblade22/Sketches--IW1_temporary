@@ -4,15 +4,15 @@
 #SBATCH --cpus-per-task=16          # 16 CPU cores per task
 #SBATCH --mem=64g                   # 64GB memory allocation
 #SBATCH --partition=rleap_cpu       # Partition (queue) to use
-#SBATCH --output=/work/rleap1/aaditya_mehta/container_run.txt  # Output log file
-
+#SBATCH --output=output.txt  # Output log file
+#SBATCH --error=error.err
 
 
 
 # Run the Python script inside the container using exec with proper directory navigation
 echo "Running Python script in container using exec..."
 apptainer exec \
-    --bind /work/rleap1/aaditya_mehta/Sketches--IW1_temporary \
+    --bind .:/work/rleap1/aaditya_mehta/Sketches--IW1_temporary \
     mycontainer.sif \
     sh -c "cd /work/rleap1/aaditya_mehta/Sketches--IW1_temporary/src && make clean && python3 running.py /work/rleap1/aaditya_mehta/Sketches--IW1_temporary/Adventure.bin 10000 5000000 --compile-first --output-file=output.txt"
 

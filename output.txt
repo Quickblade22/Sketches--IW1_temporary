@@ -1,0 +1,28 @@
+--------------------- Slurm Task Prolog ------------------------
+Job ID: 243300
+Job name: my_slurm.bash
+Host: cn-101
+Date: Di 14. Okt 15:24:50 CEST 2025
+User: aaditya.mehta
+Slurm account: rleap
+Slurm partition: rleap_cpu
+Work dir: 
+------------------
+Node usage:
+JOBID PARTITION     NAME     USER ST       TIME  NODES NODELIST(REASON)
+243300 rleap_cpu my_slurm aaditya.  R       0:00      1 cn-101
+------------------
+Show launch script with:
+sacct -B -j 
+------------------
+--------------------- Slurm Task Prolog ------------------------
+Running Python script in container using exec...
+rm -rf *.o *~ rom_planner logger.o
+--------------------- Slurm Task Epilog ------------------------
+Job ID: 243300
+Time: Di 14. Okt 17:33:08 CEST 2025
+Elapsed Time: 02:08:18
+Billing per second for TRES: billing=80,cpu=16,mem=64G,node=1
+Show resource usage with e.g.:
+sacct -j 243300 -o Elapsed,TotalCPU,UserCPU,SystemCPU,MaxRSS,ReqTRES%60,MaxDiskRead,MaxDiskWrite
+--------------------- Slurm Task Epilog ------------------------
