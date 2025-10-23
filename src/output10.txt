@@ -1,0 +1,104 @@
+============================================================
+rom_planner Execution Log
+Started at: 2025-10-22 18:43:13
+Binary location: /root/Adventure.bin
+Time budget: 5000.0
+Simulation budget: 7000
+============================================================
+
+options:
+  --ale-logging::logger-mode error \
+  --alpha 50000 \
+  --debug-threshold 0 \
+  --discount 1 \
+  --features 4 \
+  --fixed-action-sequence none \
+  --frames-background-image 100 \
+  --frameskip 15 \
+  --initial-random-noops 30 \
+  --logging::logger-mode info \
+  --lookahead-caching 2 \
+  --lookahead_depth 100 \
+  --max-depth 1500 \
+  --max-execution-length 18000 \
+  --max-rep 30 \
+  --nodes-threshold 50000 \
+  --num-episodes 1 \
+  --planner bfs \
+  --prefix-length-to-execute 0 \
+  --printing-sketches 0 \
+  --rom /root/Adventure.bin \
+  --seed 0 \
+  --simulator-budget 7000 \
+  --time-budget 5000 \
+  --width 1
+A.L.E: Arcade Learning Environment (version 0.11.2+75df226)
+[Powered by Stella]
+A.L.E: Arcade Learning Environment (version 0.11.2+75df226)
+[Powered by Stella]
+Game console created:
+  ROM file:  /root/Adventure.bin
+  Cart Name: Adventure (1978) (Atari)
+  Cart MD5:  157bddb7192754a45372be196797f284
+  Display Format:  AUTO-DETECT ==> NTSC
+  ROM Size:        4096
+  Bankswitch Type: AUTO-DETECT ==> 4K
+
+Setting `display_screen` is enabled but SDL_SUPPORT is disabled. To display the screen SDL_SUPPORT must be enabled.
+Running ROM file...
+
+WARNING: Possibly unsupported ROM: mismatched MD5.
+Expected MD5:  4b27f5397c442d25f0c418ccdacf1926
+Cartridge MD5: 157bddb7192754a45372be196797f284
+Cartridge Name: Adventure (1978) (Atari)
+
+Random seed is 0
+Sending Reset...
+Sending Reset...
+Sending Reset...
+Game console created:
+  ROM file:  /root/Adventure.bin
+  Cart Name: Adventure (1978) (Atari)
+  Cart MD5:  157bddb7192754a45372be196797f284
+  Display Format:  AUTO-DETECT ==> NTSC
+  ROM Size:        4096
+  Bankswitch Type: AUTO-DETECT ==> 4K
+
+Running ROM file...
+
+WARNING: Possibly unsupported ROM: mismatched MD5.
+Expected MD5:  4b27f5397c442d25f0c418ccdacf1926
+Cartridge MD5: 157bddb7192754a45372be196797f284
+Cartridge Name: Adventure (1978) (Atari)
+
+Random seed is 0
+Sending Reset...
+Sending Reset...
+Sending Reset...
+Sending Reset...
+Sending Reset...
+Sending Reset...
+Sending Reset...
+Sending Reset...
+Sending Reset...
+Action 0: 0
+Action 1: 1
+Action 2: 2
+Action 3: 3
+Action 4: 4
+Action 5: 5
+Sending Reset...
+Sending Reset...
+Sending Reset...
+[32;1mlogging::Logger::Info: [0mplanner=bfs(frameskip=15,minimal-action-set=0,features=4,simulator-budget=7000,time-budget=5000.000000,novelty-subtables=0,random-actions=1,max-rep=30,discount=1.000000,alpha=50000.000000,use-alpha-to-update-reward-for-death=0,nodes-threshold=50000,break-ties-using-rewards=0)
+Sending Reset...
+Sending Reset...
+Sending Reset...
+[32;1mlogging::Logger::Info: [0m**** bfs: get branch ****
+[32;1mlogging::Logger::Info: [0mprefix: sz=23, actions=[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,]
+[32;1mlogging::Logger::Info: [0minput: #nodes=na, #tips=na, height=na
+Sending Reset...
+Sending Reset...
+Sending Reset...
+simulator calls: 23 simulator budget: 7000
+[32;1mlogging::Logger::Info: [0mqueue: sz=1
