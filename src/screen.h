@@ -131,40 +131,115 @@ struct MyALEScreen {
     }
    
     bool detect_room_change() {
-        pixel_t new_room_color = screen_.get(5, 5);
+       // Get key colors from the screen
+       // Helper lambda for color_match with screen_pixels
+        auto color_match_at = [&](int x, int y, const std::string& color) {
+            size_t idx = screen_.get(y, x);
+            return color_match(screen_.get(y, x), COLORS.at(color));
+        };
+        pixel_t cube_color = screen_.get(5, 5);
+        auto temp_room_color = current_room_color_;
+        bool is_yellow = color_match(cube_color, COLORS.at("yellow"));
+        bool is_black = color_match(cube_color, COLORS.at("black"));
+        bool is_red = color_match(cube_color, COLORS.at("red"));
+        bool is_pink = color_match(cube_color, COLORS.at("pink"));
+        bool is_blue = color_match(cube_color, COLORS.at("blue"));
+        bool is_green = color_match(cube_color, COLORS.at("green"));
+        bool is_light_green = color_match(cube_color, COLORS.at("light_green"));
+        bool is_purple = color_match(cube_color, COLORS.at("purple"));
+
         
-        // Check if room color actually changed
-        if (new_room_color != current_room_color_) {
-            current_room_color_ = new_room_color;
-            room_changed_ = true;
-            return true;
+        if(is_black){
+            // Black throne room
+   
+                current_room_color_ = 11; 
+        } else if (is_yellow && color_match_at(80, 80, "yellow")) {
+                // Yellow throne room
+               
+                current_room_color_ = 1; 
+                //std::cout<<"yellow_throne_room"<<std::endl; 
+        } else if(is_yellow) {
+                // Normal yellow/black room
+
+                current_room_color_ = 0;
+        }else if (is_red || is_pink) {
+             if(is_pink) current_room_color_ = 13; 
+             else{
+                if(current_room_color_ == 3) current_room_color_ = 4; 
+                else if(current_room_color_ == 11 || current_room_color_ == 13) current_room_color_ = 12;
+             }
+        } 
+        else if (is_green || is_light_green || is_purple) {
+            if (is_light_green) {
+                current_room_color_ = 5;
+   
+            } else if (is_purple) {
+                current_room_color_ = 3;
+
+            }else{
+                current_room_color_ = 2;
+
+            }
+        } 
+        
+        else if (is_blue) {
+            // Determine blue room type
+            if (color_match_at(79, 6, "blue")) {
+                if (color_match_at(79, 194, "blue")) {
+                    current_room_color_ = 10;
+                } else {
+                    // Blue room 1
+                    current_room_color_ = 6;
+                }
+            } else if (color_match_at(77, 185, "blue")) {
+                // Blue room 4
+                current_room_color_ = 7;
+            } else if (color_match_at(20, 8, "blue")) {
+                // Blue room 3
+                current_room_color_ = 8;
+            } else {
+                // Replace blue room type 2 region definitions with:
+                current_room_color_ = 9;
+            }
         }
-        room_changed_ = false;
-        return false;
+        room_changed_ = (temp_room_color != current_room_color_);
+        return room_changed_;
     }
+    //using adventure room knowledge to reset background
     void reset_background_for_current_room(ALEInterface &ale) {
+        std::cout << "Resetting background for room color: " << current_room_color_ << std::endl;
         size_t width_ = ale.getScreen().width();
         size_t height_ = ale.getScreen().height();
-    
+        auto regions = regions_for_cube();
         // Create a synthetic background based on room knowledge
         for (size_t y = 0; y < height_; y++) {
             for (size_t x = 0; x < width_; x++) {
-                pixel_t current_pixel = screen_.get(y, x);
                 
-                if (color_match(current_pixel, current_room_color_)) {
-                    background_[y * width_ + x] = current_pixel;
-                }
-                // For other pixels (items, player), set to 0
-                else {
-                    background_[y * width_ + x] = 0;
+                pixel_t current_pixel = screen_.get(y, x);
+                // If pixel is in region (navigable area), set background to 0
+                // If pixel is NOT in region (walls/borders), set background to current pixel color
+                if (is_pixel_in_regions(x, y, regions)) {
+                    background_[y * width_ + x] = 170;  // Floor area - will show foreground objects
+                } else {
+                    background_[y * width_ + x] = current_pixel;  // Walls - will be subtracted out
                 }
             }
         }
-        
+        std::cout << "Background reset completed." << std::endl;
         // Update background count
         num_background_pixels_ = width_ * height_; // Will be adjusted as we see actual gameplay
 }
-    
+    bool is_pixel_in_regions(int x, int y, const std::vector<std::pair<std::pair<int,int>, std::pair<int, int>>>& regions) const {
+        for (const auto& region : regions) {
+            auto [top_left, bottom_right] = region;
+            auto [x1, y1] = top_left;
+            auto [x2, y2] = bottom_right;
+            if (x >= x1 && x <= x2 && y >= y1 && y <= y2) {
+                return true;
+            }
+        }
+        return false;
+    }
     static void compute_background_image(ALEInterface &ale, size_t num_frames) {
         //std::cout << ale.getScreen().width() << " " << ale.getScreen().height() << std::endl;
         size_t width_ = ale.getScreen().width();
@@ -587,6 +662,8 @@ struct MyALEScreen {
                 regions.push_back({{111, 82}, {151, 178}});
                 regions.push_back({{7, 146}, {151, 178}});
                 regions.push_back({{63, 146}, {96, 195}});
+                regions.push_back({{71, 114}, {88, 154}});
+               
         } else if (is_yellow && color_match_at(80, 80, "yellow")) {
                 // Yellow throne room
                 regions.push_back({{7, 18}, {40, 178}});
@@ -594,19 +671,30 @@ struct MyALEScreen {
                 regions.push_back({{7, 82}, {48, 146}});
                 regions.push_back({{111, 82}, {151, 146}});
                 regions.push_back({{7, 147}, {152, 178}});
+                regions.push_back({{71, 114}, {88, 154}});
+                
                 //std::cout<<"yellow_throne_room"<<std::endl; 
         } else if(is_yellow) {
                 // Normal yellow/black room
                 regions.push_back({{7, 18}, {152, 179}});
+                
         }else if (is_red || is_pink) {
+             if(is_pink) current_room_color_ = 13; 
+             else{
+                if(current_room_color_ == 3) current_room_color_ = 4; 
+                else if(current_room_color_ == 11 || current_room_color_ == 13) current_room_color_ = 12;
+             }
             regions.push_back({{7, 18}, {152, 179}});
         } 
         else if (is_green || is_light_green || is_purple) {
             if (is_light_green) {
+              
                 regions.push_back({{12, 18}, {160, 178}});  // x >= 12
             } else if (is_purple) {
+               
                 regions.push_back({{0, 18}, {147, 178}});   // x <= 147
             }else{
+             
                 regions.push_back({{0, 18}, {160, 178}});
             }
         } 
@@ -614,24 +702,47 @@ struct MyALEScreen {
         else if (is_blue) {
             // Determine blue room type
             if (color_match_at(79, 6, "blue")) {
-                // Blue room 1
-                regions.push_back({{0, 19}, {24, 50}});
-                regions.push_back({{134, 19}, {160, 50}});
-                regions.push_back({{15, 50}, {24, 83}});
-                regions.push_back({{135, 50}, {144, 83}});
-                regions.push_back({{0, 83}, {24, 114}});
-                regions.push_back({{31, 1}, {40, 178}});
-                regions.push_back({{119, 1}, {128, 178}});
-                regions.push_back({{0, 148}, {160, 178}});
-                regions.push_back({{47, 1}, {55, 114}});
-                regions.push_back({{103, 1}, {112, 114}});
-                regions.push_back({{47, 83}, {111, 114}});
-                regions.push_back({{63, 1}, {72, 50}});
-                regions.push_back({{87, 1}, {96, 50}});
-                regions.push_back({{63, 18}, {96, 50}});
+                if (color_match_at(79, 194, "blue")) {
+                    
+                    regions.push_back({{0, 18}, {160, 50}});       // Top-left
+                    regions.push_back({{38, 18}, {48, 114}});      // Top-right
+                    regions.push_back({{111, 18}, {120, 114}});    // Upper-left
+                    regions.push_back({{15, 82}, {72, 115}});      // Upper-right
+                    regions.push_back({{87, 82}, {144, 115}});     // Upper-right
+                    regions.push_back({{15, 82}, {24, 179}});      // Upper-right
+                    regions.push_back({{135, 82}, {144, 179}});    // Upper-right
+                    regions.push_back({{135, 146}, {160, 179}});   // Upper-right
+                    regions.push_back({{0, 146}, {24, 179}});      // Upper-right
+                    regions.push_back({{103, 146}, {128, 179}});   // Upper-right
+                    regions.push_back({{31, 146}, {56, 179}});     // Upper-right
+                    regions.push_back({{31, 146}, {40, 194}});     // Upper-right
+                    regions.push_back({{47, 146}, {56, 194}});     // Upper-right
+                    regions.push_back({{103, 146}, {112, 194}});   // Upper-right
+                    regions.push_back({{119, 146}, {127, 194}});   // Upper-right
+                    regions.push_back({{63, 82}, {72, 195}});      // Upper-right
+                    regions.push_back({{87, 82}, {96, 195}});      // Upper-right
+                } else {
+                    // Blue room 1
+                    
+                    regions.push_back({{0, 19}, {24, 50}});
+                    regions.push_back({{134, 19}, {160, 50}});
+                    regions.push_back({{15, 50}, {24, 83}});
+                    regions.push_back({{135, 50}, {144, 83}});
+                    regions.push_back({{0, 83}, {24, 114}});
+                    regions.push_back({{31, 1}, {40, 178}});
+                    regions.push_back({{119, 1}, {128, 178}});
+                    regions.push_back({{0, 148}, {160, 178}});
+                    regions.push_back({{47, 1}, {55, 114}});
+                    regions.push_back({{103, 1}, {112, 114}});
+                    regions.push_back({{47, 83}, {111, 114}});
+                    regions.push_back({{63, 1}, {72, 50}});
+                    regions.push_back({{87, 1}, {96, 50}});
+                    regions.push_back({{63, 18}, {96, 50}});
+                }
             } 
             else if (color_match_at(77, 185, "blue")) {
                 // Blue room 4
+                
                 regions.push_back({{0, 146}, {23, 178}});
                 regions.push_back({{135, 146}, {160, 178}});
                 regions.push_back({{0, 18}, {23, 50}});
@@ -649,6 +760,7 @@ struct MyALEScreen {
             } 
             else if (color_match_at(20, 8, "blue")) {
                 // Blue room 3
+                
                 regions.push_back({{0, 19}, {31, 50}});
                 regions.push_back({{128, 19}, {160, 50}});
                 regions.push_back({{15, 50}, {31, 114}});
@@ -668,6 +780,7 @@ struct MyALEScreen {
             } 
             else {
                 // Replace blue room type 2 region definitions with:
+                
                 regions.push_back({{15, 1}, {23, 50}});
                 regions.push_back({{135, 1}, {143, 50}});
                 regions.push_back({{0, 18}, {23, 50}});
