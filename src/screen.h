@@ -69,7 +69,8 @@ struct MyALEScreen {
     static size_t minimal_actions_size_;
     static std::vector<pixel_t> background_;
     static size_t num_background_pixels_;
-    
+    mutable int current_room_color_ = -1;
+    mutable bool room_changed_ = false;
     const bool printing_debug = false; // Set to true to print debug information
     MyALEScreen(ALEInterface &ale,
                 int type,
@@ -128,6 +129,42 @@ struct MyALEScreen {
         initial_background_image_ = std::vector<pixel_t>(width_ * height_, 0);
         num_initial_background_pixels_ = width_ * height_;
     }
+   
+    bool detect_room_change() {
+        pixel_t new_room_color = screen_.get(5, 5);
+        
+        // Check if room color actually changed
+        if (new_room_color != current_room_color_) {
+            current_room_color_ = new_room_color;
+            room_changed_ = true;
+            return true;
+        }
+        room_changed_ = false;
+        return false;
+    }
+    void reset_background_for_current_room(ALEInterface &ale) {
+        size_t width_ = ale.getScreen().width();
+        size_t height_ = ale.getScreen().height();
+    
+        // Create a synthetic background based on room knowledge
+        for (size_t y = 0; y < height_; y++) {
+            for (size_t x = 0; x < width_; x++) {
+                pixel_t current_pixel = screen_.get(y, x);
+                
+                if (color_match(current_pixel, current_room_color_)) {
+                    background_[y * width_ + x] = current_pixel;
+                }
+                // For other pixels (items, player), set to 0
+                else {
+                    background_[y * width_ + x] = 0;
+                }
+            }
+        }
+        
+        // Update background count
+        num_background_pixels_ = width_ * height_; // Will be adjusted as we see actual gameplay
+}
+    
     static void compute_background_image(ALEInterface &ale, size_t num_frames) {
         //std::cout << ale.getScreen().width() << " " << ale.getScreen().height() << std::endl;
         size_t width_ = ale.getScreen().width();
@@ -204,6 +241,10 @@ struct MyALEScreen {
     }
 
     void compute_features(ALEInterface &ale, int type, std::vector<int> *screen_state_atoms, const std::vector<int> *prev_screen_state_atoms) {
+        //reseting background if room changed
+        if(detect_room_change()){
+            reset_background_for_current_room(ale);
+        }
         int num_basic_features = 0;
         int num_bpros_features = 0;
         int num_bprot_features = 0;
@@ -258,6 +299,7 @@ struct MyALEScreen {
                 pixel_t b = background_[(15*r + ir) * width_ + (10*c + ic)];
 
                 // subtract/ammend background pixel
+
                 if( p < b )
                     ammend_background_image(ale, 15*r + ir, 10*c + ic);
                 else
