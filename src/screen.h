@@ -27,16 +27,23 @@ struct MyALEScreen {
     static const int SCREENSHOT_HEIGHT = 600;
     static const int SCREENSHOT_WIDTH = 800;
     
-
-
+    //patch sizes: 
+    static const size_t patch_width_ = 10;
+    static const size_t patch_height_ = 15;
+    static const size_t screen_height__ = 210; 
+    static const size_t screen_width__ = 160;
+    static const size_t num_patches_x_ = screen_width__ / patch_width_; //16
+    static const size_t num_patches_y_ = screen_height__ / patch_height_; //14
+    static const size_t max_dc = num_patches_x_ -1; //15
+    static const size_t max_dr = num_patches_y_ -1; //13
     //static const size_t width_ = 160;
     //static const size_t height_ = 210; //210
-    static const size_t num_basic_features_ = 16 * 14 * 128; // 28,672
-    static const size_t num_bpros_features_t0_ = 6803136; // (dc,dr,k1,k2) where k1 < k2, number equal to 31 * 27 * 128 * 127 / 2
-    static const size_t num_bpros_features_t1_ = 53504; // (dc,dr,k,k) where dc != 0 or dr != 0, number equal to (31 * 27 - 1) * 128 / 2
+    static const size_t num_basic_features_ = num_patches_x_ * num_patches_y_ * 128; // 28,672
+    static const size_t num_bpros_features_t0_ = ((2 * max_dc + 1) * (2 * max_dr + 1) * 128 * 127) / 2; // (dc,dr,k1,k2) where k1 < k2, number equal to 31 * 27 * 128 * 127 / 2
+    static const size_t num_bpros_features_t1_ =  ((2 * max_dc + 1) * (2 * max_dr + 1) - 1) * 128 / 2; // (dc,dr,k,k) where dc != 0 or dr != 0, number equal to (31 * 27 - 1) * 128 / 2
     static const size_t num_bpros_features_t2_ = 128; // (dc,dr,k,k) where dc = dr = 0, number equal to 128
     static const size_t num_bpros_features_ = num_bpros_features_t0_ + num_bpros_features_t1_ + num_bpros_features_t2_; // 6,856,768
-    static const size_t num_bprot_features_ = 31 * 27 * 128 * 128; // 13,713,408
+    static const size_t num_bprot_features_ = (2 * max_dc + 1) * (2 * max_dr + 1) * 128 * 128; // 13,713,408
     static const size_t num_adventure_features_ = 10+4*75; //90
     static const size_t adventure_base_ = num_basic_features_ + num_bpros_features_ + num_bprot_features_;
     std::vector<bool> adventure_features_bitmap_;
@@ -375,19 +382,19 @@ struct MyALEScreen {
     }
 
     void compute_basic_features(ALEInterface &ale,size_t c, size_t r, std::vector<int> *screen_state_atoms = 0) {
-        assert((c < 16) && (r < 16));
-        for( size_t ic = 0; ic < 10; ++ic ) {
-            for( size_t ir = 0; ir < 15; ++ir ) {
-                assert((15*r + ir < height_) && (10*c + ic < width_));
-                int x = 10*c + ic;
-                int y = 15*r + ir;
+        assert((c < num_patches_x_) && (r < num_patches_y_));
+        for( size_t ic = 0; ic < patch_width_; ++ic ) {
+            for( size_t ir = 0; ir < patch_height_; ++ir ) {
+                assert((patch_height_*r + ir < height_) && (patch_width_*c + ic < width_));
+                int x = patch_width_*c + ic;
+                int y = patch_height_*r + ir;
                 pixel_t p = get_pixel(x, y);
-                pixel_t b = background_[(15*r + ir) * width_ + (10*c + ic)];
+                pixel_t b = background_[(patch_height_*r + ir) * width_ + (patch_width_*c + ic)];
 
                 // subtract/ammend background pixel
 
                 if( p < b )
-                    ammend_background_image(ale, 15*r + ir, 10*c + ic);
+                    ammend_background_image(ale, patch_height_*r + ir, patch_width_*c + ic);
                 else
                     p -= b;
                 //std::cout << p << " ";
@@ -403,9 +410,9 @@ struct MyALEScreen {
         }
     }
     void compute_basic_features(ALEInterface &ale,std::vector<int> *screen_state_atoms = 0) {
-        for( size_t c = 0; c <= width_ - 10; c += 10 ) { // 0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 110, 120, 130, 140, 150
-            for( size_t r = 0; r <= height_ - 15; r += 15) { // 0, 15, 30, 45, 60, 75, 90, 105, 120, 135, 150, 165, 180, 195 210 225 240
-                compute_basic_features(ale,c / 10, r / 15, screen_state_atoms);
+        for( size_t c = 0; c <= width_ - patch_width_; c += patch_width_ ) { // 0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 110, 120, 130, 140, 150
+            for( size_t r = 0; r <= height_ - patch_height_; r += patch_height_) { // 0, 15, 30, 45, 60, 75, 90, 105, 120, 135, 150, 165, 180, 195 210 225 240
+                compute_basic_features(ale,c / patch_width_, r / patch_height_, screen_state_atoms);
             }
         }
     }
@@ -902,16 +909,16 @@ struct MyALEScreen {
     static bool is_basic_feature(size_t height_, int pack) {
        
         int num = int(num_basic_features_);
-        if(height_ == 250) num = 16*16*128 ;
+        if(height_ == 250) num = num_patches_x_*num_patches_x_*128 ;
         //std:: cout << "height: " << height_ << std::endl;
         //std:: cout << "pack: " << pack << " <" << num << std::endl;
         return (pack >= 0) && (pack < num );
     }
     static int pack_basic_feature( size_t height_, size_t c, size_t r, pixel_t p) {
         //size_t height_ = ale.getScreen().height();
-        size_t limit = 14; 
-        if (height_ == 250) limit = 16; 
-        assert((c < 16) && (r < limit));
+        size_t limit = num_patches_y_; 
+        if (height_ == 250) limit = num_patches_x_; 
+        assert((c < num_patches_x_) && (r < limit));
         assert((p >= 0) && (p < 128));
         int pack = ((limit * c + r) << 7) + p;
         assert(is_basic_feature(height_,pack));
@@ -922,8 +929,8 @@ struct MyALEScreen {
     }
     static void unpack_basic_feature(size_t height_, int pack, basic_feature_t &bf) {
         assert(is_basic_feature(height_,pack));
-        size_t limit = 14; 
-        if (height_ == 250) limit = 16; 
+        size_t limit = num_patches_y_; 
+        if (height_ == 250) limit = num_patches_x_; 
         bf.first.first = (pack >> 7) / limit;
         bf.first.second = (pack >> 7) % limit;
         bf.second = pack & 127;
@@ -935,14 +942,15 @@ struct MyALEScreen {
         return (pack >= int(num_basic_features_)) && (pack < int(num_basic_features_ + num_bpros_features_));
     }
     static int pack_bpros_feature(int dc, int dr, pixel_t p1, pixel_t p2) {
-        assert((-15 <= dc) && (dc <= 15));
-        assert((-13 <= dr) && (dr <= 13));
+        //std::cout<< " max_dc " << max_dc << " dc " << dc << " -max_dc: " << -static_cast<int>(max_dc) << " max_dr " << max_dr << " dr " << dr << " -max_dr: " << -static_cast<int>(max_dr) <<std::endl;
+        assert((-static_cast<int>(max_dc) <= dc) && (dc <= static_cast<int>(max_dc)));
+        assert((-static_cast<int>(max_dr) <= dr) && (dr <= static_cast<int>(max_dr)));
         assert((p1 >= 0) && (p1 < 128));
         assert((p2 >= 0) && (p2 < 128));
         assert(p1 <= p2);
         int pack = 0;
         if( p1 < p2 ) {
-            pack = ((15 + dc) * 27 + (13 + dr)) * 128 * 127 / 2;
+            pack = ((max_dc + dc) * (2 * max_dr + 1) + (max_dr + dr)) * 128 * 127 / 2;
             pack += p1 * 127 - p1 * (1 + p1) / 2 + p2 - 1;
             assert((pack >= 0) && (pack < int(num_bpros_features_t0_)));
         } else if( (dc != 0) || (dr != 0) ) {
@@ -954,11 +962,11 @@ struct MyALEScreen {
             assert((dc > 0) || ((dc == 0) && (dr > 0)));
 
             if( dc > 0 ) {
-                pack = ((dc - 1) * 27 + (13 + dr)) * 128 + p1;
-                assert((pack >= 0) && (pack < 15 * 27 * 128));
+                pack = ((dc - 1) * (2 * max_dr + 1) + (max_dr + dr)) * 128 + p1;
+                assert((pack >= 0) && (pack < max_dc * (2 * max_dr + 1) * 128));
             } else {
                 assert(dr > 0);
-                pack = 15 * 27 * 128 + (dr - 1) * 128 + p1;
+                pack =  max_dc * (2 * max_dr + 1) * 128 + (dr - 1) * 128 + p1;
             }
 
             assert((pack >= 0) && (pack < int(num_bpros_features_t1_)));
@@ -993,10 +1001,10 @@ struct MyALEScreen {
         return (pack >= int(num_basic_features_ + num_bpros_features_)) && (pack < int(num_basic_features_ + num_bpros_features_ + num_bprot_features_));
     }
     static int pack_bprot_feature(int dc, int dr, pixel_t p1, pixel_t p2) {
-        assert((-15 <= dc) && (dc <= 15));
-        assert((-13 <= dr) && (dr <= 13));
-        assert((((15 + dc) * 27 + (13 + dr)) * 128 + p1) * 128 + p2 < int(num_bprot_features_));
-        return num_basic_features_ + num_bpros_features_ + (((15 + dc) * 27 + (13 + dr)) * 128 + p1) * 128 + p2;
+        assert((-static_cast<int>(max_dc) <= dc) && (dc <= static_cast<int>(max_dc)));
+        assert((-static_cast<int>(max_dr) <= dr) && (dr <= static_cast<int>(max_dr)));
+        assert((((max_dc + dc) * (2 * max_dr + 1) + (max_dr + dr)) * 128 + p1) * 128 + p2 < int(num_bprot_features_));
+        return num_basic_features_ + num_bpros_features_ + (((max_dc + dc) * (2 * max_dr + 1) + (max_dr + dr)) * 128 + p1) * 128 + p2;
     }
     static int pack_bprot_feature(const bprot_feature_t &cf) {
         return pack_bprot_feature(cf.first.first, cf.first.second, cf.second.first, cf.second.second);
@@ -1010,9 +1018,10 @@ struct MyALEScreen {
         assert(pack >= 0);
         pixel_t p2 = pack % 128;
         pixel_t p1 = (pack >> 7) % 128;
-        int dr = ((pack >> 14) % 27) - 13;
-        assert((pack >> 14) / 27 < 31);
-        int dc = ((pack >> 14) / 27) - 15;
+        int dr = ((pack >> 14) % (2 * max_dr + 1)) - max_dr;
+        //why 31 ? 
+        assert((pack >> 14) / (2 * max_dr + 1) < (2*max_dc + 1));
+        int dc = ((pack >> 14) / (2 * max_dr + 1)) - max_dc;
         cf = std::make_pair(std::make_pair(dc, dr), std::make_pair(p1, p2));
         assert(pack == pack_bprot_feature(cf));
     }
