@@ -267,7 +267,7 @@ int main(int argc, char **argv) {
     // options for bfs planner
     bool opt_break_ties_using_rewards = false;
     //games: 
-    int games = 2; 
+    int games = 0; // 0 for adventure, 1 for private eye , 2 for seaquest
     // declare supported options
     po::options_description opt_desc("Allowed options");
     opt_desc.add_options()
@@ -404,7 +404,11 @@ int main(int argc, char **argv) {
 
     // create ALEs
     ALEInterface env(ale_loggine), sim(ale::Logger::Info);
-
+    // ADD THESE LINES to set grayscale mode
+    
+    // Set observation type to grayscale
+    //env.setString("obs_type", "grayscale");
+    //sim.setString("obs_type", "grayscale");
     // get/set desired settings
     env.setInt("frame_skip", opt_frameskip);
     env.setInt("random_seed", opt_random_seed);

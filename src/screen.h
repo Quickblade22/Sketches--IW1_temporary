@@ -17,6 +17,7 @@ using namespace ale;
 struct MyALEScreen {
     const int type_; // type=0: no features, type=1: basic features, type=2: basic + B-PROS, type=3: basic + B-PROS + B-PROT type 4 = Breakout
     const ALEScreen &screen_;
+    const std::vector<pixel_t> &screen_pixels_; // Reference to grayscale pixels
     const size_t width_;
     const size_t height_ ; 
     std::vector<bool> basic_features_bitmap_;
@@ -44,7 +45,7 @@ struct MyALEScreen {
     static const size_t adventure_bkey_start_ = adventure_base_ + 85;
     static const size_t adventure_ysword_start_ = adventure_base_ + 160;
     static const size_t adventure_chalice_start_ = adventure_base_ + 235;
-    mutable int Last_room_color = 1; 
+    mutable int Last_room_color = -1; 
     //@todo: need to calculate this number
     /*  // Add brick grid parameters
         static const size_t breakout_min_x_ = 40*SCALE_X;
@@ -74,10 +75,10 @@ struct MyALEScreen {
     const bool printing_debug = false; // Set to true to print debug information
     MyALEScreen(ALEInterface &ale,
                 int type,
-                std::vector<int> *screen_state_atoms = nullptr, std::vector<pixel_t> *screen_pixels = nullptr,
+                std::vector<int> *screen_state_atoms = nullptr, std::vector<pixel_t> *screen_pixels = nullptr, int root_room = -1,
                 const std::vector<int> *prev_screen_state_atoms = nullptr)
       : type_(type),
-        screen_(ale.getScreen()) , height_(screen_.height()), width_(screen_.width()){
+        screen_(ale.getScreen()),  screen_pixels_(*screen_pixels), height_(screen_.height()), width_(screen_.width()){
        
         logging::Logger::DebugMode(-100)
           << "screen:"
@@ -88,7 +89,9 @@ struct MyALEScreen {
          
         assert((width_ == screen_.width()) && (height_ == screen_.height()));
         screen_pixels->resize(width_ * height_);
+
         ale.getScreenGrayscale(*screen_pixels);
+        current_room_color_ = root_room;
         
         //screen_pixels->resize(width_ * height_);
         //fill_image(ale, *screen_pixels);
@@ -115,11 +118,8 @@ struct MyALEScreen {
         const ALEScreen &screen = ale.getScreen();
         size_t width_ = screen.width();
         size_t height_ = screen.height(); 
-        for( size_t c = 0; c < width_; ++c ) {
-            for( size_t r = 0; r < height_; ++r ) {
-                image[r * width_ + c] = screen.get(r, c);
-            }
-        }
+        image.resize(width_ * height_);
+        ale.getScreenGrayscale(image);
     }
     static void create_background_image(ALEInterface &ale) {
         size_t width_ = ale.getScreen().width();
@@ -129,15 +129,22 @@ struct MyALEScreen {
         initial_background_image_ = std::vector<pixel_t>(width_ * height_, 0);
         num_initial_background_pixels_ = width_ * height_;
     }
-   
+    // Add color constants and helper functions
+    const std::map<std::string, pixel_t> COLORS = {
+        {"yellow", 193}, {"blue", 85}, {"red", 129}, {"black", 0},
+        {"grey", 170}, {"green", 147}, {"purple", 157}, {"light_green", 157},
+        {"pink", 107}, {"white", 255}
+    };
+    // Helper method to get pixel with bounds checking
+    pixel_t get_pixel(int x, int y) const {
+        if (x < 0 || x >= static_cast<int>(width_) || y < 0 || y >= static_cast<int>(height_)) {
+            return 0;
+        }
+        return screen_pixels_[y * width_ + x];
+    }
     bool detect_room_change() {
        // Get key colors from the screen
-       // Helper lambda for color_match with screen_pixels
-        auto color_match_at = [&](int x, int y, const std::string& color) {
-            size_t idx = screen_.get(y, x);
-            return color_match(screen_.get(y, x), COLORS.at(color));
-        };
-        pixel_t cube_color = screen_.get(5, 5);
+        pixel_t cube_color = get_pixel(5, 5); // Central pixel as representative
         auto temp_room_color = current_room_color_;
         bool is_yellow = color_match(cube_color, COLORS.at("yellow"));
         bool is_black = color_match(cube_color, COLORS.at("black"));
@@ -147,8 +154,10 @@ struct MyALEScreen {
         bool is_green = color_match(cube_color, COLORS.at("green"));
         bool is_light_green = color_match(cube_color, COLORS.at("light_green"));
         bool is_purple = color_match(cube_color, COLORS.at("purple"));
-
-        
+         // Helper lambda for color_match with screen_pixels
+        auto color_match_at = [&](int x, int y, const std::string& color) {
+            return color_match(get_pixel(x, y), COLORS.at(color));
+        };
         if(is_black){
             // Black throne room
    
@@ -215,7 +224,7 @@ struct MyALEScreen {
         for (size_t y = 0; y < height_; y++) {
             for (size_t x = 0; x < width_; x++) {
                 
-                pixel_t current_pixel = screen_.get(y, x);
+                pixel_t current_pixel = get_pixel(x, y);
                 // If pixel is in region (navigable area), set background to 0
                 // If pixel is NOT in region (walls/borders), set background to current pixel color
                 if (is_pixel_in_regions(x, y, regions)) {
@@ -317,9 +326,9 @@ struct MyALEScreen {
 
     void compute_features(ALEInterface &ale, int type, std::vector<int> *screen_state_atoms, const std::vector<int> *prev_screen_state_atoms) {
         //reseting background if room changed
-        if(detect_room_change()){
+        /* if(detect_room_change()){
             reset_background_for_current_room(ale);
-        }
+        }*/
         int num_basic_features = 0;
         int num_bpros_features = 0;
         int num_bprot_features = 0;
@@ -370,7 +379,9 @@ struct MyALEScreen {
         for( size_t ic = 0; ic < 10; ++ic ) {
             for( size_t ir = 0; ir < 15; ++ir ) {
                 assert((15*r + ir < height_) && (10*c + ic < width_));
-                pixel_t p = screen_.get(15*r + ir, 10*c + ic);
+                int x = 10*c + ic;
+                int y = 15*r + ir;
+                pixel_t p = get_pixel(x, y);
                 pixel_t b = background_[(15*r + ir) * width_ + (10*c + ic)];
 
                 // subtract/ammend background pixel
@@ -379,7 +390,8 @@ struct MyALEScreen {
                     ammend_background_image(ale, 15*r + ir, 10*c + ic);
                 else
                     p -= b;
-
+                //std::cout << p << " ";
+                p = (p / 2) * 2; // make even
                 assert(p % 2 == 0); // per documentation, expecting 128 different colors!
                 int pack = pack_basic_feature(this->height_ ,c, r, p >> 1);
                 if( !basic_features_bitmap_[pack] ) {
@@ -413,9 +425,7 @@ struct MyALEScreen {
         }
     }
 
-    void compute_bprot_features(const std::vector<int> &basic_features,
-                                std::vector<int> &screen_state_atoms,
-                                const std::vector<int> &prev_screen_state_atoms) {
+    void compute_bprot_features(const std::vector<int> &basic_features, std::vector<int> &screen_state_atoms, const std::vector<int> &prev_screen_state_atoms) {
         std::pair<std::pair<size_t, size_t>, pixel_t> f1, f2;
         for( size_t j = 0; j < basic_features.size(); ++j ) {
             unpack_basic_feature(this->height_ , basic_features[j], f1);
@@ -437,15 +447,7 @@ struct MyALEScreen {
         size_t width_ = ale.getScreen().width();
         size_t height_ = ale.getScreen().height();
         //fill_image(ale, initial_background_image_);
-        ale.getScreenGrayscale(initial_background_image_ );
-        /* std::cout << "Initial background image: " << std::endl;
-        for(int i = 0; i < initial_background_image_.size(); i++){
-            std::cout << static_cast<int>( initial_background_image_[i]) << " ";
-            if(i % width_ == 0 && i != 0) std::cout << std::endl;
-        }
-        std::cout << std::endl; */
-        
-       
+        ale.getScreenGrayscale(initial_background_image_);       
         num_initial_background_pixels_ = width_ * height_;      
     }
     
@@ -454,11 +456,11 @@ struct MyALEScreen {
         const int base = num_basic_features_ + num_bpros_features_ + num_bprot_features_;
         
         // 1. Room detection
-        const pixel_t room_color = screen_.get(5, 5);
+        const pixel_t room_color = get_pixel(5, 5);
         int room_id = -1;
         
         if (color_match(room_color, COLORS.at("yellow"))) {
-            const pixel_t special_color = screen_.get(80, 80);
+            const pixel_t special_color = get_pixel(80, 80);
             room_id = color_match(special_color, COLORS.at("yellow")) ? 1 : 0;
         } else if (color_match(room_color, COLORS.at("green"))) room_id = 2;
         else if (color_match(room_color, COLORS.at("purple"))) room_id = 3;
@@ -514,12 +516,7 @@ struct MyALEScreen {
         return static_cast<int>(d) +1; 
     }
 
-    // Add color constants and helper functions
-    const std::map<std::string, pixel_t> COLORS = {
-        {"yellow", 193}, {"blue", 85}, {"red", 129}, {"black", 0},
-        {"grey", 170}, {"green", 147}, {"purple", 157}, {"light_green", 157},
-        {"pink", 107}, {"white", 255}
-    };
+    
 
     bool color_match(pixel_t c1, pixel_t c2) const {
         return std::abs(static_cast<int>(c1) - static_cast<int>(c2)) <= 5;
@@ -548,15 +545,15 @@ struct MyALEScreen {
 
     std::pair<int, int> find_cube_without_reference() const {
         // Simplified cube detection
-        const pixel_t cube_color = screen_.get(5, 5);
+        const pixel_t cube_color = get_pixel(5, 5);
         const int search_margin = 20;
         
         for (int y = search_margin; y < height_ - search_margin; y++) {
             for (int x = search_margin; x < width_ - search_margin; x++) {
-                if (color_match(screen_.get(y, x), cube_color) &&
-                    color_match(screen_.get(y+1, x), cube_color) &&
-                    color_match(screen_.get(y, x+1), cube_color) &&
-                    color_match(screen_.get(y+1, x+1), cube_color)) {
+                if (color_match(get_pixel(x, y), cube_color) &&
+                    color_match(get_pixel(x, y+1), cube_color) &&
+                    color_match(get_pixel(x+1, y), cube_color) &&
+                    color_match(get_pixel(x+1, y+1), cube_color)) {
                     return {x, y};
                 }
             }
@@ -580,7 +577,7 @@ struct MyALEScreen {
                     continue;
                 }
 
-                pixel_t px = screen_.get(y, x);
+                pixel_t px = get_pixel(x, y);
                 if (!is_grey(px)) {
                     candidates.insert({x, y});
                 }
@@ -609,7 +606,7 @@ struct MyALEScreen {
             // Calculate cluster size and color
             size_t size = cluster.size();
             auto first_pixel = *cluster.begin();
-            pixel_t color = screen_.get(first_pixel.second, first_pixel.first);
+            pixel_t color = get_pixel(first_pixel.first, first_pixel.second);
 
             // Identify item type
             std::string item_type;
@@ -639,7 +636,7 @@ struct MyALEScreen {
         std::vector<std::pair<std::pair<int,int>, std::pair<int, int>>> regions;
 
         // Get key colors from the screen
-        pixel_t cube_color = screen_.get(5, 5);
+        pixel_t cube_color = get_pixel(5, 5);
         bool is_yellow = color_match(cube_color, COLORS.at("yellow"));
         bool is_black = color_match(cube_color, COLORS.at("black"));
         bool is_red = color_match(cube_color, COLORS.at("red"));
@@ -651,8 +648,8 @@ struct MyALEScreen {
 
         // Helper lambda for color_match with screen_pixels
         auto color_match_at = [&](int x, int y, const std::string& color) {
-            size_t idx = screen_.get(y, x);
-            return color_match(screen_.get(y, x), COLORS.at(color));
+            size_t idx = get_pixel(x, y);
+            return color_match(get_pixel(x, y), COLORS.at(color));
         };
         if(is_black){
             // Black throne room
@@ -843,7 +840,7 @@ struct MyALEScreen {
             queue.push(pixel);
             visited.insert(pixel);
             cluster.insert(pixel);
-            pixel_t base_color = screen_.get(pixel.second, pixel.first);
+            pixel_t base_color = get_pixel(pixel.first, pixel.second);
 
             while (!queue.empty()) {
                 auto [x, y] = queue.front();
@@ -860,7 +857,7 @@ struct MyALEScreen {
                     if (visited.find(neighbor) != visited.end()) continue;
                     
                     // Check color match and candidate status
-                    pixel_t neighbor_color = screen_.get(ny, nx);
+                    pixel_t neighbor_color = get_pixel(nx, ny);
                     if (color_match(neighbor_color, base_color) &&
                         candidates.find(neighbor) != candidates.end()) {
                         visited.insert(neighbor);
