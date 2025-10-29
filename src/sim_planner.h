@@ -2727,7 +2727,7 @@ struct SimPlanner : Planner {
                 bool ydrag = planner.ydragon_killed(curr, prev, printing_sketches_);
                 auto current_room = planner.regions_for_cube(curr);
                 bool current_room_green = (Last_room_color == 2); //green room
-                bool cond = sword && ydrag && !gdrag_in_room && current_room_green; //D == 1  &&
+                bool cond = sword && ydrag && !gdrag_in_room; //D == 1  &&  && current_room_green
                 if(printing_sketches_){
                 std::cout << "SKETCH 5 PRE:" << " | ysword=" << sword << " | !gdrag_in_room=" << !gdrag_in_room << " | " << (cond ? "ACTIVE" : "INACTIVE") << std::endl;
                 }
@@ -2740,7 +2740,7 @@ struct SimPlanner : Planner {
                 bool gdrag_in_room = planner.gdragonr(curr,prev, printing_sketches_);
                 bool ydrag = planner.ydragon_killed(curr, prev, printing_sketches_);
                 bool bkey = planner.bkey(curr,prev,printing_sketches_);
-                bool goal_achieved = sword && ydrag && (gdrag_in_room ); //added bkey as alternative goal || bkey;
+                bool goal_achieved = sword && ydrag && (gdrag_in_room || bkey ); //added bkey as alternative goal || bkey;
                 if(printing_sketches_){
                 std::cout << "SKETCH 5 GOAL: " << (goal_achieved ? "REACHED" : "MOVING") <<  " | ysword=" << sword  << " | gdragon_in room=" << gdrag_in_room << " |bkey " << bkey << std::endl;
                 }
