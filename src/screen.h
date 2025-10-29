@@ -28,8 +28,8 @@ struct MyALEScreen {
     static const int SCREENSHOT_WIDTH = 800;
     
     //patch sizes: 
-    static const size_t patch_width_ = 10;
-    static const size_t patch_height_ = 15;
+    static const size_t patch_width_ = 5;
+    static const size_t patch_height_ = 10;
     static const size_t screen_height__ = 210; 
     static const size_t screen_width__ = 160;
     static const size_t num_patches_x_ = screen_width__ / patch_width_; //16
