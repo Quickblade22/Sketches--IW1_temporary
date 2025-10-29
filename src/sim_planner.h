@@ -293,6 +293,7 @@ struct SimPlanner : Planner {
         size_t first_index = 0;
         size_t number_updated_entries = 0;
         for( size_t k = first_index; k < feature_atoms.size(); ++k ) {
+            //std::cout<<"Feature atom " << k << ": " << feature_atoms[k] << "  < size: " << int(novelty_table.size()) << std::endl;
             assert((feature_atoms[k] >= 0) && (feature_atoms[k] < int(novelty_table.size())));
             if( int(depth) < novelty_table[feature_atoms[k]] ) {
                 novelty_table[feature_atoms[k]] = depth;

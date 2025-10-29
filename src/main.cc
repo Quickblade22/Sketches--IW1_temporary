@@ -455,9 +455,22 @@ int main(int argc, char **argv) {
         if( opt_screen_features == 0 ) { // RAM mode
             num_tracked_atoms = 128 * 256; // this is for RAM: 128 8-bit entries
         } else {
-            num_tracked_atoms = 16 * 14 * 128; // 28,672
-            num_tracked_atoms += opt_screen_features > 1 ? 6856768 : 0;
-            num_tracked_atoms += opt_screen_features > 2 ? 13713408 : 0;
+            static const size_t patch_width_ = 5; //10
+            static const size_t patch_height_ = 10; //15
+            static const size_t screen_height__ = 210; 
+            static const size_t screen_width__ = 160;
+            static const size_t num_patches_x_ = screen_width__ / patch_width_; //16
+            static const size_t num_patches_y_ = screen_height__ / patch_height_; //14
+            static const size_t max_dc = num_patches_x_ -1; //15
+            static const size_t max_dr = num_patches_y_ -1; //13
+            static const size_t num_bpros_features_t0_ = ((2 * max_dc + 1) * (2 * max_dr + 1) * 128 * 127) / 2; // (dc,dr,k1,k2) where k1 < k2, number equal to 31 * 27 * 128 * 127 / 2
+            static const size_t num_bpros_features_t1_ =  ((2 * max_dc + 1) * (2 * max_dr + 1) - 1) * 128 / 2; // (dc,dr,k,k) where dc != 0 or dr != 0, number equal to (31 * 27 - 1) * 128 / 2
+            static const size_t num_bpros_features_t2_ = 128; // (dc,dr,k,k) where dc = dr = 0, number equal to 128
+            static const size_t num_bprot_features_ = (2 * max_dc + 1) * (2 * max_dr + 1) * 128 * 128;
+            static const size_t num_bpros_features_ = num_bpros_features_t0_ + num_bpros_features_t1_ + num_bpros_features_t2_; // 6,856,768
+            num_tracked_atoms = num_patches_x_ * num_patches_y_ * 128; // 28,672
+            num_tracked_atoms += opt_screen_features > 1 ? num_bpros_features_ : 0;
+            num_tracked_atoms += opt_screen_features > 2 ? num_bprot_features_ : 0;
             num_tracked_atoms += opt_screen_features == 4 ?  10+4*75 : 0;
         }
         if( opt_planner_str == "rollout" ) {

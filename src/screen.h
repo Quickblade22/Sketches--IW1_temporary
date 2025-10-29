@@ -28,8 +28,9 @@ struct MyALEScreen {
     static const int SCREENSHOT_WIDTH = 800;
     
     //patch sizes: 
-    static const size_t patch_width_ = 5;
-    static const size_t patch_height_ = 10;
+    //if change this --> need to change in main.cc 458, 459 
+    static const size_t patch_width_ = 5; //10
+    static const size_t patch_height_ = 10; //15
     static const size_t screen_height__ = 210; 
     static const size_t screen_width__ = 160;
     static const size_t num_patches_x_ = screen_width__ / patch_width_; //16
@@ -110,7 +111,7 @@ struct MyALEScreen {
         std::cout << std::endl;*/
         
        
-        compute_features(ale,type, screen_state_atoms, prev_screen_state_atoms);
+        compute_features(ale,type_, screen_state_atoms, prev_screen_state_atoms);
     }
 
     static Action random_action() {
@@ -331,7 +332,7 @@ struct MyALEScreen {
         return screen_;
     }
 
-    void compute_features(ALEInterface &ale, int type, std::vector<int> *screen_state_atoms, const std::vector<int> *prev_screen_state_atoms) {
+    void compute_features(ALEInterface &ale, int typ, std::vector<int> *screen_state_atoms, const std::vector<int> *prev_screen_state_atoms) {
         //reseting background if room changed
         /* if(detect_room_change()){
             reset_background_for_current_room(ale);
@@ -340,20 +341,20 @@ struct MyALEScreen {
         int num_bpros_features = 0;
         int num_bprot_features = 0;
         int num_breakout_features = 0;
-        if( type_ > 0 ) {
+        if( typ > 0 ) {
             basic_features_bitmap_ = std::vector<bool>(num_basic_features_, false);
             compute_basic_features(ale,screen_state_atoms);
             num_basic_features = screen_state_atoms->size();
-            if( (type_ > 1) && (screen_state_atoms != nullptr) ) {
+            if( (typ > 1) && (screen_state_atoms != nullptr) ) {
                 std::vector<int> basic_features(*screen_state_atoms);
                 bpros_features_bitmap_ = std::vector<bool>(num_bpros_features_, false);
                 compute_bpros_features(basic_features, *screen_state_atoms);
                 num_bpros_features = screen_state_atoms->size() - num_basic_features;
-                if( (type_ > 2) && (prev_screen_state_atoms != nullptr) ) {
+                if( (typ > 2) && (prev_screen_state_atoms != nullptr) ) {
                     bprot_features_bitmap_ = std::vector<bool>(num_bprot_features_, false);
                     compute_bprot_features(basic_features, *screen_state_atoms, *prev_screen_state_atoms);
                     num_bprot_features = screen_state_atoms->size() - num_basic_features - num_bpros_features;
-                    if(type == 4){ 
+                    if(typ == 4){ 
                                // Compute adventure features
                             adventure_features_bitmap_ = std::vector<bool>(num_adventure_features_, false);
                             compute_adventure_features(*screen_state_atoms);
@@ -361,7 +362,7 @@ struct MyALEScreen {
 
                                 
                     }
-                    else if(type == 5){ 
+                    else if(typ == 5){ 
                         // Only compute your custom features here
                        breakout_features_bitmap_ = std::vector<bool>(num_breakout_features, false);
                        //compute_breakout_features(*screen_state_atoms);
