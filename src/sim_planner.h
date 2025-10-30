@@ -2830,7 +2830,7 @@ struct SimPlanner : Planner {
                 if(printing_sketches_) std::cout << "SKETCH 7 GOAL Computation " << std::endl;
                 bool key = planner.bkey(curr,prev,planner.printing_sketches_);
                 bool is_key_above_cube = planner.is_key_above_cube(curr, prev, printing_sketches_);
-                bool goal_achieved =  key && is_key_above_cube; //&& !key; //&& D==1;
+                bool goal_achieved =  key ; //&& is_key_above_cube; //&& !key; //&& D==1;
                 if(printing_sketches_){
                 std::cout << "SKETCH 7 GOAL: " << (goal_achieved ? "REACHED" : "MOVING") <<  " | bkey=" << key  << " | is_key_above_cube=" << is_key_above_cube << std::endl;
                 }
