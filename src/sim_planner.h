@@ -3978,7 +3978,7 @@ struct SimPlanner : Planner {
         }
         
         if (printing) {
-            std::cout << "No money bag found in y-range 30-40" << std::endl;
+            std::cout << "No money bag found in y-range 30-40 idk" << std::endl;
         }
         return false;
     }
