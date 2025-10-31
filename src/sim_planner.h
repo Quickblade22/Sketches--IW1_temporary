@@ -2658,7 +2658,6 @@ struct SimPlanner : Planner {
             },
             "reach dragon room"
         });
-        
         //kill ydragon
         sketches_.push_back(Sketch{
             [this](const SimPlanner& planner, const std::vector<pixel_t>& prev, const std::vector<pixel_t>& curr) {
@@ -2701,45 +2700,7 @@ struct SimPlanner : Planner {
             "kill ydragon"
         });
         //maybe add a sketch to reach green room first?
-        //reach_green_room
-        sketches_.push_back(Sketch{
-            [this](const SimPlanner& planner, const std::vector<pixel_t>& prev, const std::vector<pixel_t>& curr) {
-                if(printing_sketches_) std::cout << "SKETCH 4.5 PRE Computation " << std::endl;
-                bool sword = planner.ysword(curr,prev,printing_sketches_functions);
-                bool ydrag = planner.ydragon_killed(curr,prev, planner.printing_sketches_functions);
-                auto current_room = planner.regions_for_cube(curr);
-                bool current_room_green = (Last_room_color == 2); //green room
-                bool ydrag_in_room = planner.ydragonr(curr,prev,  planner.printing_sketches_functions); 
-                bool cond = sword && ydrag && ydrag_in_room && !current_room_green;
-                //planner.calculate_distance_from_goal(curr);
-                if(printing_sketches_){
-                std::cout << "SKETCH 4.5 PRE:" 
-                << " | ysword=" << sword << " | !ydrag=" << !ydrag << " ydrag_in_room" 
-                << ydrag_in_room << " | "  << (current_room_green ? "IN_GREEN_ROOM" : "NOT_IN_GREEN_ROOM") << " | " << Last_room_color << " | "
-                << (cond ? "ACTIVE" : "INACTIVE") << std::endl;
-                }
-                
-                return cond;
-            },
-            [this](const SimPlanner& planner, const std::vector<pixel_t>& prev, const std::vector<pixel_t>& curr, const std::vector<pixel_t>& prevs) {
-                if(printing_sketches_) std::cout << "SKETCH 4.5 GOAL Computation " << std::endl;
-                bool sword = planner.ysword(curr,prev,planner.printing_sketches_functions);
-                bool ydrag = planner.ydragon_killed(curr, prev, planner.printing_sketches_functions);
-                auto current_room = planner.regions_for_cube(curr);
-                bool current_room_green = (Last_room_color == 2); //green room
-                bool goal_achieved = sword && ydrag && current_room_green ;
-                
-                if(printing_sketches_){
-                std::cout << "SKETCH 4.5 GOAL: " << (goal_achieved ? "REACHED" : "MOVING") 
-                <<  " | ysword=" << sword  
-                << " | ydragon_killed=" << ydrag 
-                << " | current_room_green=" << current_room_green 
-                << " | last_room_color=" << Last_room_color << std::endl;
-                }
-                return goal_achieved;
-            },
-            "reach green room"
-        });
+        
         //reach green_dragon_room
         sketches_.push_back(Sketch{
             [this](const SimPlanner& planner, const std::vector<pixel_t>& prev, const std::vector<pixel_t>& curr) {
@@ -2839,6 +2800,36 @@ struct SimPlanner : Planner {
                 return goal_achieved;
             },
             "Pick up black key"
+        });
+          //reach green room first 
+        sketches_.push_back(Sketch{
+            [this](const SimPlanner& planner, const std::vector<pixel_t>& prev, const std::vector<pixel_t>& curr) {
+                if(printing_sketches_) std::cout << "SKETCH 8.5 PRE Computation " << std::endl;
+                bool sword = planner.ysword(curr,prev,planner.printing_sketches_functions);
+                bool ydrag = planner.ydragon_killed(curr, prev,  printing_sketches_);
+                bool key = planner.bkey(curr,prev,printing_sketches_);
+                //planner.calculate_distance_from_goal(curr);
+                bool ydrag_in_room = planner.ydragonr(curr, prev,  printing_sketches_);
+                bool cond = !ydrag_in_room && ydrag && key; //D == 1  &&
+                if(printing_sketches_){
+                std::cout << "SKETCH 8.5 PRE:" << " | ysword=" << sword << " | ydrag_in_room=" << ydrag_in_room << " | " << " !ydrag=" << !ydrag << " |" <<  " bkey"<< key << (cond ? "ACTIVE" : "INACTIVE") << std::endl;
+                }
+                return cond;
+            },
+            [this](const SimPlanner& planner, const std::vector<pixel_t>& prev, const std::vector<pixel_t>& curr, const std::vector<pixel_t>& prevs) {
+                if(printing_sketches_) std::cout << "SKETCH 8 GOAL Computation " << std::endl;
+                //planner.calculate_distance_from_goal(curr);
+                bool key = planner.bkey(curr,prev,printing_sketches_);
+                bool ydrag_in_room = planner.ydragonr(curr, prev,  printing_sketches_);
+                bool ydrag = planner.ydragon_killed(curr, prev,  printing_sketches_);
+                bool goal_achieved = key && ydrag_in_room && ydrag;
+                if(printing_sketches_){
+                std::cout << "SKETCH 8 GOAL: " << (goal_achieved ? "REACHED" : "MOVING") <<  " | bkey=" << key  << " | ydragon_in room=" << ydrag_in_room << " | ydragon_killed=" << ydrag << std::endl;
+                }
+               
+                return goal_achieved;
+            },
+            "reach dragon room with bkey"
         });
           //reach ydragon_room_with bkey
         sketches_.push_back(Sketch{
