@@ -2801,7 +2801,7 @@ struct SimPlanner : Planner {
             },
             "Pick up black key"
         });
-          //reach green room first 
+        /*  //reach green room first 
         sketches_.push_back(Sketch{
             [this](const SimPlanner& planner, const std::vector<pixel_t>& prev, const std::vector<pixel_t>& curr) {
                 if(printing_sketches_) std::cout << "SKETCH 8.5 PRE Computation " << std::endl;
@@ -2830,7 +2830,7 @@ struct SimPlanner : Planner {
                 return goal_achieved;
             },
             "reach dragon room with bkey"
-        });
+        });*/
           //reach ydragon_room_with bkey
         sketches_.push_back(Sketch{
             [this](const SimPlanner& planner, const std::vector<pixel_t>& prev, const std::vector<pixel_t>& curr) {
@@ -2873,7 +2873,7 @@ struct SimPlanner : Planner {
                 bool ydrag_in_room = planner.ydragonr(curr, prev, printing_sketches_);
                 bool cond = ydrag_in_room && ydrag && key && !blue_room_10; //D == 1  &&
                 if(printing_sketches_){
-                std::cout << "SKETCH 9 PRE:"  << " | ydrag_in_room=" << ydrag_in_room << " | " << " ydrag=" << ydrag << " |" 
+                std::cout << "SKETCH 8.5 PRE:"  << " | ydrag_in_room=" << ydrag_in_room << " | " << " ydrag=" << ydrag << " |" 
                 <<  " bkey="<< key 
                 << " |blue_room_10=" << blue_room_10 << " |Last_room_color=" << planner.Last_room_color
                 << " |" << (cond ? "ACTIVE" : "INACTIVE") << std::endl;
@@ -2881,7 +2881,7 @@ struct SimPlanner : Planner {
                 return cond;
             },
             [this](const SimPlanner& planner, const std::vector<pixel_t>& prev, const std::vector<pixel_t>& curr, const std::vector<pixel_t>& prevs) {
-                if(printing_sketches_) std::cout << "SKETCH 8.5 GOAL Computation " << std::endl;
+                if(printing_sketches_) std::cout << "SKETCH 8.5GOAL Computation " << std::endl;
                 //planner.calculate_distance_from_goal(curr);
                 bool key = planner.bkey(curr,prev,printing_sketches_);
                 bool ydrag_in_room = planner.ydragonr(curr, prevs, printing_sketches_);
@@ -2929,7 +2929,7 @@ struct SimPlanner : Planner {
                 bool correct_position = (cube_pos.first >= 0 && cube_pos.first <= 50 && cube_pos.second >= 17 && cube_pos.second <= 50);
                 bool blue_room_10 = planner.Last_room_color == 6;
                 bool blue = (blue_room_10 && correct_position);
-                bool goal_achieved = key && !ydrag_in_room && blue; 
+                bool goal_achieved = key && blue; 
                 if(printing_sketches_){
                 std::cout << "SKETCH 9 GOAL: " << (goal_achieved ? "REACHED" : "MOVING") 
                 <<  " | bkey=" << key  << " | !ydragon_in room=" << !ydrag_in_room 
@@ -2974,7 +2974,7 @@ struct SimPlanner : Planner {
                 bool correct_position = (cube_pos.first >= 0  && cube_pos.second >= 17 && cube_pos.second <= 51);
                 bool blue_room_10 = planner.Last_room_color == 10;
                 bool blue = (blue_room_10 && correct_position);
-                bool goal_achieved = key && !ydrag_in_room && blue; 
+                bool goal_achieved = key  && blue; 
                 if(printing_sketches_){
                 std::cout << "SKETCH 10 GOAL: " << (goal_achieved ? "REACHED" : "MOVING") 
                 <<  " | bkey=" << key  << " | !ydragon_in room=" << !ydrag_in_room 
@@ -3020,7 +3020,7 @@ struct SimPlanner : Planner {
                 bool correct_position = (cube_pos.first >= 72 && cube_pos.first <= 87 && cube_pos.second >= 0 );
                 bool blue_room_10 = planner.Last_room_color == 9;
                 bool blue = (blue_room_10 && correct_position);
-                bool goal_achieved = key && !ydrag_in_room && blue; 
+                bool goal_achieved = key  && blue; 
                 if(printing_sketches_){
                 std::cout << "SKETCH 11 GOAL: " << (goal_achieved ? "REACHED" : "MOVING") 
                 <<  " | bkey=" << key  << " | !ydragon_in room=" << !ydrag_in_room 
