@@ -238,9 +238,13 @@ struct BfsIW : SimPlanner {
                 
                 if(!fulfillment_branch_.empty()) {
                     branch.insert(branch.end(), fulfillment_branch_.begin(), fulfillment_branch_.end());
-                    std::cout << "Action in fulfillment branch: "; 
+                    std::cout << " Started froom room " << root->node_Last_room_color  << " Action in fulfillment branch: " ; 
                     for(const auto& act:fulfillment_branch_) std::cout << act << " " ;
-                    std::cout  << std::endl;
+                    std::cout << " to complete sketch: " ;
+                    for (int i = 0; i < root->pre.size(); ++i) {
+                        std::cout << (root->pre[i] ? "1" : "0") << "  | ";
+                    }
+                    std::cout << " ended in room: " << best_node->node_Last_room_color << std::endl;
                     Node* temp_node_parent = (best_node->parent_ != nullptr && !best_node->parent_->screen_pixels_.empty()) ? best_node->parent_ : best_node;
                     if(transtion_printing_debug_adventure) {
                             debug_time = Utils::read_time_in_seconds();

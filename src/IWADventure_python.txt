@@ -1,8 +1,0 @@
-============================================================
-rom_planner Execution Log
-Started at: 2025-10-12 16:48:12
-Binary location: /root/Adventure.bin
-Time budget: 10000.0
-Simulation budget: 5000000
-============================================================
-
