@@ -2917,7 +2917,7 @@ struct SimPlanner : Planner {
                 bool blue_room_6 = planner.Last_room_color == 6;
                 bool blue_room_9 = planner.Last_room_color == 9;
                 bool ydrag_in_room = planner.ydragonr(curr, prev, printing_sketches_);
-                bool cond =  ydrag && key && !correct_position && blue_room_9 && !blue_room_6 //D == 1  &&
+                bool cond =  ydrag && key && !correct_position && blue_room_9 && !blue_room_6; //D == 1  &&
                 if(printing_sketches_){
                 std::cout << "SKETCH 9 PRE (get to start of blue maze):"  << " | ydrag_in_room=" << ydrag_in_room << " | " << " ydrag=" << ydrag << " |" 
                 <<  " bkey="<< key  << " | !correct_position=" << !correct_position << " | !blue_room_6=" << !blue_room_6 << " | blue_room_9=" << blue_room_9
