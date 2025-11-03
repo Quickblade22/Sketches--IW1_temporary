@@ -9,13 +9,13 @@
 #include <map>
 #include <string>
 #include <vector>
-
 #include "planner.h"
 #include "node.h"
 #include "screen.h"
 #include "logger.h"
 #include "utils.h"
 #include "/usr/local/include/ale/ale_interface.hpp"
+
 using namespace ale;
 struct RoomData {
     std::string name;
@@ -3118,7 +3118,7 @@ struct SimPlanner : Planner {
 
     void initialize_sketches_private_eye() {
         sketches_.clear();
-        // Sketch 0: Go to a transition room 3 (to progress to border room with clues)
+        // Sketch 0: Go to a transition room 2 (to progress to border room with clues)
         sketches_.push_back(Sketch{
             [this](const SimPlanner& planner, const std::vector<pixel_t>& prev, const std::vector<pixel_t>& curr) {
                 //bool border_in_room = planner.border_in_room(curr, printing_sketches_);
@@ -3995,4 +3995,3 @@ struct SimPlanner : Planner {
 
 };
 #endif
-
