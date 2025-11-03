@@ -267,7 +267,7 @@ int main(int argc, char **argv) {
     // options for bfs planner
     bool opt_break_ties_using_rewards = false;
     //games: 
-    int games = 0; // 0 for adventure, 1 for private eye , 2 for seaquest
+    int games = 1; // 0 for adventure, 1 for private eye , 2 for seaquest
     // declare supported options
     po::options_description opt_desc("Allowed options");
     opt_desc.add_options()
@@ -455,8 +455,8 @@ int main(int argc, char **argv) {
         if( opt_screen_features == 0 ) { // RAM mode
             num_tracked_atoms = 128 * 256; // this is for RAM: 128 8-bit entries
         } else {
-            static const size_t patch_width_ = 10; //10
-            static const size_t patch_height_ = 15; //15
+            static const size_t patch_width_ = 5; //10
+            static const size_t patch_height_ = 10; //15
             static const size_t screen_height__ = 210; 
             static const size_t screen_width__ = 160;
             static const size_t num_patches_x_ = screen_width__ / patch_width_; //16

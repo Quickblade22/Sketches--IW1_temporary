@@ -3148,7 +3148,7 @@ struct SimPlanner : Planner {
          sketches_.push_back(Sketch{
             [this](const SimPlanner& planner, const std::vector<pixel_t>& prev, const std::vector<pixel_t>& curr) {
                 bool border_in_room = planner.border_in_room(curr, printing_sketches_);
-                bool room_1 = planner.room_detection(curr, printing_sketches_) == 2;
+                bool room_1 = planner.room_detection(curr, printing_sketches_) == 3;
                 bool cond =  (room_1 && !border_in_room)  ;  //D == 1 &&
                 if(printing_sketches_){
                 std::cout<< std::endl; 
@@ -3162,7 +3162,7 @@ struct SimPlanner : Planner {
             [this](const SimPlanner& planner, const std::vector<pixel_t>& prev, const std::vector<pixel_t>& curr, const std::vector<pixel_t>& prevs) {
                 if(printing_sketches_) std::cout << "SKETCH 1 GOAL Computation " << std::endl;
                 bool border_in_room = planner.border_in_room(curr, printing_sketches_);
-                bool room_1 = planner.room_detection(curr, printing_sketches_) == 2;
+                bool room_1 = planner.room_detection(curr, printing_sketches_) == 3;
                 //bool detective_in_room = planner.detective_in_room(curr, printing_sketches_);
                 int witness_distance = planner.witness_distance(curr, printing_sketches_);
                 bool near_witness = is_barricade_right_of_detective_vehicle(curr, printing_sketches_);
