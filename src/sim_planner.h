@@ -555,6 +555,7 @@ struct SimPlanner : Planner {
         } else {
             
              if (printing_debug)std::cout << "Unknown room color: " << static_cast<int>(current_room_color) << std::endl;
+            
             Last_room_color = -1; // Reset to unknown if color does not match any known col
         }
        // return Last_room_color;
@@ -2840,13 +2841,14 @@ struct SimPlanner : Planner {
                 bool key = planner.bkey(curr,prev,printing_sketches_);
                 auto temp = planner.regions_for_cube(curr);
                 bool blue_room_10 = planner.Last_room_color == 9;
+                bool swordr = planner.yswr(curr, prev);
                 //planner.calculate_distance_from_goal(curr);
                 bool ydrag_in_room = planner.ydragonr(curr, prev,  printing_sketches_);
-                bool cond = !ydrag_in_room && ydrag && key && !blue_room_10; //D == 1  &&
+                bool cond = !ydrag_in_room && ydrag && key && !blue_room_10 && swordr; //D == 1  &&
                 if(printing_sketches_){
                 std::cout << "SKETCH 8 PRE (reach ydragon_room with bkey):" 
                 << " | !ydrag_in_room=" << !ydrag_in_room << " | " << " ydrag=" << ydrag << " |" 
-                <<  " bkey"<< key 
+                <<  " bkey"<< key  << " swordr=" << swordr
                 << " |!blue_room_9=" << !blue_room_10 << " |Last_room_color=" << planner.Last_room_color
                 << (cond ? "ACTIVE" : "INACTIVE") << std::endl;
                 }
@@ -2877,7 +2879,8 @@ struct SimPlanner : Planner {
                 auto temp = planner.regions_for_cube(curr);
                 bool blue_room_10 = planner.Last_room_color == 9;
                 bool ydrag_in_room = planner.ydragonr(curr, prev, printing_sketches_);
-                bool cond = ydrag_in_room && ydrag && key && !blue_room_10; //D == 1  &&
+                
+                bool cond = ydrag_in_room && ydrag && key && !blue_room_10 ; //D == 1  &&
                 if(printing_sketches_){
                 std::cout << "SKETCH 8.5 PRE:"  << " | ydrag_in_room=" << ydrag_in_room << " | " << " ydrag=" << ydrag << " |" 
                 <<  " bkey="<< key 
