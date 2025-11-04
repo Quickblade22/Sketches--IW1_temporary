@@ -561,7 +561,7 @@ struct SimPlanner : Planner {
        // return Last_room_color;
     }
     
-    std::vector<std::pair<std::pair<int,int>, std::pair<int, int>>> regions_for_cube(const std::vector<pixel_t>& screen_pixels) const {
+    std::vector<std::pair<std::pair<int,int>, std::pair<int, int>>> regions_for_cube(const std::vector<pixel_t>& screen_pixels, bool printing = false) const {
         std::vector<std::pair<std::pair<int,int>, std::pair<int, int>>> regions;
 
         // Get key colors from the screen
@@ -751,16 +751,168 @@ struct SimPlanner : Planner {
                 regions.push_back({{63, 146}, {95, 194}});
             }
         }else{
-            if(printing_debug) std::cout << "No suitable room region for cube detection. Cube color: " << static_cast<int>(cube_color) << std::endl;
-            
+            //not sure if needed 
+            if(printing) std::cout << "No suitable room region for cube detection. Cube color: " << static_cast<int>(cube_color) << std::endl;
             //std::cout << " no suitable room region"; 
-            regions.push_back({{0, 0}, {160, 210}});
+            Last_room_color = identify_room_from_database(screen_pixels);
+            switch (Last_room_color)
+            {
+            case -1:
+                if(printing) std::cout << "Room not identified from database." << std::endl;
+                regions.push_back({{0, 0}, {160, 210}});
+                break;
+            case 6: // Blue room 1
+                    regions.push_back({{0, 19}, {24, 50}});
+                    regions.push_back({{134, 19}, {160, 50}});
+                    regions.push_back({{15, 50}, {24, 83}});
+                    regions.push_back({{135, 50}, {144, 83}});
+                    regions.push_back({{0, 83}, {24, 114}});
+                    regions.push_back({{31, 1}, {40, 178}});
+                    regions.push_back({{119, 1}, {128, 178}});
+                    regions.push_back({{0, 148}, {160, 178}});
+                    regions.push_back({{47, 1}, {55, 114}});
+                    regions.push_back({{103, 1}, {112, 114}});
+                    regions.push_back({{47, 83}, {111, 114}});
+                    regions.push_back({{63, 1}, {72, 50}});
+                    regions.push_back({{87, 1}, {96, 50}});
+                    regions.push_back({{63, 18}, {96, 50}});
+                    break;
+            case 7: // Blue room 4
+                    regions.push_back({{0, 146}, {23, 178}});
+                    regions.push_back({{135, 146}, {160, 178}});
+                    regions.push_back({{0, 18}, {23, 50}});
+                    regions.push_back({{135, 18}, {160, 50}});
+                    regions.push_back({{15, 18}, {23, 114}});
+                    regions.push_back({{135, 18}, {144, 114}});
+                    regions.push_back({{15, 83}, {144, 114}});
+                    regions.push_back({{31, 83}, {127, 178}});
+                    regions.push_back({{31, 1}, {40, 50}});
+                    regions.push_back({{103, 1}, {112, 50}});
+                    regions.push_back({{119, 1}, {127, 50}});
+                    regions.push_back({{47, 1}, {56, 50}});
+                    regions.push_back({{103, 19}, {127, 50}});
+                    regions.push_back({{31, 19}, {56, 50}});
+                    break;
+            case 8: // Blue room 3
+                    regions.push_back({{0, 19}, {31, 50}});
+                    regions.push_back({{128, 19}, {160, 50}});
+                    regions.push_back({{15, 50}, {31, 114}});
+                    regions.push_back({{128, 50}, {143, 114}});
+                    regions.push_back({{0, 147}, {23, 178}});
+                    regions.push_back({{136, 147}, {160, 178}});
+                    regions.push_back({{15, 147}, {23, 194}});
+                    regions.push_back({{136, 147}, {143, 194}});
+                    regions.push_back({{31, 146}, {63, 178}});
+                    regions.push_back({{31, 146}, {39, 194}});
+                    regions.push_back({{96, 146}, {127, 178}});
+                    regions.push_back({{63, 1}, {96, 51}});
+                    regions.push_back({{72, 1}, {88, 195}});
+                    regions.push_back({{39, 18}, {56, 114}});
+                    regions.push_back({{103, 18}, {120, 114}});
+                    regions.push_back({{39, 82}, {120, 114}});
+                    break;
+            case 9: // Blue room 2
+                    regions.push_back({{15, 1}, {23, 50}});
+                    regions.push_back({{135, 1}, {143, 50}});
+                    regions.push_back({{0, 18}, {23, 50}});
+                    regions.push_back({{135, 18}, {160, 50}});
+                    regions.push_back({{0, 83}, {39, 114}});
+                    regions.push_back({{120, 83}, {160, 114}});
+                    regions.push_back({{0, 147}, {23, 178}});
+                    regions.push_back({{135, 147}, {160, 178}});
+                    regions.push_back({{16, 83}, {23, 178}});
+                    regions.push_back({{136, 83}, {144, 178}});
+                    regions.push_back({{31, 83}, {40, 195}});
+                    regions.push_back({{120, 83}, {128, 195}});
+                    regions.push_back({{119, 1}, {127, 50}});
+                    regions.push_back({{31, 1}, {40, 50}});
+                    regions.push_back({{103, 19}, {127, 50}});
+                    regions.push_back({{31, 19}, {55, 50}});
+                    regions.push_back({{103, 50}, {111, 194}});
+                    regions.push_back({{47, 50}, {55, 194}});
+                    regions.push_back({{72, 1}, {87, 194}});
+                    regions.push_back({{63, 146}, {95, 194}});
+                    break;
+            case 10: // Blue room maze
+                    regions.push_back({{0, 18}, {160, 50}});
+                    regions.push_back({{38, 18}, {48, 114}});
+                    regions.push_back({{111, 18}, {120, 114}});
+                    regions.push_back({{15, 82}, {72, 115}});
+                    regions.push_back({{87, 82}, {144, 115}});
+                    regions.push_back({{15, 82}, {24, 179}});
+                    regions.push_back({{135, 82}, {144, 179}});
+                    regions.push_back({{135, 146}, {160, 179}});
+                    regions.push_back({{0, 146}, {24, 179}});
+                    regions.push_back({{103, 146}, {128, 179}});
+                    regions.push_back({{31, 146}, {56, 179}});
+                    regions.push_back({{31, 146}, {40, 194}});
+                    regions.push_back({{47, 146}, {56, 194}});
+                    regions.push_back({{103, 146}, {112, 194}});
+                    regions.push_back({{119, 146}, {127, 194}});
+                    regions.push_back({{63, 82}, {72, 195}});
+                    regions.push_back({{87, 82}, {96, 195}});
+                    break;
+            default:
+                if(printing) std::cout << "Room number " << Last_room_color << " from database has no defined regions." << std::endl;
+                regions.push_back({{0, 0}, {160, 210}});
+                break;
+            }
+            if(printing) std::cout << "Identified room from database with Last_room_color: " << Last_room_color << std::endl;
+            if(printing && Last_room_color == -1) printing_screen(screen_pixels);
         }
 
         
         //calculate_distance_from_goal(screen_pixels); // Update Last_room_color based on current screen pixels
         return regions;
     }
+    int identify_room_from_database(const std::vector<pixel_t>& scene_img) const {
+        if (room_database_.empty()) {
+            if(printing_debug) std::cout << "Database is empty, cannot identify room." << std::endl;
+            return -1;
+        }
+
+        int best_room = -1;
+        float best_match_score = 0.0f;
+        const float MATCH_THRESHOLD = 0.8f; // 80% match threshold
+
+        for (const auto& room_entry : room_database_) {
+            int room_num = room_entry.first;
+            const RoomData& room_data = room_entry.second;
+            const std::vector<pixel_t>& db_img = room_data.screen_pixels;
+
+            if (db_img.size() != scene_img.size()) {
+                continue; // Skip if sizes don't match
+            }
+
+            // Calculate match score
+            int match_count = 0;
+            int total_pixels = SCREEN_WIDTH * SCREEN_HEIGHT;
+
+            for (int i = 0; i < total_pixels; ++i) {
+                if (color_match(scene_img[i], db_img[i])) {
+                    match_count++;
+                }
+            }
+
+            float match_score = static_cast<float>(match_count) / total_pixels;
+
+            if (match_score > best_match_score && match_score >= MATCH_THRESHOLD) {
+                best_match_score = match_score;
+                best_room = room_num;
+            }
+        }
+
+        if(printing_debug) {
+            if (best_room != -1) {
+                std::cout << "Best room match: " << best_room << " with score: " << best_match_score << std::endl;
+            } else {
+                std::cout << "No room matched above threshold. Best score: " << best_match_score << std::endl;
+            }
+        }
+
+        return best_room;
+    }
+    
     void printing_screen(const std::vector<pixel_t>& screen_pixels) const {
         
         std::cout << "Screen Pixels: " << std::endl;
