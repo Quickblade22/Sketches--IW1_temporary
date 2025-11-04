@@ -2992,7 +2992,7 @@ struct SimPlanner : Planner {
                 bool ydrag = planner.ydragon_killed(curr, prev,  printing_sketches_);
                 bool key = planner.bkey(curr,prev,printing_sketches_);
                 auto temp = planner.regions_for_cube(curr);
-                bool blue_room_10 = planner.Last_room_color == 9;
+                bool blue_room_10 = planner.Last_room_color == 6;
                 bool swordr = planner.yswr(curr, prev);
                 //planner.calculate_distance_from_goal(curr);
                 bool ydrag_in_room = planner.ydragonr(curr, prev,  printing_sketches_);
@@ -3020,23 +3020,24 @@ struct SimPlanner : Planner {
                 return goal_achieved;
             },
             "reach dragon room with bkey"
-        });
+        });                                           
        
         //sketch to reach the start of the blue maze room
+        //problem with setting to 9 is left 
          sketches_.push_back(Sketch{
             [this](const SimPlanner& planner, const std::vector<pixel_t>& prev, const std::vector<pixel_t>& curr) {
                 if(printing_sketches_) std::cout << "SKETCH 8.5 PRE Computation " << std::endl;
                 bool ydrag = planner.ydragon_killed(curr, prev,  printing_sketches_);
                 bool key = planner.bkey(curr,prev,printing_sketches_);
                 auto temp = planner.regions_for_cube(curr);
-                bool blue_room_10 = planner.Last_room_color == 9;
+                bool blue_room_10 = planner.Last_room_color == 6;
                 bool ydrag_in_room = planner.ydragonr(curr, prev, printing_sketches_);
                 
                 bool cond = ydrag_in_room && ydrag && key && !blue_room_10 ; //D == 1  &&
                 if(printing_sketches_){
                 std::cout << "SKETCH 8.5 PRE:"  << " | ydrag_in_room=" << ydrag_in_room << " | " << " ydrag=" << ydrag << " |" 
                 <<  " bkey="<< key 
-                << " | !blue_room_9=" << !blue_room_10 << " |Last_room_color=" << planner.Last_room_color
+                << " | !blue_room_6=" << !blue_room_10 << " |Last_room_color=" << planner.Last_room_color
                 << " |" << (cond ? "ACTIVE" : "INACTIVE") << std::endl;
                 }
                 return cond;
@@ -3046,12 +3047,12 @@ struct SimPlanner : Planner {
                 //planner.calculate_distance_from_goal(curr);
                 bool key = planner.bkey(curr,prev,printing_sketches_);
                 bool ydrag_in_room = planner.ydragonr(curr, prevs, printing_sketches_);
-                bool blue_room_10 = planner.Last_room_color == 9;
+                bool blue_room_10 = planner.Last_room_color == 6;
                 bool goal_achieved = key && !ydrag_in_room && blue_room_10; 
                 if(printing_sketches_){
                 std::cout << "SKETCH 8.5 GOAL: " << (goal_achieved ? "REACHED" : "MOVING") 
                 <<  " | bkey=" << key  << " | !ydragon_in room=" << !ydrag_in_room 
-                <<  " |blue_room_9=" << blue_room_10 << " |Last_room_color=" << planner.Last_room_color
+                <<  " |blue_room_6=" << blue_room_10 << " |Last_room_color=" << planner.Last_room_color
                 << std::endl;
                 }
                
