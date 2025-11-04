@@ -9,13 +9,13 @@
 #include <map>
 #include <string>
 #include <vector>
-
 #include "planner.h"
 #include "node.h"
 #include "screen.h"
 #include "logger.h"
 #include "utils.h"
 #include "/usr/local/include/ale/ale_interface.hpp"
+
 using namespace ale;
 struct RoomData {
     std::string name;
@@ -34,7 +34,7 @@ struct SimPlanner : Planner {
     const int SCREENSHOT_HEIGHT = 600;
     const int SCREENSHOT_WIDTH = 800;
     // Screen dimensions (Atari standard screen size)
-    const int SCREEN_HEIGHT = 210;
+    const int SCREEN_HEIGHT = 250;
     const int SCREEN_WIDTH = 160;
     // Scaling factors based on the screenshot resolution
     const float SCALE_X = static_cast<float>(SCREEN_WIDTH) / SCREENSHOT_WIDTH;
@@ -89,7 +89,7 @@ struct SimPlanner : Planner {
         }
         reset_game(sim_);
         get_state(sim_, initial_sim_state_);
-        load_database("Database.txt");
+        load_database("Database_250.txt");
         priority_ = 0; 
         //MyALEScreen screen(sim_, 4, &initial_screen_pixels_);
     }
@@ -250,11 +250,11 @@ struct SimPlanner : Planner {
         assert(node->feature_atoms_.empty());
         float start_time = Utils::read_time_in_seconds();
         if( (screen_features < 3) || (node->parent_ == nullptr) ) {
-            MyALEScreen screen(sim_, screen_features, &node->feature_atoms_, &node->screen_pixels_, root_room);
+            MyALEScreen screen(sim_, screen_features, &node->feature_atoms_, &node->screen_pixels_);
         }
         else {
             assert((screen_features >= 3) && (node->parent_ != nullptr));
-            MyALEScreen screen(sim_, screen_features, &node->feature_atoms_, &node->screen_pixels_, root_room, &node->parent_->feature_atoms_);
+            MyALEScreen screen(sim_, screen_features, &node->feature_atoms_, &node->screen_pixels_, &node->parent_->feature_atoms_);
         }
         get_atoms_time_ += Utils::read_time_in_seconds() - start_time;
     }
@@ -402,18 +402,18 @@ struct SimPlanner : Planner {
     mutable int root_dist_to_chalice = 0; 
     mutable int root_dist_to_bkey  = 0; 
     const std::map<std::string, pixel_t> COLORS = {
-        {"yellow", 193},
-        {"blue", 85},
-        {"red", 129},
+        {"yellow", 192},
+        {"blue", 86},
+        {"red", 109},
         {"black", 0},
-        {"grey", 170},
-        {"green", 147},
-        {"purple", 157},
-        {"light_green", 157},
-        {"pink", 107},
+        {"grey", 151},
+        {"green", 159},
+        {"purple", 117},
+        {"light_green", 172},
+        {"pink", 110},
         {"white", 255},
-        {"gdragon", 147},
-        {"ydragon", 193}
+        {"gdragon", 159},
+        {"ydragon", 192}
         };
     mutable std::map<int, RoomData> room_database_;     
     const int adventure_cube_width = 4; // Width of the adventure cube in pixels
@@ -521,9 +521,9 @@ struct SimPlanner : Planner {
     return count >= 2;
 }
     void calculate_distance_from_goal(const std::vector<pixel_t>& screen_pixels) const {
-        pixel_t current_room_color = screen_pixels[SCREEN_WIDTH * 5 + 5]; 
+        pixel_t current_room_color = screen_pixels[SCREEN_WIDTH * 33 + 10]; 
        
-        pixel_t special_yellow_case = screen_pixels[SCREEN_WIDTH * 80 + 80]; //82 80
+        pixel_t special_yellow_case = screen_pixels[SCREEN_WIDTH * 105 + 80]; //82 80
         //mutable int Last_room_color = 1; // 0 yellow throne, 1 yellow 2 green 3 purpel 4 red 5 light green 6 blue 7 black 8 red 9 pink 
         if (color_match(current_room_color, COLORS.at("yellow"))) {
             Last_room_color = 1;
@@ -555,16 +555,17 @@ struct SimPlanner : Planner {
         } else {
             
              if (printing_debug)std::cout << "Unknown room color: " << static_cast<int>(current_room_color) << std::endl;
+            
             Last_room_color = -1; // Reset to unknown if color does not match any known col
         }
        // return Last_room_color;
     }
     
-    std::vector<std::pair<std::pair<int,int>, std::pair<int, int>>> regions_for_cube(const std::vector<pixel_t>& screen_pixels) const {
+    std::vector<std::pair<std::pair<int,int>, std::pair<int, int>>> regions_for_cube(const std::vector<pixel_t>& screen_pixels, bool printing = false) const {
         std::vector<std::pair<std::pair<int,int>, std::pair<int, int>>> regions;
 
         // Get key colors from the screen
-        pixel_t cube_color = screen_pixels[5 * SCREEN_WIDTH + 5];
+        pixel_t cube_color = screen_pixels[33 * SCREEN_WIDTH + 10];
         bool is_yellow = color_match(cube_color, COLORS.at("yellow"));
         bool is_black = color_match(cube_color, COLORS.at("black"));
         bool is_red = color_match(cube_color, COLORS.at("red"));
@@ -580,8 +581,8 @@ struct SimPlanner : Planner {
             return color_match(screen_pixels[idx], COLORS.at(color));
         };
         // Add entrance areas
-        std::pair<std::pair<int,int>, std::pair<int,int>> entrance_down = {{63, 170}, {96, 195}};
-        std::pair<std::pair<int,int>, std::pair<int,int>> entrance_up = {{63, 1}, {96, 26}};
+        std::pair<std::pair<int,int>, std::pair<int,int>> entrance_down = {{63, 195}, {96, 220}};
+        std::pair<std::pair<int,int>, std::pair<int,int>> entrance_up = {{63, 26}, {96, 51}};
         
         
         if (is_green || is_light_green || is_red||is_pink) {
@@ -589,7 +590,7 @@ struct SimPlanner : Planner {
         }else{
             regions.push_back(entrance_down);
         }
-       
+           
         // Special case for red room when coming from black or pink
         if (is_red && (Last_room_color == 7 || Last_room_color == 9)) {
             regions.push_back(entrance_down);
@@ -597,169 +598,321 @@ struct SimPlanner : Planner {
 
         if(is_black){
             // Black throne room
-                Last_room_color = 11; 
-                regions.push_back({{7, 18}, {40, 178}});
-                regions.push_back({{119, 18}, {151, 178}});
-                regions.push_back({{7, 82}, {47, 178}});
-                regions.push_back({{111, 82}, {151, 178}});
-                regions.push_back({{7, 146}, {151, 178}});
-                regions.push_back({{63, 146}, {96, 195}});
-                regions.push_back({{71, 114}, {88, 154}}); //door
-        } else if (is_yellow && color_match_at(80, 80, "yellow")) {
-                // Yellow throne room
-                Last_room_color = 1; // Set Last_room_color to 0 for yellow throne room
-                regions.push_back({{7, 18}, {40, 178}});
-                regions.push_back({{119, 18}, {152, 178}});
-                regions.push_back({{7, 82}, {48, 146}});
-                regions.push_back({{111, 82}, {151, 146}});
-                regions.push_back({{7, 147}, {152, 178}});
-                regions.push_back({{71, 114}, {88, 154}}); //door
-                //std::cout<<"yellow_throne_room"<<std::endl; 
+            Last_room_color = 11; 
+            regions.push_back({{7, 43}, {40, 203}});
+            regions.push_back({{119, 43}, {151, 203}});
+            regions.push_back({{7, 107}, {47, 203}});
+            regions.push_back({{111, 107}, {151, 203}});
+            regions.push_back({{7, 171}, {151, 203}});
+            regions.push_back({{63, 171}, {96, 220}});
+            regions.push_back({{71, 139}, {88, 179}}); //door
+        } else if (is_yellow && color_match_at(80, 105, "yellow")) {
+            // Yellow throne room
+            Last_room_color = 1; // Set Last_room_color to 0 for yellow throne room
+            regions.push_back({{7, 43}, {40, 203}});
+            regions.push_back({{119, 43}, {152, 203}});
+            regions.push_back({{7, 107}, {48, 171}});
+            regions.push_back({{111, 107}, {151, 171}});
+            regions.push_back({{7, 172}, {152, 203}});
+            regions.push_back({{71, 139}, {88, 179}}); //door
+            //std::cout<<"yellow_throne_room"<<std::endl; 
         } else if(is_yellow) {
-                // Normal yellow/black room
-                Last_room_color = 0; // Set Last_room_color to 1 for normal yellow room
-                regions.push_back({{7, 18}, {152, 179}});
+            // Normal yellow/black room
+            Last_room_color = 0; // Set Last_room_color to 1 for normal yellow room
+            regions.push_back({{7, 43}, {152, 204}});
         }else if (is_red || is_pink) {
             if(is_pink) Last_room_color = 13; // Set Last_room_color to 9 for normal pink room
             else {
-                if (Last_room_color == 3) {
-                    Last_room_color = 4; // Special case for red in the yellow room
-                } else if (Last_room_color == 11 || Last_room_color == 13) {
-                    Last_room_color = 12; // Special case for red in the purple room
-                
+            if (Last_room_color == 3) {
+                Last_room_color = 4; // Special case for red in the yellow room
+            } else if (Last_room_color == 11 || Last_room_color == 13) {
+                Last_room_color = 12; // Special case for red in the purple room
+            
             }
             } // Set Last_room_color to 4 for normal red room
-            regions.push_back({{7, 18}, {152, 179}});
-        } 
-        else if (is_green || is_light_green || is_purple) {
+            regions.push_back({{7, 43}, {152, 204}});
+        } else if (is_green || is_light_green || is_purple) {
 
             if (is_light_green) {
-                Last_room_color = 5; // Set Last_room_color to 4 for normal light green room
-                regions.push_back({{12, 18}, {160, 178}});  // x >= 12
+            Last_room_color = 5; // Set Last_room_color to 4 for normal light green room
+            regions.push_back({{12, 43}, {160, 203}});  // x >= 12
             } else if (is_purple) {
-                Last_room_color = 3; // Set Last_room_color to 3 for normal purple room
-                regions.push_back({{0, 18}, {147, 178}});   // x <= 147
+            Last_room_color = 3; // Set Last_room_color to 3 for normal purple room
+            regions.push_back({{0, 43}, {147, 203}});   // x <= 147
             }else{
-                Last_room_color = 2; // Set Last_room_color to 2 for normal green room
-                regions.push_back({{0, 18}, {160, 178}});
+            Last_room_color = 2; // Set Last_room_color to 2 for normal green room
+            regions.push_back({{0, 43}, {160, 203}});
             }
         } 
         
         else if (is_blue) {
             // Determine blue room type
-            if (color_match_at(79, 6, "blue")) {
-                // Blue room 1
-                if (color_match_at(79, 194, "blue")) {
-                    Last_room_color = 10; 
-                    regions.push_back({{0, 18}, {160, 50}});       // Top-left
-                    regions.push_back({{38, 18}, {48, 114}});      // Top-right
-                    regions.push_back({{111, 18}, {120, 114}});    // Upper-left
-                    regions.push_back({{15, 82}, {72, 115}});      // Upper-right
-                    regions.push_back({{87, 82}, {144, 115}});     // Upper-right
-                    regions.push_back({{15, 82}, {24, 179}});      // Upper-right
-                    regions.push_back({{135, 82}, {144, 179}});    // Upper-right
-                    regions.push_back({{135, 146}, {160, 179}});   // Upper-right
-                    regions.push_back({{0, 146}, {24, 179}});      // Upper-right
-                    regions.push_back({{103, 146}, {128, 179}});   // Upper-right
-                    regions.push_back({{31, 146}, {56, 179}});     // Upper-right
-                    regions.push_back({{31, 146}, {40, 194}});     // Upper-right
-                    regions.push_back({{47, 146}, {56, 194}});     // Upper-right
-                    regions.push_back({{103, 146}, {112, 194}});   // Upper-right
-                    regions.push_back({{119, 146}, {127, 194}});   // Upper-right
-                    regions.push_back({{63, 82}, {72, 195}});      // Upper-right
-                    regions.push_back({{87, 82}, {96, 195}});      // Upper-right
-                } else {
-                    Last_room_color = 6; 
-                    regions.push_back({{0, 19}, {24, 50}});
-                    regions.push_back({{134, 19}, {160, 50}});
-                    regions.push_back({{15, 50}, {24, 83}});
-                    regions.push_back({{135, 50}, {144, 83}});
-                    regions.push_back({{0, 83}, {24, 114}});
-                    regions.push_back({{31, 1}, {40, 178}});
-                    regions.push_back({{119, 1}, {128, 178}});
-                    regions.push_back({{0, 148}, {160, 178}});
-                    regions.push_back({{47, 1}, {55, 114}});
-                    regions.push_back({{103, 1}, {112, 114}});
-                    regions.push_back({{47, 83}, {111, 114}});
-                    regions.push_back({{63, 1}, {72, 50}});
-                    regions.push_back({{87, 1}, {96, 50}});
-                    regions.push_back({{63, 18}, {96, 50}});
-                }
-                
+            if (color_match_at(79, 31, "blue")) {
+            // Blue room 1
+            if (color_match_at(79, 209, "blue")) {
+                Last_room_color = 10; 
+                regions.push_back({{0, 43}, {160, 75}});       // Top-left
+                regions.push_back({{38, 43}, {48, 139}});      // Top-right
+                regions.push_back({{111, 43}, {120, 139}});    // Upper-left
+                regions.push_back({{15, 107}, {72, 140}});      // Upper-right
+                regions.push_back({{87, 107}, {144, 140}});     // Upper-right
+                regions.push_back({{15, 107}, {24, 204}});      // Upper-right
+                regions.push_back({{135, 107}, {144, 204}});    // Upper-right
+                regions.push_back({{135, 171}, {160, 204}});   // Upper-right
+                regions.push_back({{0, 171}, {24, 204}});      // Upper-right
+                regions.push_back({{103, 171}, {128, 204}});   // Upper-right
+                regions.push_back({{31, 171}, {56, 204}});     // Upper-right
+                regions.push_back({{31, 171}, {40, 219}});     // Upper-right
+                regions.push_back({{47, 171}, {56, 219}});     // Upper-right
+                regions.push_back({{103, 171}, {112, 219}});   // Upper-right
+                regions.push_back({{119, 171}, {127, 219}});   // Upper-right
+                regions.push_back({{63, 107}, {72, 220}});      // Upper-right
+                regions.push_back({{87, 107}, {96, 220}});      // Upper-right
+            } else {
+                Last_room_color = 6; 
+                regions.push_back({{0, 44}, {24, 75}});
+                regions.push_back({{134, 44}, {160, 75}});
+                regions.push_back({{15, 75}, {24, 108}});
+                regions.push_back({{135, 75}, {144, 108}});
+                regions.push_back({{0, 108}, {24, 139}});
+                regions.push_back({{31, 26}, {40, 203}});
+                regions.push_back({{119, 26}, {128, 203}});
+                regions.push_back({{0, 173}, {160, 203}});
+                regions.push_back({{47, 26}, {55, 139}});
+                regions.push_back({{103, 26}, {112, 139}});
+                regions.push_back({{47, 75}, {111, 139}});
+                regions.push_back({{63, 26}, {72, 75}});
+                regions.push_back({{87, 26}, {96, 75}});
+                regions.push_back({{63, 43}, {96, 75}});
+            }
+            
             } 
-            else if (color_match_at(77, 185, "blue")) {
-                Last_room_color = 7; 
-                // Blue room 4
-                regions.push_back({{0, 146}, {23, 178}});
-                regions.push_back({{135, 146}, {160, 178}});
-                regions.push_back({{0, 18}, {23, 50}});
-                regions.push_back({{135, 18}, {160, 50}});
-                regions.push_back({{15, 18}, {23, 114}});
-                regions.push_back({{135, 18}, {144, 114}});
-                regions.push_back({{15, 83}, {144, 114}});
-                regions.push_back({{31, 83}, {127, 178}});
-                regions.push_back({{31, 1}, {40, 50}});
-                regions.push_back({{103, 1}, {112, 50}});
-                regions.push_back({{119, 1}, {127, 50}});
-                regions.push_back({{47, 1}, {56, 50}});
-                regions.push_back({{103, 19}, {127, 50}});
-                regions.push_back({{31, 19}, {56, 50}});
+            else if (color_match_at(77, 210, "blue")) {
+            Last_room_color = 7; 
+            // Blue room 4
+            regions.push_back({{0, 171}, {23, 203}});
+            regions.push_back({{135, 171}, {160, 203}});
+            regions.push_back({{0, 43}, {23, 75}});
+            regions.push_back({{135, 43}, {160, 75}});
+            regions.push_back({{15, 43}, {23, 139}});
+            regions.push_back({{135, 43}, {144, 139}});
+            regions.push_back({{15, 108}, {144, 139}});
+            regions.push_back({{31, 108}, {127, 203}});
+            regions.push_back({{31, 26}, {40, 75}});
+            regions.push_back({{103, 26}, {112, 75}});
+            regions.push_back({{119, 26}, {127, 75}});
+            regions.push_back({{47, 26}, {56, 75}});
+            regions.push_back({{103, 44}, {127, 75}});
+            regions.push_back({{31, 44}, {56, 75}});
             } 
-            else if (color_match_at(20, 8, "blue")) {
-                Last_room_color = 8; 
-                // Blue room 3
-                regions.push_back({{0, 19}, {31, 50}});
-                regions.push_back({{128, 19}, {160, 50}});
-                regions.push_back({{15, 50}, {31, 114}});
-                regions.push_back({{128, 50}, {143, 114}});
-                regions.push_back({{0, 147}, {23, 178}});
-                regions.push_back({{136, 147}, {160, 178}});
-                regions.push_back({{15, 147}, {23, 194}});
-                regions.push_back({{136, 147}, {143, 194}});
-                regions.push_back({{31, 146}, {63, 178}});
-                regions.push_back({{31, 146}, {39, 194}});
-                regions.push_back({{96, 146}, {127, 178}});
-                regions.push_back({{63, 1}, {96, 51}});
-                regions.push_back({{72, 1}, {88, 195}});
-                regions.push_back({{39, 18}, {56, 114}});
-                regions.push_back({{103, 18}, {120, 114}});
-                regions.push_back({{39, 82}, {120, 114}});
+            else if (color_match_at(20, 33, "blue")) {
+            Last_room_color = 8; 
+            // Blue room 3
+            regions.push_back({{0, 44}, {31, 75}});
+            regions.push_back({{128, 44}, {160, 75}});
+            regions.push_back({{15, 75}, {31, 139}});
+            regions.push_back({{128, 75}, {143, 139}});
+            regions.push_back({{0, 172}, {23, 203}});
+            regions.push_back({{136, 172}, {160, 203}});
+            regions.push_back({{15, 172}, {23, 219}});
+            regions.push_back({{136, 172}, {143, 219}});
+            regions.push_back({{31, 171}, {63, 203}});
+            regions.push_back({{31, 171}, {39, 219}});
+            regions.push_back({{96, 171}, {127, 203}});
+            regions.push_back({{63, 26}, {96, 76}});
+            regions.push_back({{72, 26}, {88, 220}});
+            regions.push_back({{39, 43}, {56, 139}});
+            regions.push_back({{103, 43}, {120, 139}});
+            regions.push_back({{39, 107}, {120, 139}});
             } 
             else {
-                Last_room_color = 9; 
-                // Replace blue room type 2 region definitions with:
-                regions.push_back({{15, 1}, {23, 50}});
-                regions.push_back({{135, 1}, {143, 50}});
-                regions.push_back({{0, 18}, {23, 50}});
-                regions.push_back({{135, 18}, {160, 50}});
-                regions.push_back({{0, 83}, {39, 114}});
-                regions.push_back({{120, 83}, {160, 114}});
-                regions.push_back({{0, 147}, {23, 178}});
-                regions.push_back({{135, 147}, {160, 178}});
-                regions.push_back({{16, 83}, {23, 178}});
-                regions.push_back({{136, 83}, {144, 178}});
-                regions.push_back({{31, 83}, {40, 195}});
-                regions.push_back({{120, 83}, {128, 195}});
-                regions.push_back({{119, 1}, {127, 50}});
-                regions.push_back({{31, 1}, {40, 50}});
-                regions.push_back({{103, 19}, {127, 50}});
-                regions.push_back({{31, 19}, {55, 50}});
-                regions.push_back({{103, 50}, {111, 194}});
-                regions.push_back({{47, 50}, {55, 194}});
-                regions.push_back({{72, 1}, {87, 194}});
-                regions.push_back({{63, 146}, {95, 194}});
+            Last_room_color = 9; 
+            // Replace blue room type 2 region definitions with:
+            regions.push_back({{15, 26}, {23, 75}});
+            regions.push_back({{135, 26}, {143, 75}});
+            regions.push_back({{0, 43}, {23, 75}});
+            regions.push_back({{135, 43}, {160, 75}});
+            regions.push_back({{0, 108}, {39, 139}});
+            regions.push_back({{120, 108}, {160, 139}});
+            regions.push_back({{0, 172}, {23, 203}});
+            regions.push_back({{135, 172}, {160, 203}});
+            regions.push_back({{16, 108}, {23, 203}});
+            regions.push_back({{136, 108}, {144, 203}});
+            regions.push_back({{31, 108}, {40, 220}});
+            regions.push_back({{120, 108}, {128, 220}});
+            regions.push_back({{119, 26}, {127, 75}});
+            regions.push_back({{31, 26}, {40, 75}});
+            regions.push_back({{103, 44}, {127, 75}});
+            regions.push_back({{31, 44}, {55, 75}});
+            regions.push_back({{103, 50}, {111, 219}});
+            regions.push_back({{47, 50}, {55, 219}});
+            regions.push_back({{72, 26}, {87, 220}});
+            regions.push_back({{63, 171}, {95, 219}});
             }
         }else{
-            if(printing_debug) std::cout << "No suitable room region for cube detection. Cube color: " << static_cast<int>(cube_color) << std::endl;
-            
+            //not sure if needed 
+            if(printing) std::cout << "No suitable room region for cube detection. Cube color: " << static_cast<int>(cube_color) << std::endl;
             //std::cout << " no suitable room region"; 
-            regions.push_back({{0, 0}, {160, 210}});
+            Last_room_color = identify_room_from_database(screen_pixels);
+            switch (Last_room_color)
+            {
+            case -1:
+                if(printing) std::cout << "Room not identified from database." << std::endl;
+                regions.push_back({{0, 0}, {160, 210}});
+                break;
+            case 6: // Blue room 1
+                    regions.push_back({{0, 44}, {24, 75}});
+                    regions.push_back({{134, 44}, {160, 75}});
+                    regions.push_back({{15, 75}, {24, 108}});
+                    regions.push_back({{135, 75}, {144, 108}});
+                    regions.push_back({{0, 108}, {24, 139}});
+                    regions.push_back({{31, 26}, {40, 203}});
+                    regions.push_back({{119, 26}, {128, 203}});
+                    regions.push_back({{0, 173}, {160, 203}});
+                    regions.push_back({{47, 26}, {55, 139}});
+                    regions.push_back({{103, 26}, {112, 139}});
+                    regions.push_back({{47, 108}, {111, 139}});
+                    regions.push_back({{63, 26}, {72, 75}});
+                    regions.push_back({{87, 26}, {96, 75}});
+                    regions.push_back({{63, 43}, {96, 75}});
+                    break;
+            case 7: // Blue room 4
+                    regions.push_back({{0, 171}, {23, 203}});
+                    regions.push_back({{135, 171}, {160, 203}});
+                    regions.push_back({{0, 43}, {23, 75}});
+                    regions.push_back({{135, 43}, {160, 75}});
+                    regions.push_back({{15, 43}, {23, 139}});
+                    regions.push_back({{135, 43}, {144, 139}});
+                    regions.push_back({{15, 108}, {144, 139}});
+                    regions.push_back({{31, 108}, {127, 203}});
+                    regions.push_back({{31, 26}, {40, 75}});
+                    regions.push_back({{103, 26}, {112, 75}});
+                    regions.push_back({{119, 26}, {127, 75}});
+                    regions.push_back({{47, 26}, {56, 75}});
+                    regions.push_back({{103, 44}, {127, 75}});
+                    regions.push_back({{31, 44}, {56, 75}});
+                    break;
+            case 8: // Blue room 3
+                    regions.push_back({{0, 44}, {31, 75}});
+                    regions.push_back({{128, 44}, {160, 75}});
+                    regions.push_back({{15, 75}, {31, 139}});
+                    regions.push_back({{128, 75}, {143, 139}});
+                    regions.push_back({{0, 172}, {23, 203}});
+                    regions.push_back({{136, 172}, {160, 203}});
+                    regions.push_back({{15, 172}, {23, 219}});
+                    regions.push_back({{136, 172}, {143, 219}});
+                    regions.push_back({{31, 171}, {63, 203}});
+                    regions.push_back({{31, 171}, {39, 219}});
+                    regions.push_back({{96, 171}, {127, 203}});
+                    regions.push_back({{63, 26}, {96, 76}});
+                    regions.push_back({{72, 26}, {88, 220}});
+                    regions.push_back({{39, 43}, {56, 139}});
+                    regions.push_back({{103, 43}, {120, 139}});
+                    regions.push_back({{39, 107}, {120, 139}});
+                    break;
+            case 9: // Blue room 2
+                    regions.push_back({{15, 26}, {23, 75}});
+                    regions.push_back({{135, 26}, {143, 75}});
+                    regions.push_back({{0, 43}, {23, 75}});
+                    regions.push_back({{135, 43}, {160, 75}});
+                    regions.push_back({{0, 108}, {39, 139}});
+                    regions.push_back({{120, 108}, {160, 139}});
+                    regions.push_back({{0, 172}, {23, 203}});
+                    regions.push_back({{135, 172}, {160, 203}});
+                    regions.push_back({{16, 108}, {23, 203}});
+                    regions.push_back({{136, 108}, {144, 203}});
+                    regions.push_back({{31, 108}, {40, 220}});
+                    regions.push_back({{120, 108}, {128, 220}});
+                    regions.push_back({{119, 26}, {127, 75}});
+                    regions.push_back({{31, 26}, {49,75}});
+
+                    regions.push_back({{103, 44}, {127, 75}});
+                    regions.push_back({{31, 44}, {55, 75}});
+                    regions.push_back({{103, 75}, {111, 219}});
+                    regions.push_back({{47, 75}, {55, 219}});
+                    regions.push_back({{72, 26}, {87, 219}});
+                    regions.push_back({{63, 171}, {95, 219}});
+                    break;
+            case 10: // Blue room maze
+                    regions.push_back({{0, 18}, {160, 50}});
+                    regions.push_back({{38, 18}, {48, 114}});
+                    regions.push_back({{111, 18}, {120, 114}});
+                    regions.push_back({{15, 82}, {72, 115}});
+                    regions.push_back({{87, 82}, {144, 115}});
+                    regions.push_back({{15, 82}, {24, 179}});
+                    regions.push_back({{135, 82}, {144, 179}});
+                    regions.push_back({{135, 146}, {160, 179}});
+                    regions.push_back({{0, 146}, {24, 179}});
+                    regions.push_back({{103, 146}, {128, 179}});
+                    regions.push_back({{31, 146}, {56, 179}});
+                    regions.push_back({{31, 146}, {40, 194}});
+                    regions.push_back({{47, 146}, {56, 194}});
+                    regions.push_back({{103, 146}, {112, 194}});
+                    regions.push_back({{119, 146}, {127, 194}});
+                    regions.push_back({{63, 82}, {72, 195}});
+                    regions.push_back({{87, 82}, {96, 195}});
+                    break;
+            default:
+                if(printing) std::cout << "Room number " << Last_room_color << " from database has no defined regions." << std::endl;
+                regions.push_back({{0, 0}, {160, 250}});
+                break;
+            }
+            if(printing) std::cout << "Identified room from database with Last_room_color: " << Last_room_color << std::endl;
+            if(printing && Last_room_color == -1) printing_screen(screen_pixels);
         }
 
         
         //calculate_distance_from_goal(screen_pixels); // Update Last_room_color based on current screen pixels
         return regions;
     }
+    int identify_room_from_database(const std::vector<pixel_t>& scene_img) const {
+        if (room_database_.empty()) {
+            if(printing_debug) std::cout << "Database is empty, cannot identify room." << std::endl;
+            return -1;
+        }
+
+        int best_room = -1;
+        float best_match_score = 0.0f;
+        const float MATCH_THRESHOLD = 0.8f; // 80% match threshold
+
+        for (const auto& room_entry : room_database_) {
+            int room_num = room_entry.first;
+            const RoomData& room_data = room_entry.second;
+            const std::vector<pixel_t>& db_img = room_data.screen_pixels;
+
+            if (db_img.size() != scene_img.size()) {
+                continue; // Skip if sizes don't match
+            }
+
+            // Calculate match score
+            int match_count = 0;
+            int total_pixels = SCREEN_WIDTH * SCREEN_HEIGHT;
+
+            for (int i = 0; i < total_pixels; ++i) {
+                if (color_match(scene_img[i], db_img[i])) {
+                    match_count++;
+                }
+            }
+
+            float match_score = static_cast<float>(match_count) / total_pixels;
+
+            if (match_score > best_match_score && match_score >= MATCH_THRESHOLD) {
+                best_match_score = match_score;
+                best_room = room_num;
+            }
+        }
+
+        if(printing_debug) {
+            if (best_room != -1) {
+                std::cout << "Best room match: " << best_room << " with score: " << best_match_score << std::endl;
+            } else {
+                std::cout << "No room matched above threshold. Best score: " << best_match_score << std::endl;
+            }
+        }
+
+        return best_room;
+    }
+    
     void printing_screen(const std::vector<pixel_t>& screen_pixels) const {
         
         std::cout << "Screen Pixels: " << std::endl;
@@ -2801,7 +2954,7 @@ struct SimPlanner : Planner {
             },
             "Pick up black key"
         });
-          //reach green room first 
+        /*  //reach green room first 
         sketches_.push_back(Sketch{
             [this](const SimPlanner& planner, const std::vector<pixel_t>& prev, const std::vector<pixel_t>& curr) {
                 if(printing_sketches_) std::cout << "SKETCH 8.5 PRE Computation " << std::endl;
@@ -2830,19 +2983,26 @@ struct SimPlanner : Planner {
                 return goal_achieved;
             },
             "reach dragon room with bkey"
-        });
+        });*/
           //reach ydragon_room_with bkey
+          //if works --> try to reach blue maze room directly after
         sketches_.push_back(Sketch{
             [this](const SimPlanner& planner, const std::vector<pixel_t>& prev, const std::vector<pixel_t>& curr) {
                 if(printing_sketches_) std::cout << "SKETCH 8 PRE Computation " << std::endl;
-                bool sword = planner.ysword(curr,prev,planner.printing_sketches_functions);
                 bool ydrag = planner.ydragon_killed(curr, prev,  printing_sketches_);
                 bool key = planner.bkey(curr,prev,printing_sketches_);
+                auto temp = planner.regions_for_cube(curr);
+                bool blue_room_10 = planner.Last_room_color == 6;
+                bool swordr = planner.yswr(curr, prev);
                 //planner.calculate_distance_from_goal(curr);
                 bool ydrag_in_room = planner.ydragonr(curr, prev,  printing_sketches_);
-                bool cond = !ydrag_in_room && ydrag && key; //D == 1  &&
+                bool cond = !ydrag_in_room && ydrag && key && !blue_room_10 && swordr; //D == 1  &&
                 if(printing_sketches_){
-                std::cout << "SKETCH 8 PRE:" << " | ysword=" << sword << " | ydrag_in_room=" << ydrag_in_room << " | " << " !ydrag=" << !ydrag << " |" <<  " bkey"<< key << (cond ? "ACTIVE" : "INACTIVE") << std::endl;
+                std::cout << "SKETCH 8 PRE (reach ydragon_room with bkey):" 
+                << " | !ydrag_in_room=" << !ydrag_in_room << " | " << " ydrag=" << ydrag << " |" 
+                <<  " bkey"<< key  << " swordr=" << swordr
+                << " |!blue_room_9=" << !blue_room_10 << " |Last_room_color=" << planner.Last_room_color
+                << (cond ? "ACTIVE" : "INACTIVE") << std::endl;
                 }
                 return cond;
             },
@@ -2860,7 +3020,47 @@ struct SimPlanner : Planner {
                 return goal_achieved;
             },
             "reach dragon room with bkey"
+        });                                           
+       
+        //sketch to reach the start of the blue maze room
+        //problem with setting to 9 is left 
+         sketches_.push_back(Sketch{
+            [this](const SimPlanner& planner, const std::vector<pixel_t>& prev, const std::vector<pixel_t>& curr) {
+                if(printing_sketches_) std::cout << "SKETCH 8.5 PRE Computation " << std::endl;
+                bool ydrag = planner.ydragon_killed(curr, prev,  printing_sketches_);
+                bool key = planner.bkey(curr,prev,printing_sketches_);
+                auto temp = planner.regions_for_cube(curr);
+                bool blue_room_10 = planner.Last_room_color == 6;
+                bool ydrag_in_room = planner.ydragonr(curr, prev, printing_sketches_);
+                
+                bool cond = ydrag_in_room && ydrag && key && !blue_room_10 ; //D == 1  &&
+                if(printing_sketches_){
+                std::cout << "SKETCH 8.5 PRE:"  << " | ydrag_in_room=" << ydrag_in_room << " | " << " ydrag=" << ydrag << " |" 
+                <<  " bkey="<< key 
+                << " | !blue_room_6=" << !blue_room_10 << " |Last_room_color=" << planner.Last_room_color
+                << " |" << (cond ? "ACTIVE" : "INACTIVE") << std::endl;
+                }
+                return cond;
+            },
+            [this](const SimPlanner& planner, const std::vector<pixel_t>& prev, const std::vector<pixel_t>& curr, const std::vector<pixel_t>& prevs) {
+                if(printing_sketches_) std::cout << "SKETCH 8.5 GOAL Computation " << std::endl;
+                //planner.calculate_distance_from_goal(curr);
+                bool key = planner.bkey(curr,prev,printing_sketches_);
+                bool ydrag_in_room = planner.ydragonr(curr, prevs, printing_sketches_);
+                bool blue_room_10 = planner.Last_room_color == 6;
+                bool goal_achieved = key && !ydrag_in_room && blue_room_10; 
+                if(printing_sketches_){
+                std::cout << "SKETCH 8.5 GOAL: " << (goal_achieved ? "REACHED" : "MOVING") 
+                <<  " | bkey=" << key  << " | !ydragon_in room=" << !ydrag_in_room 
+                <<  " |blue_room_6=" << blue_room_10 << " |Last_room_color=" << planner.Last_room_color
+                << std::endl;
+                }
+               
+                return goal_achieved;
+            },
+            "reach dragon room with bkey"
         });
+
         //intermediate sketch to sovle the blue maze room 
          sketches_.push_back(Sketch{
             [this](const SimPlanner& planner, const std::vector<pixel_t>& prev, const std::vector<pixel_t>& curr) {
@@ -2869,15 +3069,15 @@ struct SimPlanner : Planner {
                 bool key = planner.bkey(curr,prev,printing_sketches_);
                 auto temp = planner.regions_for_cube(curr);
                 auto cube_pos = planner.highlight_cube(curr, prev);
-                bool correct_position = (cube_pos.first >= 0 && cube_pos.first <= 50 && cube_pos.second >= 17 && cube_pos.second <= 50);
-                bool blue_room_10 = planner.Last_room_color == 6;
-                bool blue = (blue_room_10 && correct_position);
+                bool correct_position = (cube_pos.first >= 0 && cube_pos.first <= 25 && cube_pos.second >= 42 && cube_pos.second <= 75);
+                bool blue_room_6 = planner.Last_room_color == 6;
+                bool blue_room_9 = planner.Last_room_color == 9;
                 bool ydrag_in_room = planner.ydragonr(curr, prev, printing_sketches_);
-                bool cond = ydrag_in_room && ydrag && key && !blue; //D == 1  &&
+                bool cond =  ydrag && key && !correct_position && blue_room_9 && !blue_room_6; //D == 1  &&
                 if(printing_sketches_){
-                std::cout << "SKETCH 9 PRE:"  << " | ydrag_in_room=" << ydrag_in_room << " | " << " ydrag=" << ydrag << " |" 
-                <<  " bkey="<< key 
-                << " | !blue=" << !blue << " |cube_pos=(" << cube_pos.first << "," << cube_pos.second << ")" << " |blue_room_10=" << blue_room_10 << " |Last_room_color=" << planner.Last_room_color
+                std::cout << "SKETCH 9 PRE (get to start of blue maze):"  << " | ydrag_in_room=" << ydrag_in_room << " | " << " ydrag=" << ydrag << " |" 
+                <<  " bkey="<< key  << " | !correct_position=" << !correct_position << " | !blue_room_6=" << !blue_room_6 << " | blue_room_9=" << blue_room_9
+                << " |cube_pos=(" << cube_pos.first << "," << cube_pos.second << ")" << " |Last_room_color=" << planner.Last_room_color
                 << " |" << (cond ? "ACTIVE" : "INACTIVE") << std::endl;
                 }
                 return cond;
@@ -2889,10 +3089,11 @@ struct SimPlanner : Planner {
                 bool ydrag_in_room = planner.ydragonr(curr, prevs, printing_sketches_);
                 auto temp = planner.regions_for_cube(curr);
                 auto cube_pos = planner.highlight_cube(curr, prev);
-                bool correct_position = (cube_pos.first >= 0 && cube_pos.first <= 50 && cube_pos.second >= 17 && cube_pos.second <= 50);
+                bool correct_position = (cube_pos.first >= 0 && cube_pos.first <= 25 && cube_pos.second >= 42 && cube_pos.second <= 75);
                 bool blue_room_10 = planner.Last_room_color == 6;
-                bool blue = (blue_room_10 && correct_position);
-                bool goal_achieved = key && !ydrag_in_room && blue; 
+                bool blue_room_9 = planner.Last_room_color == 9;
+                bool blue = (blue_room_10 && correct_position && !blue_room_9);
+                bool goal_achieved = key && blue ; 
                 if(printing_sketches_){
                 std::cout << "SKETCH 9 GOAL: " << (goal_achieved ? "REACHED" : "MOVING") 
                 <<  " | bkey=" << key  << " | !ydragon_in room=" << !ydrag_in_room 
@@ -2904,6 +3105,7 @@ struct SimPlanner : Planner {
             },
             "reach dragon room with bkey"
         });
+
         //intermediate sketch to sovle the blue maze room 
          sketches_.push_back(Sketch{
             [this](const SimPlanner& planner, const std::vector<pixel_t>& prev, const std::vector<pixel_t>& curr) {
@@ -2912,9 +3114,9 @@ struct SimPlanner : Planner {
                 bool key = planner.bkey(curr,prev,printing_sketches_);
                 auto temp = planner.regions_for_cube(curr);
                 auto cube_pos = planner.highlight_cube(curr, prev);
-                bool correct_position = (cube_pos.first >= 0  && cube_pos.second >= 17 && cube_pos.second <= 51);
+                bool correct_position = (cube_pos.first >= 0  && cube_pos.second >= 42 && cube_pos.second <= 75);
                 bool blue_room_10 = planner.Last_room_color == 10;
-                bool correct_position_2 = (cube_pos.first >= 0 && cube_pos.first <= 50 && cube_pos.second >= 17 && cube_pos.second <= 50);
+                bool correct_position_2 = (cube_pos.first >= 0 && cube_pos.first <= 25 && cube_pos.second >= 42 && cube_pos.second <= 75);
                 bool blue_room_9 = planner.Last_room_color == 6;
                 bool blue = (blue_room_10 && correct_position);
                 bool blue_2 = (blue_room_9 && correct_position_2);
@@ -2934,10 +3136,10 @@ struct SimPlanner : Planner {
                 bool ydrag_in_room = planner.ydragonr(curr, prevs, printing_sketches_);
                 auto temp = planner.regions_for_cube(curr);
                 auto cube_pos = planner.highlight_cube(curr, prev);
-                bool correct_position = (cube_pos.first >= 0  && cube_pos.second >= 17 && cube_pos.second <= 51);
+                bool correct_position = (cube_pos.first >= 0  && cube_pos.second >= 42 && cube_pos.second <= 76);
                 bool blue_room_10 = planner.Last_room_color == 10;
                 bool blue = (blue_room_10 && correct_position);
-                bool goal_achieved = key && !ydrag_in_room && blue; 
+                bool goal_achieved = key  && blue; 
                 if(printing_sketches_){
                 std::cout << "SKETCH 10 GOAL: " << (goal_achieved ? "REACHED" : "MOVING") 
                 <<  " | bkey=" << key  << " | !ydragon_in room=" << !ydrag_in_room 
@@ -2957,7 +3159,7 @@ struct SimPlanner : Planner {
                 bool key = planner.bkey(curr,prev,printing_sketches_);
                 auto temp = planner.regions_for_cube(curr);
                 auto cube_pos = planner.highlight_cube(curr, prev);
-                bool correct_position = (cube_pos.first >= 0  && cube_pos.second >= 17 && cube_pos.second <= 51);
+                bool correct_position = (cube_pos.first >= 0  && cube_pos.second >= 42 && cube_pos.second <= 76);
                 bool blue_room_10 = planner.Last_room_color == 10;
                 bool correct_position_2 = (cube_pos.first >= 72 && cube_pos.first <= 87 && cube_pos.second >= 0 );
                 bool blue_room_9 = planner.Last_room_color == 9;
@@ -2983,7 +3185,7 @@ struct SimPlanner : Planner {
                 bool correct_position = (cube_pos.first >= 72 && cube_pos.first <= 87 && cube_pos.second >= 0 );
                 bool blue_room_10 = planner.Last_room_color == 9;
                 bool blue = (blue_room_10 && correct_position);
-                bool goal_achieved = key && !ydrag_in_room && blue; 
+                bool goal_achieved = key  && blue; 
                 if(printing_sketches_){
                 std::cout << "SKETCH 11 GOAL: " << (goal_achieved ? "REACHED" : "MOVING") 
                 <<  " | bkey=" << key  << " | !ydragon_in room=" << !ydrag_in_room 
@@ -3072,7 +3274,7 @@ struct SimPlanner : Planner {
 
     void initialize_sketches_private_eye() {
         sketches_.clear();
-        // Sketch 0: Go to a transition room 3 (to progress to border room with clues)
+        // Sketch 0: Go to a transition room 2 (to progress to border room with clues)
         sketches_.push_back(Sketch{
             [this](const SimPlanner& planner, const std::vector<pixel_t>& prev, const std::vector<pixel_t>& curr) {
                 //bool border_in_room = planner.border_in_room(curr, printing_sketches_);
@@ -3148,7 +3350,7 @@ struct SimPlanner : Planner {
          sketches_.push_back(Sketch{
             [this](const SimPlanner& planner, const std::vector<pixel_t>& prev, const std::vector<pixel_t>& curr) {
                 bool border_in_room = planner.border_in_room(curr, printing_sketches_);
-                bool room_1 = planner.room_detection(curr, printing_sketches_) == 3;
+                bool room_1 = planner.room_detection(curr, printing_sketches_) == 2;
                 bool cond =  (room_1 && !border_in_room)  ;  //D == 1 &&
                 if(printing_sketches_){
                 std::cout<< std::endl; 
@@ -3162,7 +3364,7 @@ struct SimPlanner : Planner {
             [this](const SimPlanner& planner, const std::vector<pixel_t>& prev, const std::vector<pixel_t>& curr, const std::vector<pixel_t>& prevs) {
                 if(printing_sketches_) std::cout << "SKETCH 1 GOAL Computation " << std::endl;
                 bool border_in_room = planner.border_in_room(curr, printing_sketches_);
-                bool room_1 = planner.room_detection(curr, printing_sketches_) == 3;
+                bool room_1 = planner.room_detection(curr, printing_sketches_) == 2;
                 //bool detective_in_room = planner.detective_in_room(curr, printing_sketches_);
                 int witness_distance = planner.witness_distance(curr, printing_sketches_);
                 bool near_witness = is_barricade_right_of_detective_vehicle(curr, printing_sketches_);
@@ -3941,7 +4143,7 @@ struct SimPlanner : Planner {
         }
         
         if (printing) {
-            std::cout << "No money bag found in y-range 30-40" << std::endl;
+            std::cout << "No money bag found in y-range 30-40 idk" << std::endl;
         }
         return false;
     }
@@ -3949,4 +4151,3 @@ struct SimPlanner : Planner {
 
 };
 #endif
-

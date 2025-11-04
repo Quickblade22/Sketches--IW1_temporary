@@ -29,9 +29,9 @@ struct MyALEScreen {
     
     //patch sizes: 
     //if change this --> need to change in main.cc 458, 459 
-    static const size_t patch_width_ = 5; //10
-    static const size_t patch_height_ = 10; //15
-    static const size_t screen_height__ = 210; 
+    static const size_t patch_width_ = 10; //10
+    static const size_t patch_height_ = 15; //15
+    static const size_t screen_height__ = 250; 
     static const size_t screen_width__ = 160;
     static const size_t num_patches_x_ = screen_width__ / patch_width_; //16
     static const size_t num_patches_y_ = screen_height__ / patch_height_; //14
@@ -83,11 +83,11 @@ struct MyALEScreen {
     const bool printing_debug = false; // Set to true to print debug information
     MyALEScreen(ALEInterface &ale,
                 int type,
-                std::vector<int> *screen_state_atoms = nullptr, std::vector<pixel_t> *screen_pixels = nullptr, int root_room = -1,
+                std::vector<int> *screen_state_atoms = nullptr, std::vector<pixel_t> *screen_pixels = nullptr,
                 const std::vector<int> *prev_screen_state_atoms = nullptr)
       : type_(type),
         screen_(ale.getScreen()),  screen_pixels_(*screen_pixels), height_(screen_.height()), width_(screen_.width()){
-       
+        //std::cout<< "Initializing MyALEScreen with type " << type_ << " screen_height=" << screen_.height() << " screen_width=" << screen_.width() << std::endl;
         logging::Logger::DebugMode(-100)
           << "screen:"
           << " type=" << type_
@@ -99,7 +99,7 @@ struct MyALEScreen {
         screen_pixels->resize(width_ * height_);
 
         ale.getScreenGrayscale(*screen_pixels);
-        current_room_color_ = root_room;
+        current_room_color_ = -1 ; //root_room;
         
         //screen_pixels->resize(width_ * height_);
         //fill_image(ale, *screen_pixels);
