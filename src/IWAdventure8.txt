@@ -5383,3 +5383,806 @@ bfs: total time: 1657.8 seconds
 [32;1mlogging::Logger::Info: [0minput: #nodes=1, #tips=1, height=0
 simulator calls: 0 simulator budget: 5000000
 [32;1mlogging::Logger::Info: [0mqueue: sz=1
+[32;1mlogging::Logger::Info: [0mbfs: stopping search, queue empty=0, simulator budget reached=1, time budget reached=1, fulfillment branch full=1
+Root node preconditions: 
+Setting item state for node with action: 5 ykeyt:0 bkeyt:1 yswrt:0 chalicet:0 ydragon:1 gdragon:1 Last_room_color:-1
+SKETCH 0 PRE Computation 
+
+SKETCH 0 PREc (Acquire Key): | !ykey=1 | ykeyr=0 | !sword_room 1 | INACTIVE
+SKETCH 1 PRE Computation 
+SKETCH 1 PRE go sword room: | ykey=0 | !ysword room=1 | INACTIVE
+SKETCH 2 PRE Computation 
+SKETCH 2 PRE: (get ysword) | !ykey=1 | ysw room=0 | !ysword=1 | INACTIVE
+SKETCH 3 PRE Computation 
+SKETCH 3 PRE: | ysword=0 | ydrag_in_room=0 |  !ydrag=0 |INACTIVE
+SKETCH 4 PRE Computation 
+SKETCH 4 PRE: | ysword=0 | !ydrag=0 ydrag_in_room0 | INACTIVE
+SKETCH 5 PRE Computation 
+ydragon function called
+SKETCH 5 PRE: | ysword=0 | !gdrag_in_room=0 | INACTIVE
+SKETCH 6 PRE Computation 
+
+not touched 
+Checking items in entire screen for type: yellow_sword
+found black_key at 31 87 cube at 28 81
+ searching around cube
+Cube position: (28, 81)
+ Clusters found: 2 filtered clusters: 0
+cluster size: 2 with color: 0 in filtered cluster included 0
+cluster size: 26 with color: 0 in filtered cluster included 0
+ found nothing 
+detect_ysword_printing: 0
+ydragon function called
+gdragonr function called
+dragon_type gdragondetect_dragons_in_room:  Cluster size 140 is_alive 0 is_firing 0 is_dead 0
+cluster size: 140 color: 147
+gdragon function called
+SKETCH 6 PRE: | ysword=0 | ydrag=1 | gdrag_in_room=0 | !gdrag=0 | INACTIVE
+SKETCH 7 PRE Computation 
+
+already touched
+found cube carrying black_key
+black key detected near cube at 35 87 and cube at 28 ,81
+detect_bkey_printing: 1
+gdragon function called
+SKETCH 7 PRE: (get bkey) | !bkey=0 | bkey room=1 | ysword=0 | gdrag=1 | INACTIVE
+SKETCH 8 PRE Computation 
+ydragon function called
+
+already touched
+found cube carrying black_key
+black key detected near cube at 35 87 and cube at 28 ,81
+detect_bkey_printing: 1
+dragon_type ydragondetect_dragons_in_room:  Cluster size 140 is_alive 0 is_firing 0 is_dead 0
+ Dragon detected by size
+SKETCH 8 PRE (reach ydragon_room with bkey): | !ydrag_in_room=1 |  ydrag=1 | bkey1 swordr=0 |!blue_room_9=1 |Last_room_color=-1ACTIVE
+SKETCH 8.5 PRE Computation 
+ydragon function called
+
+already touched
+found cube carrying black_key
+black key detected near cube at 35 87 and cube at 28 ,81
+detect_bkey_printing: 1
+dragon_type ydragondetect_dragons_in_room:  Cluster size 140 is_alive 0 is_firing 0 is_dead 0
+ Dragon detected by size
+SKETCH 8.5 PRE: | ydrag_in_room=0 |  ydrag=1 | bkey=1 | !blue_room_6=1 |Last_room_color=-1 |INACTIVE
+SKETCH 9 PRE Computation 
+ydragon function called
+
+already touched
+found cube carrying black_key
+black key detected near cube at 35 87 and cube at 28 ,81
+detect_bkey_printing: 1
+dragon_type ydragondetect_dragons_in_room:  Cluster size 140 is_alive 0 is_firing 0 is_dead 0
+ Dragon detected by size
+SKETCH 9 PRE (get to start of blue maze): | ydrag_in_room=0 |  ydrag=1 | bkey=1 | !correct_position=1 | !blue_room_6=1 |cube_pos=(28,81) |Last_room_color=-1 |INACTIVE
+SKETCH 10 PRE Computation 
+ydragon function called
+
+already touched
+found cube carrying black_key
+black key detected near cube at 35 87 and cube at 28 ,81
+detect_bkey_printing: 1
+SKETCH 10 PRE: |  ydrag=1 | bkey=1 | !blue=1 |cube_pos=(28,81) |blue_room_10=0 |Last_room_color=-1 |INACTIVE
+SKETCH 11 PRE Computation 
+ydragon function called
+
+already touched
+found cube carrying black_key
+black key detected near cube at 35 87 and cube at 28 ,81
+detect_bkey_printing: 1
+SKETCH 11 PRE: |  ydrag=1 | bkey=1 | blue=1 |cube_pos=(28,81) |blue_room_10=0 |Last_room_color=-1 |!blue_2=1 |INACTIVE
+SKETCH 12 PRE Computation 
+ydragon function called
+
+already touched
+found cube carrying black_key
+black key detected near cube at 35 87 and cube at 28 ,81
+detect_bkey_printing: 1
+SKETCH 12 PRE: |  ydrag=1 | bkey=1 | blue=0 |cube_pos=(28,81) |blue_room_10=0 |Last_room_color=-1 |INACTIVE
+SKETCH 13 PRE Computation 
+ydragon function called
+
+already touched
+found cube carrying black_key
+black key detected near cube at 35 87 and cube at 28 ,81
+detect_bkey_printing: 1
+SKETCH 13 PRE: |  ydrag=1 | bkey=1 | black=0 |Last_room_color=-1 | !chalice=1 |INACTIVE
+Sketches pre: 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 
+Setting node state for node with action: 5 ykeyt:0 bkeyt:1 yswrt:0 chalicet:0 ydragon:1 gdragon:1 Last_room_color:-1
+---------------------------------------------------------------------------------
+sketches exploitation with depth lookahead
+ Started froom room -1 Action in fulfillment branch: 3 3 3 2 2 2 2 4 4 4 4 4  to complete sketch: 0  | 0  | 0  | 0  | 0  | 0  | 0  | 0  | 1  | 0  | 0  | 0  | 0  | 0  | 0  |  ended in room: 2
+At fulfillment branch end, chalicer is 0
+Setting item state for node with action: 4 ykeyt:0 bkeyt:1 yswrt:0 chalicet:0 ydragon:1 gdragon:1 Last_room_color:2
+checking sketches preconditions and goals for best node: 4
+ykeyt: 0 parents_ykeyt: 0 yswrt: 0 parents_yswrt: 0 ydragon1 parents: 1 gdragon1 parents: 1 last_room_color: 2
+Setting item state for node with action: 4 ykeyt:0 bkeyt:1 yswrt:0 chalicet:0 ydragon:1 gdragon:1 Last_room_color:2
+SKETCH 0 GOAL Computation 
+SKETCH 0 GOAL: IN PROGRESS | ykey=0
+SKETCH 1 GOAL Computation 
+SKETCH 1 GOAL: MOVING | yswr=0 | ykey=0
+SKETCH 2 GOAL Computation 
+SKETCH 2 GOAL: MOVING | ysword=0
+SKETCH 3 GOAL Computation 
+SKETCH 3 GOAL: MOVING | ysword=0 | ydragon_in room=1
+SKETCH 4 GOAL Computation 
+SKETCH 4 GOAL: MOVING | ysword=0 | ydragon_killed=1  or sword_dragon=0 | ydragon_distance=0 curr_dist=-1 prev_dist=-1 | what exactly curr: sword not found | what exactly curr: sword not found | ydragon_in_room=1
+SKETCH 5 GOAL Computation 
+gdragonr function called
+dragon_type gdragondetect_dragons_in_room:  Cluster size 140 is_alive 0 is_firing 0 is_dead 0
+ Dragon detected by size
+ydragon function called
+
+already touched
+detect_bkey_printing: 1
+SKETCH 5 GOAL: MOVING | ysword=0 | gdragon_in room=0 |bkey 1
+SKETCH 6 GOAL Computation 
+
+not touched 
+Checking items in entire screen for type: yellow_sword
+ searching around cube
+Cube position: (156, 145)
+ Clusters found: 0 filtered clusters: 0
+ found nothing 
+detect_ysword_printing: 0
+gdragon function called
+gdragonr function called
+dragon_type gdragondetect_dragons_in_room:  Cluster size 140 is_alive 0 is_firing 0 is_dead 0
+ Dragon detected by size
+Detecting items on screen...0
+SKETCH 6 GOAL: MOVING | ysword=0 | gdragon_killed=1  or sword_dragon=0 | gdragon_in_room=0
+SKETCH 7 GOAL Computation 
+
+already touched
+detect_bkey_printing: 1
+black_key is not above cube
+SKETCH 7 GOAL: REACHED | bkey=1 | is_key_above_cube=0
+SKETCH 8 GOAL Computation 
+
+already touched
+detect_bkey_printing: 1
+dragon_type ydragondetect_dragons_in_room:  Cluster size 140 is_alive 0 is_firing 0 is_dead 1
+ydragon function called
+SKETCH 8 GOAL: REACHED | bkey=1 | ydragon_in room=1 | ydragon_killed=1
+SKETCH 8.5 GOAL Computation 
+
+already touched
+detect_bkey_printing: 1
+dragon_type ydragondetect_dragons_in_room:  Cluster size 140 is_alive 0 is_firing 0 is_dead 1
+SKETCH 8.5 GOAL: MOVING | bkey=1 | !ydragon_in room=0 |blue_room_6=0 |Last_room_color=2
+SKETCH 9 GOAL Computation 
+
+already touched
+detect_bkey_printing: 1
+dragon_type ydragondetect_dragons_in_room:  Cluster size 140 is_alive 0 is_firing 0 is_dead 1
+SKETCH 9 GOAL: MOVING | bkey=1 | !ydragon_in room=0 | !blue=1 |cube_pos=(156,145) |blue_room_10=0 |Last_room_color=2
+SKETCH 10 GOAL Computation 
+
+already touched
+detect_bkey_printing: 1
+dragon_type ydragondetect_dragons_in_room:  Cluster size 140 is_alive 0 is_firing 0 is_dead 1
+SKETCH 10 GOAL: MOVING | bkey=1 | !ydragon_in room=0 | !blue=1 |cube_pos=(156,145) |blue_room_10=0 |Last_room_color=2
+SKETCH 11 GOAL Computation 
+
+already touched
+detect_bkey_printing: 1
+dragon_type ydragondetect_dragons_in_room:  Cluster size 140 is_alive 0 is_firing 0 is_dead 1
+SKETCH 11 GOAL: MOVING | bkey=1 | !ydragon_in room=0 | !blue=1 |cube_pos=(156,145) |blue_room_10=0 |Last_room_color=2
+SKETCH 12 GOAL Computation 
+
+already touched
+detect_bkey_printing: 1
+SKETCH 12 GOAL: MOVING | bkey=1 | chalicer=0 | last_room_color=2 | reached=0
+SKETCH 13 GOAL Computation 
+
+already touched
+detect_bkey_printing: 1
+SKETCH 13 GOAL: MOVING | bkey=1 | chalicer=0 | last_room_color=2 | reached=0
+Sketches post: 0 0 0 0 0 0 0 1 1 0 0 0 0 0 0 
+Setting node state for node with action: 4 ykeyt:0 bkeyt:1 yswrt:0 chalicet:0 ydragon:1 gdragon:1 Last_room_color:2
+Setting item state for node with action: 4 ykeyt:0 bkeyt:1 yswrt:0 chalicet:0 ydragon:1 gdragon:1 Last_room_color:2
+SKETCH 0 PRE Computation 
+
+SKETCH 0 PREc (Acquire Key): | !ykey=1 | ykeyr=0 | !sword_room 1 | INACTIVE
+SKETCH 1 PRE Computation 
+SKETCH 1 PRE go sword room: | ykey=0 | !ysword room=1 | INACTIVE
+SKETCH 2 PRE Computation 
+SKETCH 2 PRE: (get ysword) | !ykey=1 | ysw room=0 | !ysword=1 | INACTIVE
+SKETCH 3 PRE Computation 
+SKETCH 3 PRE: | ysword=0 | ydrag_in_room=1 |  !ydrag=0 |INACTIVE
+SKETCH 4 PRE Computation 
+SKETCH 4 PRE: | ysword=0 | !ydrag=0 ydrag_in_room1 | INACTIVE
+SKETCH 5 PRE Computation 
+ydragon function called
+SKETCH 5 PRE: | ysword=0 | !gdrag_in_room=1 | INACTIVE
+SKETCH 6 PRE Computation 
+
+not touched 
+Checking items in entire screen for type: yellow_sword
+ searching around cube
+Cube position: (156, 145)
+ Clusters found: 0 filtered clusters: 0
+ found nothing 
+detect_ysword_printing: 0
+ydragon function called
+gdragonr function called
+dragon_type gdragondetect_dragons_in_room:  Cluster size 140 is_alive 0 is_firing 0 is_dead 0
+ Dragon detected by size
+gdragon function called
+SKETCH 6 PRE: | ysword=0 | ydrag=1 | gdrag_in_room=0 | !gdrag=0 | INACTIVE
+SKETCH 7 PRE Computation 
+
+already touched
+detect_bkey_printing: 1
+gdragon function called
+SKETCH 7 PRE: (get bkey) | !bkey=0 | bkey room=0 | ysword=0 | gdrag=1 | INACTIVE
+SKETCH 8 PRE Computation 
+ydragon function called
+
+already touched
+detect_bkey_printing: 1
+dragon_type ydragondetect_dragons_in_room:  Cluster size 140 is_alive 0 is_firing 0 is_dead 1
+SKETCH 8 PRE (reach ydragon_room with bkey): | !ydrag_in_room=0 |  ydrag=1 | bkey1 swordr=0 |!blue_room_9=1 |Last_room_color=2INACTIVE
+SKETCH 8.5 PRE Computation 
+ydragon function called
+
+already touched
+detect_bkey_printing: 1
+dragon_type ydragondetect_dragons_in_room:  Cluster size 140 is_alive 0 is_firing 0 is_dead 1
+SKETCH 8.5 PRE: | ydrag_in_room=1 |  ydrag=1 | bkey=1 | !blue_room_6=1 |Last_room_color=2 |ACTIVE
+SKETCH 9 PRE Computation 
+ydragon function called
+
+already touched
+detect_bkey_printing: 1
+dragon_type ydragondetect_dragons_in_room:  Cluster size 140 is_alive 0 is_firing 0 is_dead 1
+SKETCH 9 PRE (get to start of blue maze): | ydrag_in_room=1 |  ydrag=1 | bkey=1 | !correct_position=1 | !blue_room_6=1 |cube_pos=(156,145) |Last_room_color=2 |INACTIVE
+SKETCH 10 PRE Computation 
+ydragon function called
+
+already touched
+detect_bkey_printing: 1
+SKETCH 10 PRE: |  ydrag=1 | bkey=1 | !blue=1 |cube_pos=(156,145) |blue_room_10=0 |Last_room_color=2 |INACTIVE
+SKETCH 11 PRE Computation 
+ydragon function called
+
+already touched
+detect_bkey_printing: 1
+SKETCH 11 PRE: |  ydrag=1 | bkey=1 | blue=1 |cube_pos=(156,145) |blue_room_10=0 |Last_room_color=2 |!blue_2=1 |INACTIVE
+SKETCH 12 PRE Computation 
+ydragon function called
+
+already touched
+detect_bkey_printing: 1
+SKETCH 12 PRE: |  ydrag=1 | bkey=1 | blue=0 |cube_pos=(156,145) |blue_room_10=0 |Last_room_color=2 |INACTIVE
+SKETCH 13 PRE Computation 
+ydragon function called
+
+already touched
+detect_bkey_printing: 1
+SKETCH 13 PRE: |  ydrag=1 | bkey=1 | black=0 |Last_room_color=2 | !chalice=1 |INACTIVE
+Sketches pre: 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 
+Setting node state for node with action: 4 ykeyt:0 bkeyt:1 yswrt:0 chalicet:0 ydragon:1 gdragon:1 Last_room_color:2
+----------------------------------------------------- 
+distance to items: ykey: best node = -1 root= -1 ysword: best node = -1 root= -1 bkey: best node = -1 root= 3 chalice: best node = -1 root= -1
+[33;1mlogging::Logger::Stats: [0mdecision-stats: #entries=[0:54829/20598848,] #nodes=5239 #tips=4366 height=[13:6,6,12,12,0,9,] #expansions=873 #sim=4630 total-time=1634.13 simulator-time=2.78955 reset-time=0 get/set-state-time=1.08545 expand-time=0.116211 update-novelty-time=0.133301 get-atoms-calls=4630 get-atoms-time=6.91016 novel-atom-time=0.733398
+bfs: total time: 1634.13 seconds
+[32;1mlogging::Logger::Info: [0mexecutable-prefix: len=12, actions=[3,3,3,2,2,2,2,4,4,4,4,4,]
+[33;1mlogging::Logger::Stats: [0mstep-stats: acc-reward=0, acc-frames=975
+[33;1mlogging::Logger::Stats: [0mstep-stats: acc-reward=0, acc-frames=990
+[33;1mlogging::Logger::Stats: [0mstep-stats: acc-reward=0, acc-frames=1005
+[33;1mlogging::Logger::Stats: [0mstep-stats: acc-reward=0, acc-frames=1020
+[33;1mlogging::Logger::Stats: [0mstep-stats: acc-reward=0, acc-frames=1035
+[33;1mlogging::Logger::Stats: [0mstep-stats: acc-reward=0, acc-frames=1050
+[33;1mlogging::Logger::Stats: [0mstep-stats: acc-reward=0, acc-frames=1065
+[33;1mlogging::Logger::Stats: [0mstep-stats: acc-reward=0, acc-frames=1080
+[33;1mlogging::Logger::Stats: [0mstep-stats: acc-reward=0, acc-frames=1095
+[33;1mlogging::Logger::Stats: [0mstep-stats: acc-reward=0, acc-frames=1110
+[33;1mlogging::Logger::Stats: [0mstep-stats: acc-reward=0, acc-frames=1125
+[33;1mlogging::Logger::Stats: [0mstep-stats: acc-reward=0, acc-frames=1140
+[32;1mlogging::Logger::Info: [0m**** bfs: get branch ****
+[32;1mlogging::Logger::Info: [0mprefix: sz=99, actions=[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4,4,4,2,2,5,5,3,3,3,2,2,4,4,4,3,3,5,5,5,5,4,5,4,4,4,4,4,5,5,5,3,3,0,0,0,3,3,3,5,3,3,3,3,3,3,3,3,3,3,3,5,0,5,0,4,4,4,1,4,2,1,5,5,3,3,3,2,2,2,2,4,4,4,4,4,]
+[32;1mlogging::Logger::Info: [0minput: #nodes=7, #tips=6, height=1
+simulator calls: 0 simulator budget: 5000000
+[32;1mlogging::Logger::Info: [0mqueue: sz=6
+[32;1mlogging::Logger::Info: [0mbfs: stopping search, queue empty=0, simulator budget reached=1, time budget reached=1, fulfillment branch full=1
+Root node preconditions: 
+Setting item state for node with action: 4 ykeyt:0 bkeyt:1 yswrt:0 chalicet:0 ydragon:1 gdragon:1 Last_room_color:2
+SKETCH 0 PRE Computation 
+
+SKETCH 0 PREc (Acquire Key): | !ykey=1 | ykeyr=0 | !sword_room 1 | INACTIVE
+SKETCH 1 PRE Computation 
+SKETCH 1 PRE go sword room: | ykey=0 | !ysword room=1 | INACTIVE
+SKETCH 2 PRE Computation 
+SKETCH 2 PRE: (get ysword) | !ykey=1 | ysw room=0 | !ysword=1 | INACTIVE
+SKETCH 3 PRE Computation 
+SKETCH 3 PRE: | ysword=0 | ydrag_in_room=1 |  !ydrag=0 |INACTIVE
+SKETCH 4 PRE Computation 
+SKETCH 4 PRE: | ysword=0 | !ydrag=0 ydrag_in_room1 | INACTIVE
+SKETCH 5 PRE Computation 
+ydragon function called
+SKETCH 5 PRE: | ysword=0 | !gdrag_in_room=1 | INACTIVE
+SKETCH 6 PRE Computation 
+
+not touched 
+Checking items in entire screen for type: yellow_sword
+ searching around cube
+Cube position: (156, 145)
+ Clusters found: 0 filtered clusters: 0
+ found nothing 
+detect_ysword_printing: 0
+ydragon function called
+gdragonr function called
+dragon_type gdragondetect_dragons_in_room:  Cluster size 140 is_alive 0 is_firing 0 is_dead 0
+ Dragon detected by size
+gdragon function called
+SKETCH 6 PRE: | ysword=0 | ydrag=1 | gdrag_in_room=0 | !gdrag=0 | INACTIVE
+SKETCH 7 PRE Computation 
+
+already touched
+detect_bkey_printing: 1
+gdragon function called
+SKETCH 7 PRE: (get bkey) | !bkey=0 | bkey room=0 | ysword=0 | gdrag=1 | INACTIVE
+SKETCH 8 PRE Computation 
+ydragon function called
+
+already touched
+detect_bkey_printing: 1
+dragon_type ydragondetect_dragons_in_room:  Cluster size 140 is_alive 0 is_firing 0 is_dead 1
+SKETCH 8 PRE (reach ydragon_room with bkey): | !ydrag_in_room=0 |  ydrag=1 | bkey1 swordr=0 |!blue_room_9=1 |Last_room_color=2INACTIVE
+SKETCH 8.5 PRE Computation 
+ydragon function called
+
+already touched
+detect_bkey_printing: 1
+dragon_type ydragondetect_dragons_in_room:  Cluster size 140 is_alive 0 is_firing 0 is_dead 1
+SKETCH 8.5 PRE: | ydrag_in_room=1 |  ydrag=1 | bkey=1 | !blue_room_6=1 |Last_room_color=2 |ACTIVE
+SKETCH 9 PRE Computation 
+ydragon function called
+
+already touched
+detect_bkey_printing: 1
+dragon_type ydragondetect_dragons_in_room:  Cluster size 140 is_alive 0 is_firing 0 is_dead 1
+SKETCH 9 PRE (get to start of blue maze): | ydrag_in_room=1 |  ydrag=1 | bkey=1 | !correct_position=1 | !blue_room_6=1 |cube_pos=(156,145) |Last_room_color=2 |INACTIVE
+SKETCH 10 PRE Computation 
+ydragon function called
+
+already touched
+detect_bkey_printing: 1
+SKETCH 10 PRE: |  ydrag=1 | bkey=1 | !blue=1 |cube_pos=(156,145) |blue_room_10=0 |Last_room_color=2 |INACTIVE
+SKETCH 11 PRE Computation 
+ydragon function called
+
+already touched
+detect_bkey_printing: 1
+SKETCH 11 PRE: |  ydrag=1 | bkey=1 | blue=1 |cube_pos=(156,145) |blue_room_10=0 |Last_room_color=2 |!blue_2=1 |INACTIVE
+SKETCH 12 PRE Computation 
+ydragon function called
+
+already touched
+detect_bkey_printing: 1
+SKETCH 12 PRE: |  ydrag=1 | bkey=1 | blue=0 |cube_pos=(156,145) |blue_room_10=0 |Last_room_color=2 |INACTIVE
+SKETCH 13 PRE Computation 
+ydragon function called
+
+already touched
+detect_bkey_printing: 1
+SKETCH 13 PRE: |  ydrag=1 | bkey=1 | black=0 |Last_room_color=2 | !chalice=1 |INACTIVE
+Sketches pre: 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 
+Setting node state for node with action: 4 ykeyt:0 bkeyt:1 yswrt:0 chalicet:0 ydragon:1 gdragon:1 Last_room_color:2
+---------------------------------------------------------------------------------
+sketches exploitation with depth lookahead
+ Started froom room 2 Action in fulfillment branch: 4 4 4 4 2 4 4 4 4 4 4 4 4 2 2 2 4 4 4 2  to complete sketch: 0  | 0  | 0  | 0  | 0  | 0  | 0  | 0  | 0  | 1  | 0  | 0  | 0  | 0  | 0  |  ended in room: 6
+At fulfillment branch end, chalicer is 0
+Setting item state for node with action: 2 ykeyt:0 bkeyt:1 yswrt:0 chalicet:0 ydragon:1 gdragon:1 Last_room_color:6
+checking sketches preconditions and goals for best node: 2
+ykeyt: 0 parents_ykeyt: 0 yswrt: 0 parents_yswrt: 0 ydragon1 parents: 1 gdragon1 parents: 1 last_room_color: 6
+Setting item state for node with action: 2 ykeyt:0 bkeyt:1 yswrt:0 chalicet:0 ydragon:1 gdragon:1 Last_room_color:6
+SKETCH 0 GOAL Computation 
+SKETCH 0 GOAL: IN PROGRESS | ykey=0
+SKETCH 1 GOAL Computation 
+SKETCH 1 GOAL: MOVING | yswr=0 | ykey=0
+SKETCH 2 GOAL Computation 
+SKETCH 2 GOAL: MOVING | ysword=0
+SKETCH 3 GOAL Computation 
+SKETCH 3 GOAL: MOVING | ysword=0 | ydragon_in room=0
+SKETCH 4 GOAL Computation 
+SKETCH 4 GOAL: MOVING | ysword=0 | ydragon_killed=1  or sword_dragon=0 | ydragon_distance=0 curr_dist=-1 prev_dist=-1 | what exactly curr: sword not found | what exactly curr: sword not found | ydragon_in_room=0
+SKETCH 5 GOAL Computation 
+gdragonr function called
+ydragon function called
+
+already touched
+detect_bkey_printing: 1
+SKETCH 5 GOAL: MOVING | ysword=0 | gdragon_in room=0 |bkey 1
+SKETCH 6 GOAL Computation 
+
+not touched 
+Checking items in entire screen for type: yellow_sword
+ searching around cube
+Cube position: (87, 181)
+ Clusters found: 2 filtered clusters: 0
+cluster size: 96 with color: 0 in filtered cluster included 0
+cluster size: 80 with color: 85 in filtered cluster included 0
+ found nothing 
+detect_ysword_printing: 0
+gdragon function called
+gdragonr function called
+Detecting items on screen...0
+SKETCH 6 GOAL: MOVING | ysword=0 | gdragon_killed=1  or sword_dragon=0 | gdragon_in_room=0
+SKETCH 7 GOAL Computation 
+
+already touched
+detect_bkey_printing: 1
+black_key is not above cube
+SKETCH 7 GOAL: REACHED | bkey=1 | is_key_above_cube=0
+SKETCH 8 GOAL Computation 
+
+already touched
+detect_bkey_printing: 1
+ydragon function called
+SKETCH 8 GOAL: MOVING | bkey=1 | ydragon_in room=0 | ydragon_killed=1
+SKETCH 8.5 GOAL Computation 
+
+already touched
+detect_bkey_printing: 1
+SKETCH 8.5 GOAL: REACHED | bkey=1 | !ydragon_in room=1 |blue_room_6=1 |Last_room_color=6
+SKETCH 9 GOAL Computation 
+
+already touched
+detect_bkey_printing: 1
+SKETCH 9 GOAL: MOVING | bkey=1 | !ydragon_in room=1 | !blue=1 |cube_pos=(87,181) |blue_room_10=1 |Last_room_color=6
+SKETCH 10 GOAL Computation 
+
+already touched
+detect_bkey_printing: 1
+SKETCH 10 GOAL: MOVING | bkey=1 | !ydragon_in room=1 | !blue=1 |cube_pos=(87,181) |blue_room_10=0 |Last_room_color=6
+SKETCH 11 GOAL Computation 
+
+already touched
+detect_bkey_printing: 1
+SKETCH 11 GOAL: MOVING | bkey=1 | !ydragon_in room=1 | !blue=1 |cube_pos=(87,181) |blue_room_10=0 |Last_room_color=6
+SKETCH 12 GOAL Computation 
+
+already touched
+detect_bkey_printing: 1
+SKETCH 12 GOAL: MOVING | bkey=1 | chalicer=0 | last_room_color=6 | reached=0
+SKETCH 13 GOAL Computation 
+
+already touched
+detect_bkey_printing: 1
+SKETCH 13 GOAL: MOVING | bkey=1 | chalicer=0 | last_room_color=6 | reached=0
+Sketches post: 0 0 0 0 0 0 0 1 0 1 0 0 0 0 0 
+Setting node state for node with action: 2 ykeyt:0 bkeyt:1 yswrt:0 chalicet:0 ydragon:1 gdragon:1 Last_room_color:6
+Setting item state for node with action: 2 ykeyt:0 bkeyt:1 yswrt:0 chalicet:0 ydragon:1 gdragon:1 Last_room_color:6
+SKETCH 0 PRE Computation 
+
+SKETCH 0 PREc (Acquire Key): | !ykey=1 | ykeyr=0 | !sword_room 1 | INACTIVE
+SKETCH 1 PRE Computation 
+SKETCH 1 PRE go sword room: | ykey=0 | !ysword room=1 | INACTIVE
+SKETCH 2 PRE Computation 
+SKETCH 2 PRE: (get ysword) | !ykey=1 | ysw room=0 | !ysword=1 | INACTIVE
+SKETCH 3 PRE Computation 
+SKETCH 3 PRE: | ysword=0 | ydrag_in_room=0 |  !ydrag=0 |INACTIVE
+SKETCH 4 PRE Computation 
+SKETCH 4 PRE: | ysword=0 | !ydrag=0 ydrag_in_room0 | INACTIVE
+SKETCH 5 PRE Computation 
+ydragon function called
+SKETCH 5 PRE: | ysword=0 | !gdrag_in_room=1 | INACTIVE
+SKETCH 6 PRE Computation 
+
+not touched 
+Checking items in entire screen for type: yellow_sword
+ searching around cube
+Cube position: (87, 181)
+ Clusters found: 2 filtered clusters: 0
+cluster size: 96 with color: 0 in filtered cluster included 0
+cluster size: 80 with color: 85 in filtered cluster included 0
+ found nothing 
+detect_ysword_printing: 0
+ydragon function called
+gdragonr function called
+gdragon function called
+SKETCH 6 PRE: | ysword=0 | ydrag=1 | gdrag_in_room=0 | !gdrag=0 | INACTIVE
+SKETCH 7 PRE Computation 
+
+already touched
+detect_bkey_printing: 1
+gdragon function called
+SKETCH 7 PRE: (get bkey) | !bkey=0 | bkey room=0 | ysword=0 | gdrag=1 | INACTIVE
+SKETCH 8 PRE Computation 
+ydragon function called
+
+already touched
+detect_bkey_printing: 1
+SKETCH 8 PRE (reach ydragon_room with bkey): | !ydrag_in_room=1 |  ydrag=1 | bkey1 swordr=0 |!blue_room_9=0 |Last_room_color=6INACTIVE
+SKETCH 8.5 PRE Computation 
+ydragon function called
+
+already touched
+detect_bkey_printing: 1
+SKETCH 8.5 PRE: | ydrag_in_room=0 |  ydrag=1 | bkey=1 | !blue_room_6=0 |Last_room_color=6 |INACTIVE
+SKETCH 9 PRE Computation 
+ydragon function called
+
+already touched
+detect_bkey_printing: 1
+SKETCH 9 PRE (get to start of blue maze): | ydrag_in_room=0 |  ydrag=1 | bkey=1 | !correct_position=1 | !blue_room_6=0 |cube_pos=(87,181) |Last_room_color=6 |ACTIVE
+SKETCH 10 PRE Computation 
+ydragon function called
+
+already touched
+detect_bkey_printing: 1
+SKETCH 10 PRE: |  ydrag=1 | bkey=1 | !blue=1 |cube_pos=(87,181) |blue_room_10=0 |Last_room_color=6 |INACTIVE
+SKETCH 11 PRE Computation 
+ydragon function called
+
+already touched
+detect_bkey_printing: 1
+SKETCH 11 PRE: |  ydrag=1 | bkey=1 | blue=1 |cube_pos=(87,181) |blue_room_10=0 |Last_room_color=6 |!blue_2=1 |INACTIVE
+SKETCH 12 PRE Computation 
+ydragon function called
+
+already touched
+detect_bkey_printing: 1
+SKETCH 12 PRE: |  ydrag=1 | bkey=1 | blue=0 |cube_pos=(87,181) |blue_room_10=0 |Last_room_color=6 |INACTIVE
+SKETCH 13 PRE Computation 
+ydragon function called
+
+already touched
+detect_bkey_printing: 1
+SKETCH 13 PRE: |  ydrag=1 | bkey=1 | black=0 |Last_room_color=6 | !chalice=1 |INACTIVE
+Sketches pre: 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 
+Setting node state for node with action: 2 ykeyt:0 bkeyt:1 yswrt:0 chalicet:0 ydragon:1 gdragon:1 Last_room_color:6
+----------------------------------------------------- 
+distance to items: ykey: best node = -1 root= -1 ysword: best node = -1 root= -1 bkey: best node = -1 root= -1 chalice: best node = -1 root= -1
+[33;1mlogging::Logger::Stats: [0mdecision-stats: #entries=[0:94140/20598848,] #nodes=5767 #tips=4806 height=[21:9,20,20,20,0,1,] #expansions=960 #sim=5348 total-time=2125.1 simulator-time=3.46094 reset-time=0 get/set-state-time=1.92969 expand-time=0.135742 update-novelty-time=0.382812 get-atoms-calls=5348 get-atoms-time=12.7598 novel-atom-time=1.19141
+bfs: total time: 2125.1 seconds
+[32;1mlogging::Logger::Info: [0mexecutable-prefix: len=20, actions=[4,4,4,4,2,4,4,4,4,4,4,4,4,2,2,2,4,4,4,2,]
+[33;1mlogging::Logger::Stats: [0mstep-stats: acc-reward=0, acc-frames=1155
+[33;1mlogging::Logger::Stats: [0mstep-stats: acc-reward=0, acc-frames=1170
+[33;1mlogging::Logger::Stats: [0mstep-stats: acc-reward=0, acc-frames=1185
+[33;1mlogging::Logger::Stats: [0mstep-stats: acc-reward=0, acc-frames=1200
+[33;1mlogging::Logger::Stats: [0mstep-stats: acc-reward=0, acc-frames=1215
+[33;1mlogging::Logger::Stats: [0mstep-stats: acc-reward=0, acc-frames=1230
+[33;1mlogging::Logger::Stats: [0mstep-stats: acc-reward=0, acc-frames=1245
+[33;1mlogging::Logger::Stats: [0mstep-stats: acc-reward=0, acc-frames=1260
+[33;1mlogging::Logger::Stats: [0mstep-stats: acc-reward=0, acc-frames=1275
+[33;1mlogging::Logger::Stats: [0mstep-stats: acc-reward=0, acc-frames=1290
+[33;1mlogging::Logger::Stats: [0mstep-stats: acc-reward=0, acc-frames=1305
+[33;1mlogging::Logger::Stats: [0mstep-stats: acc-reward=0, acc-frames=1320
+[33;1mlogging::Logger::Stats: [0mstep-stats: acc-reward=0, acc-frames=1335
+[33;1mlogging::Logger::Stats: [0mstep-stats: acc-reward=0, acc-frames=1350
+[33;1mlogging::Logger::Stats: [0mstep-stats: acc-reward=0, acc-frames=1365
+[33;1mlogging::Logger::Stats: [0mstep-stats: acc-reward=0, acc-frames=1380
+[33;1mlogging::Logger::Stats: [0mstep-stats: acc-reward=0, acc-frames=1395
+[33;1mlogging::Logger::Stats: [0mstep-stats: acc-reward=0, acc-frames=1410
+[33;1mlogging::Logger::Stats: [0mstep-stats: acc-reward=0, acc-frames=1425
+[33;1mlogging::Logger::Stats: [0mstep-stats: acc-reward=0, acc-frames=1440
+[32;1mlogging::Logger::Info: [0m**** bfs: get branch ****
+[32;1mlogging::Logger::Info: [0mprefix: sz=119, actions=[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4,4,4,2,2,5,5,3,3,3,2,2,4,4,4,3,3,5,5,5,5,4,5,4,4,4,4,4,5,5,5,3,3,0,0,0,3,3,3,5,3,3,3,3,3,3,3,3,3,3,3,5,0,5,0,4,4,4,1,4,2,1,5,5,3,3,3,2,2,2,2,4,4,4,4,4,4,4,4,4,2,4,4,4,4,4,4,4,4,2,2,2,4,4,4,2,]
+[32;1mlogging::Logger::Info: [0minput: #nodes=7, #tips=6, height=1
+simulator calls: 0 simulator budget: 5000000
+[32;1mlogging::Logger::Info: [0mqueue: sz=6
+[32;1mlogging::Logger::Info: [0mbfs: stopping search, queue empty=0, simulator budget reached=1, time budget reached=0, fulfillment branch full=0
+Root node preconditions: 
+Setting item state for node with action: 2 ykeyt:0 bkeyt:1 yswrt:0 chalicet:0 ydragon:1 gdragon:1 Last_room_color:6
+SKETCH 0 PRE Computation 
+
+SKETCH 0 PREc (Acquire Key): | !ykey=1 | ykeyr=0 | !sword_room 1 | INACTIVE
+SKETCH 1 PRE Computation 
+SKETCH 1 PRE go sword room: | ykey=0 | !ysword room=1 | INACTIVE
+SKETCH 2 PRE Computation 
+SKETCH 2 PRE: (get ysword) | !ykey=1 | ysw room=0 | !ysword=1 | INACTIVE
+SKETCH 3 PRE Computation 
+SKETCH 3 PRE: | ysword=0 | ydrag_in_room=0 |  !ydrag=0 |INACTIVE
+SKETCH 4 PRE Computation 
+SKETCH 4 PRE: | ysword=0 | !ydrag=0 ydrag_in_room0 | INACTIVE
+SKETCH 5 PRE Computation 
+ydragon function called
+SKETCH 5 PRE: | ysword=0 | !gdrag_in_room=1 | INACTIVE
+SKETCH 6 PRE Computation 
+
+not touched 
+Checking items in entire screen for type: yellow_sword
+ searching around cube
+Cube position: (87, 181)
+ Clusters found: 2 filtered clusters: 0
+cluster size: 96 with color: 0 in filtered cluster included 0
+cluster size: 80 with color: 85 in filtered cluster included 0
+ found nothing 
+detect_ysword_printing: 0
+ydragon function called
+gdragonr function called
+gdragon function called
+SKETCH 6 PRE: | ysword=0 | ydrag=1 | gdrag_in_room=0 | !gdrag=0 | INACTIVE
+SKETCH 7 PRE Computation 
+
+already touched
+detect_bkey_printing: 1
+gdragon function called
+SKETCH 7 PRE: (get bkey) | !bkey=0 | bkey room=0 | ysword=0 | gdrag=1 | INACTIVE
+SKETCH 8 PRE Computation 
+ydragon function called
+
+already touched
+detect_bkey_printing: 1
+SKETCH 8 PRE (reach ydragon_room with bkey): | !ydrag_in_room=1 |  ydrag=1 | bkey1 swordr=0 |!blue_room_9=0 |Last_room_color=6INACTIVE
+SKETCH 8.5 PRE Computation 
+ydragon function called
+
+already touched
+detect_bkey_printing: 1
+SKETCH 8.5 PRE: | ydrag_in_room=0 |  ydrag=1 | bkey=1 | !blue_room_6=0 |Last_room_color=6 |INACTIVE
+SKETCH 9 PRE Computation 
+ydragon function called
+
+already touched
+detect_bkey_printing: 1
+SKETCH 9 PRE (get to start of blue maze): | ydrag_in_room=0 |  ydrag=1 | bkey=1 | !correct_position=1 | !blue_room_6=0 |cube_pos=(87,181) |Last_room_color=6 |ACTIVE
+SKETCH 10 PRE Computation 
+ydragon function called
+
+already touched
+detect_bkey_printing: 1
+SKETCH 10 PRE: |  ydrag=1 | bkey=1 | !blue=1 |cube_pos=(87,181) |blue_room_10=0 |Last_room_color=6 |INACTIVE
+SKETCH 11 PRE Computation 
+ydragon function called
+
+already touched
+detect_bkey_printing: 1
+SKETCH 11 PRE: |  ydrag=1 | bkey=1 | blue=1 |cube_pos=(87,181) |blue_room_10=0 |Last_room_color=6 |!blue_2=1 |INACTIVE
+SKETCH 12 PRE Computation 
+ydragon function called
+
+already touched
+detect_bkey_printing: 1
+SKETCH 12 PRE: |  ydrag=1 | bkey=1 | blue=0 |cube_pos=(87,181) |blue_room_10=0 |Last_room_color=6 |INACTIVE
+SKETCH 13 PRE Computation 
+ydragon function called
+
+already touched
+detect_bkey_printing: 1
+SKETCH 13 PRE: |  ydrag=1 | bkey=1 | black=0 |Last_room_color=6 | !chalice=1 |INACTIVE
+Sketches pre: 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 
+Setting node state for node with action: 2 ykeyt:0 bkeyt:1 yswrt:0 chalicet:0 ydragon:1 gdragon:1 Last_room_color:6
+---------------------------------------------------------------------------------
+sketches exploitation with depth lookahead
+fulfillment branch is empty, falling back
+ return 0 path this was the max_depth 1000 searched till 922
+found a path 0
+falling back to orignal selection of child in Node 1000
+[32;1mlogging::Logger::Info: [0m[32;1mBetter child found: -1 <= 0 reward:-inf <= 0
+[32;1mlogging::Logger::Info: [0m[32;1mBetter child found random: 0reward:0
+
+Best child action_nr: 0 action:2
+distance to items: ykey: best node = -1 root= -1 ysword: best node = -1 root= -1 bkey: best node = -1 root= -1 chalice: best node = -1 root= -1
+[33;1mlogging::Logger::Stats: [0mdecision-stats: #entries=[0:127671/20598848,] #nodes=25988 #tips=13156 height=[77:76,3,2,34,0,5,] #expansions=2630 #sim=25361 total-time=10000.9 simulator-time=17.1777 reset-time=0 get/set-state-time=17.4619 expand-time=1.27246 update-novelty-time=0.541016 get-atoms-calls=25361 get-atoms-time=46.1787 novel-atom-time=2.87207
+bfs: total time: 10000.9 seconds
+[32;1mlogging::Logger::Info: [0mexecutable-prefix: len=1, actions=[2,]
+[33;1mlogging::Logger::Stats: [0mstep-stats: acc-reward=0, acc-frames=1455
+[32;1mlogging::Logger::Info: [0m**** bfs: get branch ****
+[32;1mlogging::Logger::Info: [0mprefix: sz=120, actions=[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4,4,4,2,2,5,5,3,3,3,2,2,4,4,4,3,3,5,5,5,5,4,5,4,4,4,4,4,5,5,5,3,3,0,0,0,3,3,3,5,3,3,3,3,3,3,3,3,3,3,3,5,0,5,0,4,4,4,1,4,2,1,5,5,3,3,3,2,2,2,2,4,4,4,4,4,4,4,4,4,2,4,4,4,4,4,4,4,4,2,2,2,4,4,4,2,2,]
+[32;1mlogging::Logger::Info: [0minput: #nodes=1761, #tips=1416, height=34
+simulator calls: 0 simulator budget: 5000000
+[32;1mlogging::Logger::Info: [0mqueue: sz=1416
+[32;1mlogging::Logger::Info: [0mbfs: stopping search, queue empty=0, simulator budget reached=1, time budget reached=0, fulfillment branch full=0
+Root node preconditions: 
+Setting item state for node with action: 2 ykeyt:0 bkeyt:1 yswrt:0 chalicet:0 ydragon:1 gdragon:1 Last_room_color:6
+SKETCH 0 PRE Computation 
+
+SKETCH 0 PREc (Acquire Key): | !ykey=1 | ykeyr=0 | !sword_room 1 | INACTIVE
+SKETCH 1 PRE Computation 
+SKETCH 1 PRE go sword room: | ykey=0 | !ysword room=1 | INACTIVE
+SKETCH 2 PRE Computation 
+SKETCH 2 PRE: (get ysword) | !ykey=1 | ysw room=0 | !ysword=1 | INACTIVE
+SKETCH 3 PRE Computation 
+SKETCH 3 PRE: | ysword=0 | ydrag_in_room=0 |  !ydrag=0 |INACTIVE
+SKETCH 4 PRE Computation 
+SKETCH 4 PRE: | ysword=0 | !ydrag=0 ydrag_in_room0 | INACTIVE
+SKETCH 5 PRE Computation 
+ydragon function called
+SKETCH 5 PRE: | ysword=0 | !gdrag_in_room=1 | INACTIVE
+SKETCH 6 PRE Computation 
+
+not touched 
+Checking items in entire screen for type: yellow_sword
+found black_key at 90 169 cube at 87 151
+ searching around cube
+Cube position: (87, 151)
+ Clusters found: 2 filtered clusters: 0
+cluster size: 144 with color: 85 in filtered cluster included 0
+cluster size: 6 with color: 0 in filtered cluster included 0
+ found nothing 
+detect_ysword_printing: 0
+ydragon function called
+gdragonr function called
+gdragon function called
+SKETCH 6 PRE: | ysword=0 | ydrag=1 | gdrag_in_room=0 | !gdrag=0 | INACTIVE
+SKETCH 7 PRE Computation 
+
+already touched
+found cube carrying black_key
+black key detected near cube at 94 169 and cube at 87 ,151
+detect_bkey_printing: 1
+gdragon function called
+SKETCH 7 PRE: (get bkey) | !bkey=0 | bkey room=1 | ysword=0 | gdrag=1 | INACTIVE
+SKETCH 8 PRE Computation 
+ydragon function called
+
+already touched
+found cube carrying black_key
+black key detected near cube at 94 169 and cube at 87 ,151
+detect_bkey_printing: 1
+SKETCH 8 PRE (reach ydragon_room with bkey): | !ydrag_in_room=1 |  ydrag=1 | bkey1 swordr=0 |!blue_room_9=0 |Last_room_color=6INACTIVE
+SKETCH 8.5 PRE Computation 
+ydragon function called
+
+already touched
+found cube carrying black_key
+black key detected near cube at 94 169 and cube at 87 ,151
+detect_bkey_printing: 1
+SKETCH 8.5 PRE: | ydrag_in_room=0 |  ydrag=1 | bkey=1 | !blue_room_6=0 |Last_room_color=6 |INACTIVE
+SKETCH 9 PRE Computation 
+ydragon function called
+
+already touched
+found cube carrying black_key
+black key detected near cube at 94 169 and cube at 87 ,151
+detect_bkey_printing: 1
+SKETCH 9 PRE (get to start of blue maze): | ydrag_in_room=0 |  ydrag=1 | bkey=1 | !correct_position=1 | !blue_room_6=0 |cube_pos=(87,151) |Last_room_color=6 |ACTIVE
+SKETCH 10 PRE Computation 
+ydragon function called
+
+already touched
+found cube carrying black_key
+black key detected near cube at 94 169 and cube at 87 ,151
+detect_bkey_printing: 1
+SKETCH 10 PRE: |  ydrag=1 | bkey=1 | !blue=1 |cube_pos=(87,151) |blue_room_10=0 |Last_room_color=6 |INACTIVE
+SKETCH 11 PRE Computation 
+ydragon function called
+
+already touched
+found cube carrying black_key
+black key detected near cube at 94 169 and cube at 87 ,151
+detect_bkey_printing: 1
+SKETCH 11 PRE: |  ydrag=1 | bkey=1 | blue=1 |cube_pos=(87,151) |blue_room_10=0 |Last_room_color=6 |!blue_2=1 |INACTIVE
+SKETCH 12 PRE Computation 
+ydragon function called
+
+already touched
+found cube carrying black_key
+black key detected near cube at 94 169 and cube at 87 ,151
+detect_bkey_printing: 1
+SKETCH 12 PRE: |  ydrag=1 | bkey=1 | blue=0 |cube_pos=(87,151) |blue_room_10=0 |Last_room_color=6 |INACTIVE
+SKETCH 13 PRE Computation 
+ydragon function called
+
+already touched
+found cube carrying black_key
+black key detected near cube at 94 169 and cube at 87 ,151
+detect_bkey_printing: 1
+SKETCH 13 PRE: |  ydrag=1 | bkey=1 | black=0 |Last_room_color=6 | !chalice=1 |INACTIVE
+Sketches pre: 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 
+Setting node state for node with action: 2 ykeyt:0 bkeyt:1 yswrt:0 chalicet:0 ydragon:1 gdragon:1 Last_room_color:6
+---------------------------------------------------------------------------------
+sketches exploitation with depth lookahead
+fulfillment branch is empty, falling back
+ return 0 path this was the max_depth 1000 searched till 945
+found a path 0
+falling back to orignal selection of child in Node 1000
+[32;1mlogging::Logger::Info: [0m[32;1mBetter child found: -1 <= 0 reward:-inf <= 0
+[32;1mlogging::Logger::Info: [0m[32;1mBetter child found random: 0reward:0
+
+Best child action_nr: 0 action:1
+distance to items: ykey: best node = -1 root= -1 ysword: best node = -1 root= -1 bkey: best node = -1 root= 15 chalice: best node = -1 root= -1
+[33;1mlogging::Logger::Stats: [0mdecision-stats: #entries=[0:111001/20598848,] #nodes=20642 #tips=10546 height=[54:53,43,43,3,43,5,] #expansions=1826 #sim=18427 total-time=10001.5 simulator-time=12.6309 reset-time=0 get/set-state-time=15.6699 expand-time=1.31055 update-novelty-time=1.30859 get-atoms-calls=18427 get-atoms-time=79.7129 novel-atom-time=6.92188
+bfs: total time: 10001.5 seconds
+[32;1mlogging::Logger::Info: [0mexecutable-prefix: len=1, actions=[1,]
+[33;1mlogging::Logger::Stats: [0mstep-stats: acc-reward=0, acc-frames=1470
+[32;1mlogging::Logger::Info: [0m**** bfs: get branch ****
+[32;1mlogging::Logger::Info: [0mprefix: sz=121, actions=[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4,4,4,2,2,5,5,3,3,3,2,2,4,4,4,3,3,5,5,5,5,4,5,4,4,4,4,4,5,5,5,3,3,0,0,0,3,3,3,5,3,3,3,3,3,3,3,3,3,3,3,5,0,5,0,4,4,4,1,4,2,1,5,5,3,3,3,2,2,2,2,4,4,4,4,4,4,4,4,4,2,4,4,4,4,4,4,4,4,2,2,2,4,4,4,2,2,1,]
+[32;1mlogging::Logger::Info: [0minput: #nodes=847, #tips=421, height=43
+simulator calls: 0 simulator budget: 5000000
+[32;1mlogging::Logger::Info: [0mqueue: sz=421
