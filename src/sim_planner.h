@@ -2996,7 +2996,7 @@ struct SimPlanner : Planner {
                 bool swordr = planner.yswr(curr, prev);
                 //planner.calculate_distance_from_goal(curr);
                 bool ydrag_in_room = planner.ydragonr(curr, prev,  printing_sketches_);
-                bool cond = !ydrag_in_room && ydrag && key && !blue_room_10 && swordr; //D == 1  &&
+                bool cond = !ydrag_in_room && ydrag && key && !blue_room_10; //D == 1  &&
                 if(printing_sketches_){
                 std::cout << "SKETCH 8 PRE (reach ydragon_room with bkey):" 
                 << " | !ydrag_in_room=" << !ydrag_in_room << " | " << " ydrag=" << ydrag << " |" 
@@ -3071,12 +3071,12 @@ struct SimPlanner : Planner {
                 auto cube_pos = planner.highlight_cube(curr, prev);
                 bool correct_position = (cube_pos.first >= 0 && cube_pos.first <= 25 && cube_pos.second >= 17 && cube_pos.second <= 50);
                 bool blue_room_6 = planner.Last_room_color == 6;
-                bool blue_room_9 = planner.Last_room_color == 9;
+                //bool blue_room_9 = planner.Last_room_color == 6;
                 bool ydrag_in_room = planner.ydragonr(curr, prev, printing_sketches_);
-                bool cond =  ydrag && key && !correct_position && blue_room_9 && !blue_room_6; //D == 1  &&
+                bool cond =  ydrag && key && !correct_position  && blue_room_6; //D == 1  && && blue_room_9
                 if(printing_sketches_){
                 std::cout << "SKETCH 9 PRE (get to start of blue maze):"  << " | ydrag_in_room=" << ydrag_in_room << " | " << " ydrag=" << ydrag << " |" 
-                <<  " bkey="<< key  << " | !correct_position=" << !correct_position << " | !blue_room_6=" << !blue_room_6 << " | blue_room_9=" << blue_room_9
+                <<  " bkey="<< key  << " | !correct_position=" << !correct_position << " | !blue_room_6=" << !blue_room_6 //<< " | blue_room_9=" << blue_room_9
                 << " |cube_pos=(" << cube_pos.first << "," << cube_pos.second << ")" << " |Last_room_color=" << planner.Last_room_color
                 << " |" << (cond ? "ACTIVE" : "INACTIVE") << std::endl;
                 }
@@ -3092,7 +3092,7 @@ struct SimPlanner : Planner {
                 bool correct_position = (cube_pos.first >= 0 && cube_pos.first <= 25 && cube_pos.second >= 17 && cube_pos.second <= 50);
                 bool blue_room_10 = planner.Last_room_color == 6;
                 bool blue_room_9 = planner.Last_room_color == 9;
-                bool blue = (blue_room_10 && correct_position && !blue_room_9);
+                bool blue = (blue_room_10 && correct_position );
                 bool goal_achieved = key && blue ; 
                 if(printing_sketches_){
                 std::cout << "SKETCH 9 GOAL: " << (goal_achieved ? "REACHED" : "MOVING") 
