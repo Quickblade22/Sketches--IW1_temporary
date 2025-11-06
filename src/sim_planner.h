@@ -3094,7 +3094,7 @@ struct SimPlanner : Planner {
                
                 auto temp = planner.regions_for_cube(curr);
                 auto cube_pos = planner.highlight_cube(curr, prev);
-                bool correct_position = (cube_pos.first >= 135  && cube_pos.first <= 160 && cube_pos.second >= 146 && cube_pos.second <= 178);
+                bool correct_position = (cube_pos.first >= 119  && cube_pos.first <= 160 && cube_pos.second >= 82 && cube_pos.second <= 114);
                 bool blue_room_9 = planner.Last_room_color == 9;
                 bool blue = (blue_room_9 && correct_position );
                 bool goal_achieved = key && blue ; 
@@ -3123,7 +3123,7 @@ struct SimPlanner : Planner {
                 bool blue_room_10 = planner.Last_room_color == 6;
                 bool blue = (blue_room_10 && correct_position);
                 
-                bool correct_position_2 = (cube_pos.first >= 135  && cube_pos.first <= 160 && cube_pos.second >= 146 && cube_pos.second <= 178);
+                bool correct_position_2 = (cube_pos.first >= 119  && cube_pos.first <= 160 && cube_pos.second >= 82 && cube_pos.second <= 114);
                 bool blue_room_9 = planner.Last_room_color == 9;
                 bool blue_2 = (blue_room_9 && correct_position_2);
 
