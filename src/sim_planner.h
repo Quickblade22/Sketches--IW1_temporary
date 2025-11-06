@@ -2985,23 +2985,29 @@ struct SimPlanner : Planner {
             "reach dragon room with bkey"
         });*/
           //reach ydragon_room_with bkey
-          //if works --> try to reach blue maze room directly after
         sketches_.push_back(Sketch{
             [this](const SimPlanner& planner, const std::vector<pixel_t>& prev, const std::vector<pixel_t>& curr) {
                 if(printing_sketches_) std::cout << "SKETCH 8 PRE Computation " << std::endl;
                 bool ydrag = planner.ydragon_killed(curr, prev,  printing_sketches_);
                 bool key = planner.bkey(curr,prev,printing_sketches_);
                 auto temp = planner.regions_for_cube(curr);
+                pixel_t cube_color = curr[5 * SCREEN_WIDTH + 5];
+                bool cube_color_is_blue = planner.color_match(cube_color, COLORS.at("blue"));  
+                
+       
                 bool blue_room_10 = planner.Last_room_color == 6;
                 bool swordr = planner.yswr(curr, prev);
                 //planner.calculate_distance_from_goal(curr);
                 bool ydrag_in_room = planner.ydragonr(curr, prev,  printing_sketches_);
-                bool cond = !ydrag_in_room && ydrag && key && !blue_room_10; //D == 1  &&
+                bool cond = !ydrag_in_room && ydrag && key && !cube_color_is_blue; //D == 1  &&
                 if(printing_sketches_){
                 std::cout << "SKETCH 8 PRE (reach ydragon_room with bkey):" 
                 << " | !ydrag_in_room=" << !ydrag_in_room << " | " << " ydrag=" << ydrag << " |" 
                 <<  " bkey"<< key  << " swordr=" << swordr
-                << " |!blue_room_9=" << !blue_room_10 << " |Last_room_color=" << planner.Last_room_color
+                << " |!blue_room_9=" << !blue_room_10
+                << " cube_color = " << static_cast<int>(cube_color) 
+                << " (is_blue=" << cube_color_is_blue << ")"
+                << " |Last_room_color=" << planner.Last_room_color
                 << (cond ? "ACTIVE" : "INACTIVE") << std::endl;
                 }
                 return cond;
@@ -3022,8 +3028,7 @@ struct SimPlanner : Planner {
             "reach dragon room with bkey"
         });                                           
        
-        //sketch to reach the start of the blue maze room
-        //problem with setting to 9 is left 
+        //sketch to reach the start of the blue maze room--> setting to just 9 problem that moves from 6 left to 9
          sketches_.push_back(Sketch{
             [this](const SimPlanner& planner, const std::vector<pixel_t>& prev, const std::vector<pixel_t>& curr) {
                 if(printing_sketches_) std::cout << "SKETCH 9 PRE Computation " << std::endl;

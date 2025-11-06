@@ -14,7 +14,7 @@ echo "Running Python script in container using exec..."
 apptainer exec \
     --bind .:/work/rleap1/aaditya_mehta/Sketches--IW1_temporary \
     mycontainer2.sif \
-    sh -c "cd src && make clean && echo 32 128 10000 500000 >> output.txt && python3 running.py /work/rleap1/aaditya_mehta/Sketches--IW1_temporary/Adventure.bin 10000 500000 --compile-first --output-file=output.txt"
+    sh -c "cd src && make clean && echo 32 128 10000 500000 10 frames >> output.txt && python3 running.py /work/rleap1/aaditya_mehta/Sketches--IW1_temporary/Adventure.bin 10000 500000 --additional-args='--nodes-threshold 50000000 --max-depth 20000 --max-execution-length 45000 --lookahead_depth 10000 --frameskip 10'  --compile-first --output-file=output.txt"
 
 # Check if the execution was successful
 if [ $? -eq 0 ]; then
