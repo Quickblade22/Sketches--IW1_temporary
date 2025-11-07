@@ -4154,3 +4154,2415 @@ bfs: total time: 132.48 seconds
 [32;1mlogging::Logger::Info: [0minput: #nodes=7, #tips=6, height=1
 simulator calls: 0 simulator budget: 5000000
 [32;1mlogging::Logger::Info: [0mqueue: sz=6
+[32;1mlogging::Logger::Info: [0mbfs: stopping search, queue empty=0, simulator budget reached=1, time budget reached=1, fulfillment branch full=1
+Root node preconditions: 
+Setting item state for node with action: 4 ykeyt:0 bkeyt:0 yswrt:1 chalicet:0 ydragon:0 gdragon:0 Last_room_color:0
+SKETCH 0 PRE Computation 
+
+SKETCH 0 PREc (Acquire Key): | !ykey=1 | ykeyr=1 | !sword_room 0 | INACTIVE
+SKETCH 1 PRE Computation 
+SKETCH 1 PRE go sword room: | ykey=0 | !ysword room=0 | INACTIVE
+SKETCH 2 PRE Computation 
+SKETCH 2 PRE: (get ysword) | !ykey=1 | ysw room=1 | !ysword=0 | INACTIVE
+SKETCH 3 PRE Computation 
+SKETCH 3 PRE: | ysword=1 | ydrag_in_room=0 |  !ydrag=1 |ACTIVE
+SKETCH 4 PRE Computation 
+SKETCH 4 PRE: | ysword=1 | !ydrag=1 ydrag_in_room0 | INACTIVE
+SKETCH 5 PRE Computation 
+ydragon function called
+ydragon detecte dragons called
+cluster size5Cluster size: 610 color: 193 in filtered: 1
+
+Cluster size: 30 color: 193 in filtered: 0
+
+Cluster size: 20 color: 193 in filtered: 1
+
+Cluster size: 2 color: 193 in filtered: 1
+
+Cluster size: 2 color: 193 in filtered: 1
+
+cluster size after filtering4
+filtered cluster with size: 610
+filtered cluster with size: 20
+filtered cluster with size: 2
+filtered cluster with size: 2
+SKETCH 5 PRE: | ysword=1 | !gdrag_in_room=1 | INACTIVE
+SKETCH 6 PRE Computation 
+
+already touched
+detect_ysword_printing: 1
+ydragon function called
+ydragon detecte dragons called
+cluster size5Cluster size: 610 color: 193 in filtered: 1
+
+Cluster size: 30 color: 193 in filtered: 0
+
+Cluster size: 20 color: 193 in filtered: 1
+
+Cluster size: 2 color: 193 in filtered: 1
+
+Cluster size: 2 color: 193 in filtered: 1
+
+cluster size after filtering4
+filtered cluster with size: 610
+filtered cluster with size: 20
+filtered cluster with size: 2
+filtered cluster with size: 2
+gdragonr function called
+gdragon function called
+cluster size5Cluster size: 610 color: 193 in filtered: 1
+
+Cluster size: 30 color: 193 in filtered: 0
+
+Cluster size: 20 color: 193 in filtered: 1
+
+Cluster size: 2 color: 193 in filtered: 1
+
+Cluster size: 2 color: 193 in filtered: 1
+
+cluster size after filtering4
+filtered cluster with size: 610
+filtered cluster with size: 20
+filtered cluster with size: 2
+filtered cluster with size: 2
+SKETCH 6 PRE: | ysword=1 | ydrag=0 | gdrag_in_room=0 | !gdrag=1 | INACTIVE
+SKETCH 7 PRE Computation 
+
+not touched 
+Checking items in entire screen for type: black_key
+found yellow_key at 31 131 cube at 36 145
+ searching around cube
+Cube position: (36, 145)
+ Clusters found: 3 filtered clusters: 1
+cluster size: 20 with color: 193 in filtered cluster included 1
+cluster size: 2 with color: 193 in filtered cluster included 0
+cluster size: 2 with color: 193 in filtered cluster included 0
+ found nothing 
+detect_bkey_printing: 0
+gdragon function called
+cluster size5Cluster size: 610 color: 193 in filtered: 1
+
+Cluster size: 30 color: 193 in filtered: 0
+
+Cluster size: 20 color: 193 in filtered: 1
+
+Cluster size: 2 color: 193 in filtered: 1
+
+Cluster size: 2 color: 193 in filtered: 1
+
+cluster size after filtering4
+filtered cluster with size: 610
+filtered cluster with size: 20
+filtered cluster with size: 2
+filtered cluster with size: 2
+SKETCH 7 PRE: (get bkey) | !bkey=1 | bkey room=0 | ysword=1 | gdrag=0 | INACTIVE
+SKETCH 8.5 PRE Computation 
+ydragon function called
+ydragon detecte dragons called
+cluster size5Cluster size: 610 color: 193 in filtered: 1
+
+Cluster size: 30 color: 193 in filtered: 0
+
+Cluster size: 20 color: 193 in filtered: 1
+
+Cluster size: 2 color: 193 in filtered: 1
+
+Cluster size: 2 color: 193 in filtered: 1
+
+cluster size after filtering4
+filtered cluster with size: 610
+filtered cluster with size: 20
+filtered cluster with size: 2
+filtered cluster with size: 2
+
+not touched 
+Checking items in entire screen for type: black_key
+found yellow_key at 31 131 cube at 36 145
+ searching around cube
+Cube position: (36, 145)
+ Clusters found: 3 filtered clusters: 1
+cluster size: 20 with color: 193 in filtered cluster included 1
+cluster size: 2 with color: 193 in filtered cluster included 0
+cluster size: 2 with color: 193 in filtered cluster included 0
+ found nothing 
+detect_bkey_printing: 0
+SKETCH 8.5 PRE: | ysword=1 | ydrag_in_room=0 |  !ydrag=1 | bkey0INACTIVE
+SKETCH 8 PRE Computation 
+ydragon function called
+ydragon detecte dragons called
+cluster size5Cluster size: 610 color: 193 in filtered: 1
+
+Cluster size: 30 color: 193 in filtered: 0
+
+Cluster size: 20 color: 193 in filtered: 1
+
+Cluster size: 2 color: 193 in filtered: 1
+
+Cluster size: 2 color: 193 in filtered: 1
+
+cluster size after filtering4
+filtered cluster with size: 610
+filtered cluster with size: 20
+filtered cluster with size: 2
+filtered cluster with size: 2
+
+not touched 
+Checking items in entire screen for type: black_key
+found yellow_key at 31 131 cube at 36 145
+ searching around cube
+Cube position: (36, 145)
+ Clusters found: 3 filtered clusters: 1
+cluster size: 20 with color: 193 in filtered cluster included 1
+cluster size: 2 with color: 193 in filtered cluster included 0
+cluster size: 2 with color: 193 in filtered cluster included 0
+ found nothing 
+detect_bkey_printing: 0
+SKETCH 8 PRE (reach ydragon_room with bkey): | !ydrag_in_room=1 |  ydrag=0 | bkey0 swordr=1 |!blue_room_9=1 cube_color = 193 (is_blue=0) |Last_room_color=0INACTIVE
+SKETCH 9 PRE Computation 
+ydragon function called
+ydragon detecte dragons called
+cluster size5Cluster size: 610 color: 193 in filtered: 1
+
+Cluster size: 30 color: 193 in filtered: 0
+
+Cluster size: 20 color: 193 in filtered: 1
+
+Cluster size: 2 color: 193 in filtered: 1
+
+Cluster size: 2 color: 193 in filtered: 1
+
+cluster size after filtering4
+filtered cluster with size: 610
+filtered cluster with size: 20
+filtered cluster with size: 2
+filtered cluster with size: 2
+
+not touched 
+Checking items in entire screen for type: black_key
+found yellow_key at 31 131 cube at 36 145
+ searching around cube
+Cube position: (36, 145)
+ Clusters found: 3 filtered clusters: 1
+cluster size: 20 with color: 193 in filtered cluster included 1
+cluster size: 2 with color: 193 in filtered cluster included 0
+cluster size: 2 with color: 193 in filtered cluster included 0
+ found nothing 
+detect_bkey_printing: 0
+SKETCH 9 PRE: | ydrag_in_room=0 |  ydrag=0 | bkey=0 | !blue_room_6=1 |Last_room_color=0 |INACTIVE
+SKETCH 10 PRE Computation 
+ydragon function called
+ydragon detecte dragons called
+cluster size5Cluster size: 610 color: 193 in filtered: 1
+
+Cluster size: 30 color: 193 in filtered: 0
+
+Cluster size: 20 color: 193 in filtered: 1
+
+Cluster size: 2 color: 193 in filtered: 1
+
+Cluster size: 2 color: 193 in filtered: 1
+
+cluster size after filtering4
+filtered cluster with size: 610
+filtered cluster with size: 20
+filtered cluster with size: 2
+filtered cluster with size: 2
+
+not touched 
+Checking items in entire screen for type: black_key
+found yellow_key at 31 131 cube at 36 145
+ searching around cube
+Cube position: (36, 145)
+ Clusters found: 3 filtered clusters: 1
+cluster size: 20 with color: 193 in filtered cluster included 1
+cluster size: 2 with color: 193 in filtered cluster included 0
+cluster size: 2 with color: 193 in filtered cluster included 0
+ found nothing 
+detect_bkey_printing: 0
+SKETCH 10 PRE (get to room 9 x 135-160 y 146 178): | ydrag_in_room=0 |  ydrag=0 | bkey=0 | !correct_position=1 | blue_room_6=0 |cube_pos=(36,145) |Last_room_color=0 |INACTIVE
+SKETCH 11 PRE Computation 
+ydragon function called
+ydragon detecte dragons called
+cluster size5Cluster size: 610 color: 193 in filtered: 1
+
+Cluster size: 30 color: 193 in filtered: 0
+
+Cluster size: 20 color: 193 in filtered: 1
+
+Cluster size: 2 color: 193 in filtered: 1
+
+Cluster size: 2 color: 193 in filtered: 1
+
+cluster size after filtering4
+filtered cluster with size: 610
+filtered cluster with size: 20
+filtered cluster with size: 2
+filtered cluster with size: 2
+
+not touched 
+Checking items in entire screen for type: black_key
+found yellow_key at 31 131 cube at 36 145
+ searching around cube
+Cube position: (36, 145)
+ Clusters found: 3 filtered clusters: 1
+cluster size: 20 with color: 193 in filtered cluster included 1
+cluster size: 2 with color: 193 in filtered cluster included 0
+cluster size: 2 with color: 193 in filtered cluster included 0
+ found nothing 
+detect_bkey_printing: 0
+SKETCH 11 PRE (2 step of maze): |  ydrag=0 | bkey=0 |cube_pos=(36,145) | blue2= (blue_room_9=0 and correct_position_2=0) = 0 | !blue=(blue_room_6=0 and !correct_position=1) = 1 |Last_room_color=0 |INACTIVE
+SKETCH 12 PRE Computation 
+ydragon function called
+ydragon detecte dragons called
+cluster size5Cluster size: 610 color: 193 in filtered: 1
+
+Cluster size: 30 color: 193 in filtered: 0
+
+Cluster size: 20 color: 193 in filtered: 1
+
+Cluster size: 2 color: 193 in filtered: 1
+
+Cluster size: 2 color: 193 in filtered: 1
+
+cluster size after filtering4
+filtered cluster with size: 610
+filtered cluster with size: 20
+filtered cluster with size: 2
+filtered cluster with size: 2
+
+not touched 
+Checking items in entire screen for type: black_key
+found yellow_key at 31 131 cube at 36 145
+ searching around cube
+Cube position: (36, 145)
+ Clusters found: 3 filtered clusters: 1
+cluster size: 20 with color: 193 in filtered cluster included 1
+cluster size: 2 with color: 193 in filtered cluster included 0
+cluster size: 2 with color: 193 in filtered cluster included 0
+ found nothing 
+detect_bkey_printing: 0
+SKETCH 12 PRE(reach room 9 2time): |  ydrag=0 | bkey=0 | blue=(blue_room_6=0 and correct_position=0) = 0 |!blue_2=(blue_room_9=0 and correct_position_2=0) = 1 |cube_pos=(36,145) |Last_room_color=0 |INACTIVE
+SKETCH 13 PRE Computation 
+ydragon function called
+ydragon detecte dragons called
+cluster size5Cluster size: 610 color: 193 in filtered: 1
+
+Cluster size: 30 color: 193 in filtered: 0
+
+Cluster size: 20 color: 193 in filtered: 1
+
+Cluster size: 2 color: 193 in filtered: 1
+
+Cluster size: 2 color: 193 in filtered: 1
+
+cluster size after filtering4
+filtered cluster with size: 610
+filtered cluster with size: 20
+filtered cluster with size: 2
+filtered cluster with size: 2
+
+not touched 
+Checking items in entire screen for type: black_key
+found yellow_key at 31 131 cube at 36 145
+ searching around cube
+Cube position: (36, 145)
+ Clusters found: 3 filtered clusters: 1
+cluster size: 20 with color: 193 in filtered cluster included 1
+cluster size: 2 with color: 193 in filtered cluster included 0
+cluster size: 2 with color: 193 in filtered cluster included 0
+ found nothing 
+detect_bkey_printing: 0
+SKETCH 13 PRE(reach room 8 1time): |  ydrag=0 | bkey=0 | blue=(blue_room_9=0 and correct_position=0) = 0 |!blue_2=(blue_room_8=0 and correct_position_2=0) = 1 |cube_pos=(36,145) |Last_room_color=0 |INACTIVE
+SKETCH 14 PRE Computation 
+ydragon function called
+ydragon detecte dragons called
+cluster size5Cluster size: 610 color: 193 in filtered: 1
+
+Cluster size: 30 color: 193 in filtered: 0
+
+Cluster size: 20 color: 193 in filtered: 1
+
+Cluster size: 2 color: 193 in filtered: 1
+
+Cluster size: 2 color: 193 in filtered: 1
+
+cluster size after filtering4
+filtered cluster with size: 610
+filtered cluster with size: 20
+filtered cluster with size: 2
+filtered cluster with size: 2
+
+not touched 
+Checking items in entire screen for type: black_key
+found yellow_key at 31 131 cube at 36 145
+ searching around cube
+Cube position: (36, 145)
+ Clusters found: 3 filtered clusters: 1
+cluster size: 20 with color: 193 in filtered cluster included 1
+cluster size: 2 with color: 193 in filtered cluster included 0
+cluster size: 2 with color: 193 in filtered cluster included 0
+ found nothing 
+detect_bkey_printing: 0
+SKETCH 14 PRE(halfway): |  ydrag=0 | bkey=0 | blue=(blue_room_8=0 and correct_position=0) = 0 |!blue_2=(blue_room_10=0 and correct_position_2=0) = 1 |cube_pos=(36,145) |Last_room_color=0 |INACTIVE
+SKETCH 15 PRE Computation 
+ydragon function called
+ydragon detecte dragons called
+cluster size5Cluster size: 610 color: 193 in filtered: 1
+
+Cluster size: 30 color: 193 in filtered: 0
+
+Cluster size: 20 color: 193 in filtered: 1
+
+Cluster size: 2 color: 193 in filtered: 1
+
+Cluster size: 2 color: 193 in filtered: 1
+
+cluster size after filtering4
+filtered cluster with size: 610
+filtered cluster with size: 20
+filtered cluster with size: 2
+filtered cluster with size: 2
+
+not touched 
+Checking items in entire screen for type: black_key
+found yellow_key at 31 131 cube at 36 145
+ searching around cube
+Cube position: (36, 145)
+ Clusters found: 3 filtered clusters: 1
+cluster size: 20 with color: 193 in filtered cluster included 1
+cluster size: 2 with color: 193 in filtered cluster included 0
+cluster size: 2 with color: 193 in filtered cluster included 0
+ found nothing 
+detect_bkey_printing: 0
+SKETCH 15 PRE(halfway --> 7): |  ydrag=0 | bkey=0 | blue=(blue_room_10=0 and correct_position=0) = 0 |!blue_2=(blue_room_7=0 and correct_position_2=0) = 1 |cube_pos=(36,145) |Last_room_color=0 |INACTIVE
+SKETCH 16 PRE Computation 
+ydragon function called
+ydragon detecte dragons called
+cluster size5Cluster size: 610 color: 193 in filtered: 1
+
+Cluster size: 30 color: 193 in filtered: 0
+
+Cluster size: 20 color: 193 in filtered: 1
+
+Cluster size: 2 color: 193 in filtered: 1
+
+Cluster size: 2 color: 193 in filtered: 1
+
+cluster size after filtering4
+filtered cluster with size: 610
+filtered cluster with size: 20
+filtered cluster with size: 2
+filtered cluster with size: 2
+
+not touched 
+Checking items in entire screen for type: black_key
+found yellow_key at 31 131 cube at 36 145
+ searching around cube
+Cube position: (36, 145)
+ Clusters found: 3 filtered clusters: 1
+cluster size: 20 with color: 193 in filtered cluster included 1
+cluster size: 2 with color: 193 in filtered cluster included 0
+cluster size: 2 with color: 193 in filtered cluster included 0
+ found nothing 
+detect_bkey_printing: 0
+SKETCH 16 PRE(7 --> 9): |  ydrag=0 | bkey=0 | blue=(blue_room_7=0 and correct_position=0) = 0 |!blue_2=(blue_room_9=0 and correct_position_2=0) = 1 |cube_pos=(36,145) |Last_room_color=0 |INACTIVE
+SKETCH 17 PRE Computation 
+ydragon function called
+ydragon detecte dragons called
+cluster size5Cluster size: 610 color: 193 in filtered: 1
+
+Cluster size: 30 color: 193 in filtered: 0
+
+Cluster size: 20 color: 193 in filtered: 1
+
+Cluster size: 2 color: 193 in filtered: 1
+
+Cluster size: 2 color: 193 in filtered: 1
+
+cluster size after filtering4
+filtered cluster with size: 610
+filtered cluster with size: 20
+filtered cluster with size: 2
+filtered cluster with size: 2
+
+not touched 
+Checking items in entire screen for type: black_key
+found yellow_key at 31 131 cube at 36 145
+ searching around cube
+Cube position: (36, 145)
+ Clusters found: 3 filtered clusters: 1
+cluster size: 20 with color: 193 in filtered cluster included 1
+cluster size: 2 with color: 193 in filtered cluster included 0
+cluster size: 2 with color: 193 in filtered cluster included 0
+ found nothing 
+detect_bkey_printing: 0
+SKETCH 17 PRE(7 --> 9--> 8): |  ydrag=0 | bkey=0 | blue=(blue_room_9=0 and correct_position=0) = 0 |!blue_2=(blue_room_8=0 and correct_position_2=0) = 1 |cube_pos=(36,145) |Last_room_color=0 |INACTIVE
+SKETCH 18 PRE Computation 
+ydragon function called
+ydragon detecte dragons called
+cluster size5Cluster size: 610 color: 193 in filtered: 1
+
+Cluster size: 30 color: 193 in filtered: 0
+
+Cluster size: 20 color: 193 in filtered: 1
+
+Cluster size: 2 color: 193 in filtered: 1
+
+Cluster size: 2 color: 193 in filtered: 1
+
+cluster size after filtering4
+filtered cluster with size: 610
+filtered cluster with size: 20
+filtered cluster with size: 2
+filtered cluster with size: 2
+
+not touched 
+Checking items in entire screen for type: black_key
+found yellow_key at 31 131 cube at 36 145
+ searching around cube
+Cube position: (36, 145)
+ Clusters found: 3 filtered clusters: 1
+cluster size: 20 with color: 193 in filtered cluster included 1
+cluster size: 2 with color: 193 in filtered cluster included 0
+cluster size: 2 with color: 193 in filtered cluster included 0
+ found nothing 
+detect_bkey_printing: 0
+SKETCH 18 PRE: |  ydrag=0 | bkey=0 | blue=(blue_room_8=0 and correct_position=0) = 0 |cube_pos=(36,145) |Last_room_color=0 |INACTIVE
+SKETCH 19 PRE Computation 
+ydragon function called
+ydragon detecte dragons called
+cluster size5Cluster size: 610 color: 193 in filtered: 1
+
+Cluster size: 30 color: 193 in filtered: 0
+
+Cluster size: 20 color: 193 in filtered: 1
+
+Cluster size: 2 color: 193 in filtered: 1
+
+Cluster size: 2 color: 193 in filtered: 1
+
+cluster size after filtering4
+filtered cluster with size: 610
+filtered cluster with size: 20
+filtered cluster with size: 2
+filtered cluster with size: 2
+
+not touched 
+Checking items in entire screen for type: black_key
+found yellow_key at 31 131 cube at 36 145
+ searching around cube
+Cube position: (36, 145)
+ Clusters found: 3 filtered clusters: 1
+cluster size: 20 with color: 193 in filtered cluster included 1
+cluster size: 2 with color: 193 in filtered cluster included 0
+cluster size: 2 with color: 193 in filtered cluster included 0
+ found nothing 
+detect_bkey_printing: 0
+SKETCH 19 PRE: |  ydrag=0 | bkey=0 | black=0 |Last_room_color=0 | !chalice=1 |INACTIVE
+Sketches pre: 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+Setting node state for node with action: 4 ykeyt:0 bkeyt:0 yswrt:1 chalicet:0 ydragon:0 gdragon:0 Last_room_color:0
+---------------------------------------------------------------------------------
+sketches exploitation with depth lookahead
+Action in fulfillment branch: 3 3 5 5 5 5 5 4 4 4 4 4 4 
+At fulfillment branch end, chalicer is 0
+Setting item state for node with action: 4 ykeyt:0 bkeyt:0 yswrt:1 chalicet:0 ydragon:0 gdragon:0 Last_room_color:5
+checking sketches preconditions and goals for best node: 4
+ykeyt: 0 parents_ykeyt: 0 yswrt: 1 parents_yswrt: 1 ydragon0 parents: 0 gdragon0 parents: 0 last_room_color: 5
+Setting item state for node with action: 4 ykeyt:0 bkeyt:0 yswrt:1 chalicet:0 ydragon:0 gdragon:0 Last_room_color:5
+SKETCH 0 GOAL Computation 
+SKETCH 0 GOAL: IN PROGRESS | ykey=0
+SKETCH 1 GOAL Computation 
+SKETCH 1 GOAL: MOVING | yswr=1 | ykey=0
+SKETCH 2 GOAL Computation 
+SKETCH 2 GOAL: REACHED | ysword=1
+SKETCH 3 GOAL Computation 
+SKETCH 3 GOAL: REACHED | ysword=1 | ydragon_in room=1
+SKETCH 4 GOAL Computation 
+SKETCH 4 GOAL: MOVING | ysword=1 | ydragon_killed=0  or sword_dragon=0 | ydragon_distance=0 curr_dist=153 prev_dist=-1 | what exactly curr: all_found | what exactly curr: all_found | ydragon_in_room=1
+SKETCH 5 GOAL Computation 
+gdragonr function called
+dragon_type gdragondetect_dragons_in_room:  Cluster size 161 is_alive 0 is_firing 0 is_dead 0
+ Dragon detected by size
+ydragon function called
+ydragon detecte dragons called
+cluster size5Cluster size: 161 color: 193 in filtered: 1
+
+Cluster size: 174 color: 193 in filtered: 1
+
+Cluster size: 20 color: 193 in filtered: 0
+
+Cluster size: 2 color: 193 in filtered: 1
+
+Cluster size: 2 color: 193 in filtered: 1
+
+cluster size after filtering4
+filtered cluster with size: 161
+Detected ydragon with color: 193
+ is_dead0 is_alive0 is_firing0
+ Dragon alive detected by size
+
+not touched 
+Checking items in entire screen for type: black_key
+found yellow_sword at 136 47 cube at 144 39
+ searching around cube
+Cube position: (144, 39)
+ Clusters found: 3 filtered clusters: 0
+cluster size: 20 with color: 193 in filtered cluster included 0
+cluster size: 2 with color: 193 in filtered cluster included 0
+cluster size: 2 with color: 193 in filtered cluster included 0
+ found nothing 
+detect_bkey_printing: 0
+SKETCH 5 GOAL: MOVING | ysword=1 | gdragon_in room=0 |bkey 0
+SKETCH 6 GOAL Computation 
+
+already touched
+found cube carrying yellow_sword
+detect_ysword_printing: 1
+gdragon function called
+cluster size5Cluster size: 161 color: 193 in filtered: 1
+
+Cluster size: 174 color: 193 in filtered: 1
+
+Cluster size: 20 color: 193 in filtered: 0
+
+Cluster size: 2 color: 193 in filtered: 1
+
+Cluster size: 2 color: 193 in filtered: 1
+
+cluster size after filtering4
+filtered cluster with size: 161
+filtered cluster with size: 174
+filtered cluster with size: 2
+filtered cluster with size: 2
+gdragonr function called
+dragon_type gdragondetect_dragons_in_room:  Cluster size 161 is_alive 0 is_firing 0 is_dead 0
+ Dragon detected by size
+Detecting items on screen...1
+sword location: 136 47
+sword candidates: 21
+sword cluster size: 19 color: 193
+sword cluster size: 2 color: 193
+SKETCH 6 GOAL: MOVING | ysword=1 | gdragon_killed=0  or sword_dragon=0 | gdragon_in_room=0
+SKETCH 7 GOAL Computation 
+
+not touched 
+Checking items in entire screen for type: black_key
+found yellow_sword at 136 47 cube at 144 39
+ searching around cube
+Cube position: (144, 39)
+ Clusters found: 3 filtered clusters: 0
+cluster size: 20 with color: 193 in filtered cluster included 0
+cluster size: 2 with color: 193 in filtered cluster included 0
+cluster size: 2 with color: 193 in filtered cluster included 0
+ found nothing 
+detect_bkey_printing: 0
+black_key is not above cube
+SKETCH 7 GOAL: MOVING | bkey=0 | is_key_above_cube=0
+SKETCH 8 GOAL Computation 
+
+not touched 
+Checking items in entire screen for type: black_key
+found yellow_sword at 136 47 cube at 144 39
+ searching around cube
+Cube position: (144, 39)
+ Clusters found: 3 filtered clusters: 0
+cluster size: 20 with color: 193 in filtered cluster included 0
+cluster size: 2 with color: 193 in filtered cluster included 0
+cluster size: 2 with color: 193 in filtered cluster included 0
+ found nothing 
+detect_bkey_printing: 0
+dragon_type ydragondetect_dragons_in_room:  Cluster size 161 is_alive 0 is_firing 0 is_dead 0
+ Dragon detected by size
+ydragon function called
+ydragon detecte dragons called
+cluster size5Cluster size: 161 color: 193 in filtered: 1
+
+Cluster size: 174 color: 193 in filtered: 1
+
+Cluster size: 20 color: 193 in filtered: 0
+
+Cluster size: 2 color: 193 in filtered: 1
+
+Cluster size: 2 color: 193 in filtered: 1
+
+cluster size after filtering4
+filtered cluster with size: 161
+Detected ydragon with color: 193
+ is_dead0 is_alive0 is_firing0
+ Dragon alive detected by size
+SKETCH 8 GOAL: MOVING | bkey=0 | ydragon_in room=1 | ydragon_killed=0
+SKETCH 8 GOAL Computation 
+
+not touched 
+Checking items in entire screen for type: black_key
+found yellow_sword at 136 47 cube at 144 39
+ searching around cube
+Cube position: (144, 39)
+ Clusters found: 3 filtered clusters: 0
+cluster size: 20 with color: 193 in filtered cluster included 0
+cluster size: 2 with color: 193 in filtered cluster included 0
+cluster size: 2 with color: 193 in filtered cluster included 0
+ found nothing 
+detect_bkey_printing: 0
+dragon_type ydragondetect_dragons_in_room:  Cluster size 161 is_alive 0 is_firing 0 is_dead 0
+ Dragon detected by size
+ydragon function called
+ydragon detecte dragons called
+cluster size5Cluster size: 161 color: 193 in filtered: 1
+
+Cluster size: 174 color: 193 in filtered: 1
+
+Cluster size: 20 color: 193 in filtered: 0
+
+Cluster size: 2 color: 193 in filtered: 1
+
+Cluster size: 2 color: 193 in filtered: 1
+
+cluster size after filtering4
+filtered cluster with size: 161
+Detected ydragon with color: 193
+ is_dead0 is_alive0 is_firing0
+ Dragon alive detected by size
+SKETCH 8 GOAL: MOVING | bkey=0 | ydragon_in room=1 | ydragon_killed=0
+SKETCH 9 GOAL Computation 
+
+not touched 
+Checking items in entire screen for type: black_key
+found yellow_sword at 136 47 cube at 144 39
+ searching around cube
+Cube position: (144, 39)
+ Clusters found: 3 filtered clusters: 0
+cluster size: 20 with color: 193 in filtered cluster included 0
+cluster size: 2 with color: 193 in filtered cluster included 0
+cluster size: 2 with color: 193 in filtered cluster included 0
+ found nothing 
+detect_bkey_printing: 0
+dragon_type ydragondetect_dragons_in_room:  Cluster size 161 is_alive 0 is_firing 0 is_dead 0
+ Dragon detected by size
+SKETCH 9 GOAL: MOVING | bkey=0 | !ydragon_in room=0 |blue_room_6=0 |Last_room_color=5
+SKETCH 10 GOAL Computation 
+
+not touched 
+Checking items in entire screen for type: black_key
+found yellow_sword at 136 47 cube at 144 39
+ searching around cube
+Cube position: (144, 39)
+ Clusters found: 3 filtered clusters: 0
+cluster size: 20 with color: 193 in filtered cluster included 0
+cluster size: 2 with color: 193 in filtered cluster included 0
+cluster size: 2 with color: 193 in filtered cluster included 0
+ found nothing 
+detect_bkey_printing: 0
+SKETCH 10 GOAL(get to room 9 x 135-160 y 146 178) : MOVING | bkey=0 | blue=0 |cube_pos=(144,39) |blue_room_9=0 |Last_room_color=5
+SKETCH 11 GOAL Computation 
+
+not touched 
+Checking items in entire screen for type: black_key
+found yellow_sword at 136 47 cube at 144 39
+ searching around cube
+Cube position: (144, 39)
+ Clusters found: 3 filtered clusters: 0
+cluster size: 20 with color: 193 in filtered cluster included 0
+cluster size: 2 with color: 193 in filtered cluster included 0
+cluster size: 2 with color: 193 in filtered cluster included 0
+ found nothing 
+detect_bkey_printing: 0
+SKETCH 11 GOAL: MOVING | bkey=0 | blue=(blue_room_6=0 and correct_position=1) = 0 |cube_pos=(144,39) |Last_room_color=5
+SKETCH 12 GOAL Computation 
+
+not touched 
+Checking items in entire screen for type: black_key
+found yellow_sword at 136 47 cube at 144 39
+ searching around cube
+Cube position: (144, 39)
+ Clusters found: 3 filtered clusters: 0
+cluster size: 20 with color: 193 in filtered cluster included 0
+cluster size: 2 with color: 193 in filtered cluster included 0
+cluster size: 2 with color: 193 in filtered cluster included 0
+ found nothing 
+detect_bkey_printing: 0
+SKETCH 12 GOAL: MOVING | bkey=0 | blue=(blue_room_9=0 and correct_position=1) = 0 |cube_pos=(144,39) |Last_room_color=5
+SKETCH 13 GOAL Computation 
+
+not touched 
+Checking items in entire screen for type: black_key
+found yellow_sword at 136 47 cube at 144 39
+ searching around cube
+Cube position: (144, 39)
+ Clusters found: 3 filtered clusters: 0
+cluster size: 20 with color: 193 in filtered cluster included 0
+cluster size: 2 with color: 193 in filtered cluster included 0
+cluster size: 2 with color: 193 in filtered cluster included 0
+ found nothing 
+detect_bkey_printing: 0
+SKETCH 13 GOAL: MOVING | bkey=0 | blue=(blue_room_8=0 and correct_position=0) = 0 |cube_pos=(144,39) |Last_room_color=5
+SKETCH 14 GOAL Computation 
+
+not touched 
+Checking items in entire screen for type: black_key
+found yellow_sword at 136 47 cube at 144 39
+ searching around cube
+Cube position: (144, 39)
+ Clusters found: 3 filtered clusters: 0
+cluster size: 20 with color: 193 in filtered cluster included 0
+cluster size: 2 with color: 193 in filtered cluster included 0
+cluster size: 2 with color: 193 in filtered cluster included 0
+ found nothing 
+detect_bkey_printing: 0
+SKETCH 14 GOAL: MOVING | bkey=0 | blue=(blue_room_10=0 and correct_position=1) = 0 |cube_pos=(144,39) |Last_room_color=5
+SKETCH 15 GOAL Computation 
+
+not touched 
+Checking items in entire screen for type: black_key
+found yellow_sword at 136 47 cube at 144 39
+ searching around cube
+Cube position: (144, 39)
+ Clusters found: 3 filtered clusters: 0
+cluster size: 20 with color: 193 in filtered cluster included 0
+cluster size: 2 with color: 193 in filtered cluster included 0
+cluster size: 2 with color: 193 in filtered cluster included 0
+ found nothing 
+detect_bkey_printing: 0
+SKETCH 15 GOAL (halfway-->7): MOVING | bkey=0 | blue=(blue_room_7=0 and correct_position=0) = 0 |cube_pos=(144,39) |Last_room_color=5
+SKETCH 16 GOAL Computation 
+
+not touched 
+Checking items in entire screen for type: black_key
+found yellow_sword at 136 47 cube at 144 39
+ searching around cube
+Cube position: (144, 39)
+ Clusters found: 3 filtered clusters: 0
+cluster size: 20 with color: 193 in filtered cluster included 0
+cluster size: 2 with color: 193 in filtered cluster included 0
+cluster size: 2 with color: 193 in filtered cluster included 0
+ found nothing 
+detect_bkey_printing: 0
+SKETCH 16 GOAL (halfway-->7-->9): MOVING | bkey=0 | blue=(blue_room_9=0 and correct_position=0) = 0 |cube_pos=(144,39) |Last_room_color=5
+SKETCH 17 GOAL Computation 
+
+not touched 
+Checking items in entire screen for type: black_key
+found yellow_sword at 136 47 cube at 144 39
+ searching around cube
+Cube position: (144, 39)
+ Clusters found: 3 filtered clusters: 0
+cluster size: 20 with color: 193 in filtered cluster included 0
+cluster size: 2 with color: 193 in filtered cluster included 0
+cluster size: 2 with color: 193 in filtered cluster included 0
+ found nothing 
+detect_bkey_printing: 0
+SKETCH 17 GOAL (halfway-->7-->9): MOVING | bkey=0 | blue=(blue_room_8=0 and correct_position=0) = 0 |cube_pos=(144,39) |Last_room_color=5
+SKETCH 18 GOAL Computation 
+
+not touched 
+Checking items in entire screen for type: black_key
+found yellow_sword at 136 47 cube at 144 39
+ searching around cube
+Cube position: (144, 39)
+ Clusters found: 3 filtered clusters: 0
+cluster size: 20 with color: 193 in filtered cluster included 0
+cluster size: 2 with color: 193 in filtered cluster included 0
+cluster size: 2 with color: 193 in filtered cluster included 0
+ found nothing 
+detect_bkey_printing: 0
+SKETCH 18 GOAL: MOVING | bkey=0 | chalicer=0 | last_room_color=5 | reached=0
+SKETCH 19 GOAL Computation 
+
+not touched 
+Checking items in entire screen for type: black_key
+found yellow_sword at 136 47 cube at 144 39
+ searching around cube
+Cube position: (144, 39)
+ Clusters found: 3 filtered clusters: 0
+cluster size: 20 with color: 193 in filtered cluster included 0
+cluster size: 2 with color: 193 in filtered cluster included 0
+cluster size: 2 with color: 193 in filtered cluster included 0
+ found nothing 
+detect_bkey_printing: 0
+SKETCH 19 GOAL: MOVING | bkey=0 | chalicer=0 | last_room_color=5 | reached=0
+Sketches post: 0 0 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+Setting node state for node with action: 4 ykeyt:0 bkeyt:0 yswrt:1 chalicet:0 ydragon:0 gdragon:0 Last_room_color:5
+Setting item state for node with action: 4 ykeyt:0 bkeyt:0 yswrt:1 chalicet:0 ydragon:0 gdragon:0 Last_room_color:5
+SKETCH 0 PRE Computation 
+
+SKETCH 0 PREc (Acquire Key): | !ykey=1 | ykeyr=0 | !sword_room 0 | INACTIVE
+SKETCH 1 PRE Computation 
+SKETCH 1 PRE go sword room: | ykey=0 | !ysword room=0 | INACTIVE
+SKETCH 2 PRE Computation 
+SKETCH 2 PRE: (get ysword) | !ykey=1 | ysw room=1 | !ysword=0 | INACTIVE
+SKETCH 3 PRE Computation 
+SKETCH 3 PRE: | ysword=1 | ydrag_in_room=1 |  !ydrag=1 |INACTIVE
+SKETCH 4 PRE Computation 
+SKETCH 4 PRE: | ysword=1 | !ydrag=1 ydrag_in_room1 | ACTIVE
+SKETCH 5 PRE Computation 
+ydragon function called
+ydragon detecte dragons called
+cluster size5Cluster size: 161 color: 193 in filtered: 1
+
+Cluster size: 174 color: 193 in filtered: 1
+
+Cluster size: 20 color: 193 in filtered: 0
+
+Cluster size: 2 color: 193 in filtered: 1
+
+Cluster size: 2 color: 193 in filtered: 1
+
+cluster size after filtering4
+filtered cluster with size: 161
+Detected ydragon with color: 193
+ is_dead0 is_alive0 is_firing0
+ Dragon alive detected by size
+SKETCH 5 PRE: | ysword=1 | !gdrag_in_room=1 | INACTIVE
+SKETCH 6 PRE Computation 
+
+already touched
+found cube carrying yellow_sword
+detect_ysword_printing: 1
+ydragon function called
+ydragon detecte dragons called
+cluster size5Cluster size: 161 color: 193 in filtered: 1
+
+Cluster size: 174 color: 193 in filtered: 1
+
+Cluster size: 20 color: 193 in filtered: 0
+
+Cluster size: 2 color: 193 in filtered: 1
+
+Cluster size: 2 color: 193 in filtered: 1
+
+cluster size after filtering4
+filtered cluster with size: 161
+Detected ydragon with color: 193
+ is_dead0 is_alive0 is_firing0
+ Dragon alive detected by size
+gdragonr function called
+dragon_type gdragondetect_dragons_in_room:  Cluster size 161 is_alive 0 is_firing 0 is_dead 0
+ Dragon detected by size
+gdragon function called
+cluster size5Cluster size: 161 color: 193 in filtered: 1
+
+Cluster size: 174 color: 193 in filtered: 1
+
+Cluster size: 20 color: 193 in filtered: 0
+
+Cluster size: 2 color: 193 in filtered: 1
+
+Cluster size: 2 color: 193 in filtered: 1
+
+cluster size after filtering4
+filtered cluster with size: 161
+filtered cluster with size: 174
+filtered cluster with size: 2
+filtered cluster with size: 2
+SKETCH 6 PRE: | ysword=1 | ydrag=0 | gdrag_in_room=0 | !gdrag=1 | INACTIVE
+SKETCH 7 PRE Computation 
+
+not touched 
+Checking items in entire screen for type: black_key
+found yellow_sword at 136 47 cube at 144 39
+ searching around cube
+Cube position: (144, 39)
+ Clusters found: 3 filtered clusters: 0
+cluster size: 20 with color: 193 in filtered cluster included 0
+cluster size: 2 with color: 193 in filtered cluster included 0
+cluster size: 2 with color: 193 in filtered cluster included 0
+ found nothing 
+detect_bkey_printing: 0
+gdragon function called
+cluster size5Cluster size: 161 color: 193 in filtered: 1
+
+Cluster size: 174 color: 193 in filtered: 1
+
+Cluster size: 20 color: 193 in filtered: 0
+
+Cluster size: 2 color: 193 in filtered: 1
+
+Cluster size: 2 color: 193 in filtered: 1
+
+cluster size after filtering4
+filtered cluster with size: 161
+filtered cluster with size: 174
+filtered cluster with size: 2
+filtered cluster with size: 2
+SKETCH 7 PRE: (get bkey) | !bkey=1 | bkey room=0 | ysword=1 | gdrag=0 | INACTIVE
+SKETCH 8.5 PRE Computation 
+ydragon function called
+ydragon detecte dragons called
+cluster size5Cluster size: 161 color: 193 in filtered: 1
+
+Cluster size: 174 color: 193 in filtered: 1
+
+Cluster size: 20 color: 193 in filtered: 0
+
+Cluster size: 2 color: 193 in filtered: 1
+
+Cluster size: 2 color: 193 in filtered: 1
+
+cluster size after filtering4
+filtered cluster with size: 161
+Detected ydragon with color: 193
+ is_dead0 is_alive0 is_firing0
+ Dragon alive detected by size
+
+not touched 
+Checking items in entire screen for type: black_key
+found yellow_sword at 136 47 cube at 144 39
+ searching around cube
+Cube position: (144, 39)
+ Clusters found: 3 filtered clusters: 0
+cluster size: 20 with color: 193 in filtered cluster included 0
+cluster size: 2 with color: 193 in filtered cluster included 0
+cluster size: 2 with color: 193 in filtered cluster included 0
+ found nothing 
+detect_bkey_printing: 0
+dragon_type ydragondetect_dragons_in_room:  Cluster size 161 is_alive 0 is_firing 0 is_dead 0
+ Dragon detected by size
+SKETCH 8.5 PRE: | ysword=1 | ydrag_in_room=1 |  !ydrag=1 | bkey0INACTIVE
+SKETCH 8 PRE Computation 
+ydragon function called
+ydragon detecte dragons called
+cluster size5Cluster size: 161 color: 193 in filtered: 1
+
+Cluster size: 174 color: 193 in filtered: 1
+
+Cluster size: 20 color: 193 in filtered: 0
+
+Cluster size: 2 color: 193 in filtered: 1
+
+Cluster size: 2 color: 193 in filtered: 1
+
+cluster size after filtering4
+filtered cluster with size: 161
+Detected ydragon with color: 193
+ is_dead0 is_alive0 is_firing0
+ Dragon alive detected by size
+
+not touched 
+Checking items in entire screen for type: black_key
+found yellow_sword at 136 47 cube at 144 39
+ searching around cube
+Cube position: (144, 39)
+ Clusters found: 3 filtered clusters: 0
+cluster size: 20 with color: 193 in filtered cluster included 0
+cluster size: 2 with color: 193 in filtered cluster included 0
+cluster size: 2 with color: 193 in filtered cluster included 0
+ found nothing 
+detect_bkey_printing: 0
+dragon_type ydragondetect_dragons_in_room:  Cluster size 161 is_alive 0 is_firing 0 is_dead 0
+ Dragon detected by size
+SKETCH 8 PRE (reach ydragon_room with bkey): | !ydrag_in_room=0 |  ydrag=0 | bkey0 swordr=1 |!blue_room_9=1 cube_color = 157 (is_blue=0) |Last_room_color=5INACTIVE
+SKETCH 9 PRE Computation 
+ydragon function called
+ydragon detecte dragons called
+cluster size5Cluster size: 161 color: 193 in filtered: 1
+
+Cluster size: 174 color: 193 in filtered: 1
+
+Cluster size: 20 color: 193 in filtered: 0
+
+Cluster size: 2 color: 193 in filtered: 1
+
+Cluster size: 2 color: 193 in filtered: 1
+
+cluster size after filtering4
+filtered cluster with size: 161
+Detected ydragon with color: 193
+ is_dead0 is_alive0 is_firing0
+ Dragon alive detected by size
+
+not touched 
+Checking items in entire screen for type: black_key
+found yellow_sword at 136 47 cube at 144 39
+ searching around cube
+Cube position: (144, 39)
+ Clusters found: 3 filtered clusters: 0
+cluster size: 20 with color: 193 in filtered cluster included 0
+cluster size: 2 with color: 193 in filtered cluster included 0
+cluster size: 2 with color: 193 in filtered cluster included 0
+ found nothing 
+detect_bkey_printing: 0
+dragon_type ydragondetect_dragons_in_room:  Cluster size 161 is_alive 0 is_firing 0 is_dead 0
+ Dragon detected by size
+SKETCH 9 PRE: | ydrag_in_room=1 |  ydrag=0 | bkey=0 | !blue_room_6=1 |Last_room_color=5 |INACTIVE
+SKETCH 10 PRE Computation 
+ydragon function called
+ydragon detecte dragons called
+cluster size5Cluster size: 161 color: 193 in filtered: 1
+
+Cluster size: 174 color: 193 in filtered: 1
+
+Cluster size: 20 color: 193 in filtered: 0
+
+Cluster size: 2 color: 193 in filtered: 1
+
+Cluster size: 2 color: 193 in filtered: 1
+
+cluster size after filtering4
+filtered cluster with size: 161
+Detected ydragon with color: 193
+ is_dead0 is_alive0 is_firing0
+ Dragon alive detected by size
+
+not touched 
+Checking items in entire screen for type: black_key
+found yellow_sword at 136 47 cube at 144 39
+ searching around cube
+Cube position: (144, 39)
+ Clusters found: 3 filtered clusters: 0
+cluster size: 20 with color: 193 in filtered cluster included 0
+cluster size: 2 with color: 193 in filtered cluster included 0
+cluster size: 2 with color: 193 in filtered cluster included 0
+ found nothing 
+detect_bkey_printing: 0
+dragon_type ydragondetect_dragons_in_room:  Cluster size 161 is_alive 0 is_firing 0 is_dead 0
+ Dragon detected by size
+SKETCH 10 PRE (get to room 9 x 135-160 y 146 178): | ydrag_in_room=1 |  ydrag=0 | bkey=0 | !correct_position=1 | blue_room_6=0 |cube_pos=(144,39) |Last_room_color=5 |INACTIVE
+SKETCH 11 PRE Computation 
+ydragon function called
+ydragon detecte dragons called
+cluster size5Cluster size: 161 color: 193 in filtered: 1
+
+Cluster size: 174 color: 193 in filtered: 1
+
+Cluster size: 20 color: 193 in filtered: 0
+
+Cluster size: 2 color: 193 in filtered: 1
+
+Cluster size: 2 color: 193 in filtered: 1
+
+cluster size after filtering4
+filtered cluster with size: 161
+Detected ydragon with color: 193
+ is_dead0 is_alive0 is_firing0
+ Dragon alive detected by size
+
+not touched 
+Checking items in entire screen for type: black_key
+found yellow_sword at 136 47 cube at 144 39
+ searching around cube
+Cube position: (144, 39)
+ Clusters found: 3 filtered clusters: 0
+cluster size: 20 with color: 193 in filtered cluster included 0
+cluster size: 2 with color: 193 in filtered cluster included 0
+cluster size: 2 with color: 193 in filtered cluster included 0
+ found nothing 
+detect_bkey_printing: 0
+SKETCH 11 PRE (2 step of maze): |  ydrag=0 | bkey=0 |cube_pos=(144,39) | blue2= (blue_room_9=0 and correct_position_2=0) = 0 | !blue=(blue_room_6=0 and !correct_position=1) = 1 |Last_room_color=5 |INACTIVE
+SKETCH 12 PRE Computation 
+ydragon function called
+ydragon detecte dragons called
+cluster size5Cluster size: 161 color: 193 in filtered: 1
+
+Cluster size: 174 color: 193 in filtered: 1
+
+Cluster size: 20 color: 193 in filtered: 0
+
+Cluster size: 2 color: 193 in filtered: 1
+
+Cluster size: 2 color: 193 in filtered: 1
+
+cluster size after filtering4
+filtered cluster with size: 161
+Detected ydragon with color: 193
+ is_dead0 is_alive0 is_firing0
+ Dragon alive detected by size
+
+not touched 
+Checking items in entire screen for type: black_key
+found yellow_sword at 136 47 cube at 144 39
+ searching around cube
+Cube position: (144, 39)
+ Clusters found: 3 filtered clusters: 0
+cluster size: 20 with color: 193 in filtered cluster included 0
+cluster size: 2 with color: 193 in filtered cluster included 0
+cluster size: 2 with color: 193 in filtered cluster included 0
+ found nothing 
+detect_bkey_printing: 0
+SKETCH 12 PRE(reach room 9 2time): |  ydrag=0 | bkey=0 | blue=(blue_room_6=0 and correct_position=0) = 0 |!blue_2=(blue_room_9=0 and correct_position_2=1) = 1 |cube_pos=(144,39) |Last_room_color=5 |INACTIVE
+SKETCH 13 PRE Computation 
+ydragon function called
+ydragon detecte dragons called
+cluster size5Cluster size: 161 color: 193 in filtered: 1
+
+Cluster size: 174 color: 193 in filtered: 1
+
+Cluster size: 20 color: 193 in filtered: 0
+
+Cluster size: 2 color: 193 in filtered: 1
+
+Cluster size: 2 color: 193 in filtered: 1
+
+cluster size after filtering4
+filtered cluster with size: 161
+Detected ydragon with color: 193
+ is_dead0 is_alive0 is_firing0
+ Dragon alive detected by size
+
+not touched 
+Checking items in entire screen for type: black_key
+found yellow_sword at 136 47 cube at 144 39
+ searching around cube
+Cube position: (144, 39)
+ Clusters found: 3 filtered clusters: 0
+cluster size: 20 with color: 193 in filtered cluster included 0
+cluster size: 2 with color: 193 in filtered cluster included 0
+cluster size: 2 with color: 193 in filtered cluster included 0
+ found nothing 
+detect_bkey_printing: 0
+SKETCH 13 PRE(reach room 8 1time): |  ydrag=0 | bkey=0 | blue=(blue_room_9=0 and correct_position=1) = 0 |!blue_2=(blue_room_8=0 and correct_position_2=0) = 1 |cube_pos=(144,39) |Last_room_color=5 |INACTIVE
+SKETCH 14 PRE Computation 
+ydragon function called
+ydragon detecte dragons called
+cluster size5Cluster size: 161 color: 193 in filtered: 1
+
+Cluster size: 174 color: 193 in filtered: 1
+
+Cluster size: 20 color: 193 in filtered: 0
+
+Cluster size: 2 color: 193 in filtered: 1
+
+Cluster size: 2 color: 193 in filtered: 1
+
+cluster size after filtering4
+filtered cluster with size: 161
+Detected ydragon with color: 193
+ is_dead0 is_alive0 is_firing0
+ Dragon alive detected by size
+
+not touched 
+Checking items in entire screen for type: black_key
+found yellow_sword at 136 47 cube at 144 39
+ searching around cube
+Cube position: (144, 39)
+ Clusters found: 3 filtered clusters: 0
+cluster size: 20 with color: 193 in filtered cluster included 0
+cluster size: 2 with color: 193 in filtered cluster included 0
+cluster size: 2 with color: 193 in filtered cluster included 0
+ found nothing 
+detect_bkey_printing: 0
+SKETCH 14 PRE(halfway): |  ydrag=0 | bkey=0 | blue=(blue_room_8=0 and correct_position=0) = 0 |!blue_2=(blue_room_10=0 and correct_position_2=1) = 1 |cube_pos=(144,39) |Last_room_color=5 |INACTIVE
+SKETCH 15 PRE Computation 
+ydragon function called
+ydragon detecte dragons called
+cluster size5Cluster size: 161 color: 193 in filtered: 1
+
+Cluster size: 174 color: 193 in filtered: 1
+
+Cluster size: 20 color: 193 in filtered: 0
+
+Cluster size: 2 color: 193 in filtered: 1
+
+Cluster size: 2 color: 193 in filtered: 1
+
+cluster size after filtering4
+filtered cluster with size: 161
+Detected ydragon with color: 193
+ is_dead0 is_alive0 is_firing0
+ Dragon alive detected by size
+
+not touched 
+Checking items in entire screen for type: black_key
+found yellow_sword at 136 47 cube at 144 39
+ searching around cube
+Cube position: (144, 39)
+ Clusters found: 3 filtered clusters: 0
+cluster size: 20 with color: 193 in filtered cluster included 0
+cluster size: 2 with color: 193 in filtered cluster included 0
+cluster size: 2 with color: 193 in filtered cluster included 0
+ found nothing 
+detect_bkey_printing: 0
+SKETCH 15 PRE(halfway --> 7): |  ydrag=0 | bkey=0 | blue=(blue_room_10=0 and correct_position=1) = 0 |!blue_2=(blue_room_7=0 and correct_position_2=0) = 1 |cube_pos=(144,39) |Last_room_color=5 |INACTIVE
+SKETCH 16 PRE Computation 
+ydragon function called
+ydragon detecte dragons called
+cluster size5Cluster size: 161 color: 193 in filtered: 1
+
+Cluster size: 174 color: 193 in filtered: 1
+
+Cluster size: 20 color: 193 in filtered: 0
+
+Cluster size: 2 color: 193 in filtered: 1
+
+Cluster size: 2 color: 193 in filtered: 1
+
+cluster size after filtering4
+filtered cluster with size: 161
+Detected ydragon with color: 193
+ is_dead0 is_alive0 is_firing0
+ Dragon alive detected by size
+
+not touched 
+Checking items in entire screen for type: black_key
+found yellow_sword at 136 47 cube at 144 39
+ searching around cube
+Cube position: (144, 39)
+ Clusters found: 3 filtered clusters: 0
+cluster size: 20 with color: 193 in filtered cluster included 0
+cluster size: 2 with color: 193 in filtered cluster included 0
+cluster size: 2 with color: 193 in filtered cluster included 0
+ found nothing 
+detect_bkey_printing: 0
+SKETCH 16 PRE(7 --> 9): |  ydrag=0 | bkey=0 | blue=(blue_room_7=0 and correct_position=0) = 0 |!blue_2=(blue_room_9=0 and correct_position_2=0) = 1 |cube_pos=(144,39) |Last_room_color=5 |INACTIVE
+SKETCH 17 PRE Computation 
+ydragon function called
+ydragon detecte dragons called
+cluster size5Cluster size: 161 color: 193 in filtered: 1
+
+Cluster size: 174 color: 193 in filtered: 1
+
+Cluster size: 20 color: 193 in filtered: 0
+
+Cluster size: 2 color: 193 in filtered: 1
+
+Cluster size: 2 color: 193 in filtered: 1
+
+cluster size after filtering4
+filtered cluster with size: 161
+Detected ydragon with color: 193
+ is_dead0 is_alive0 is_firing0
+ Dragon alive detected by size
+
+not touched 
+Checking items in entire screen for type: black_key
+found yellow_sword at 136 47 cube at 144 39
+ searching around cube
+Cube position: (144, 39)
+ Clusters found: 3 filtered clusters: 0
+cluster size: 20 with color: 193 in filtered cluster included 0
+cluster size: 2 with color: 193 in filtered cluster included 0
+cluster size: 2 with color: 193 in filtered cluster included 0
+ found nothing 
+detect_bkey_printing: 0
+SKETCH 17 PRE(7 --> 9--> 8): |  ydrag=0 | bkey=0 | blue=(blue_room_9=0 and correct_position=0) = 0 |!blue_2=(blue_room_8=0 and correct_position_2=0) = 1 |cube_pos=(144,39) |Last_room_color=5 |INACTIVE
+SKETCH 18 PRE Computation 
+ydragon function called
+ydragon detecte dragons called
+cluster size5Cluster size: 161 color: 193 in filtered: 1
+
+Cluster size: 174 color: 193 in filtered: 1
+
+Cluster size: 20 color: 193 in filtered: 0
+
+Cluster size: 2 color: 193 in filtered: 1
+
+Cluster size: 2 color: 193 in filtered: 1
+
+cluster size after filtering4
+filtered cluster with size: 161
+Detected ydragon with color: 193
+ is_dead0 is_alive0 is_firing0
+ Dragon alive detected by size
+
+not touched 
+Checking items in entire screen for type: black_key
+found yellow_sword at 136 47 cube at 144 39
+ searching around cube
+Cube position: (144, 39)
+ Clusters found: 3 filtered clusters: 0
+cluster size: 20 with color: 193 in filtered cluster included 0
+cluster size: 2 with color: 193 in filtered cluster included 0
+cluster size: 2 with color: 193 in filtered cluster included 0
+ found nothing 
+detect_bkey_printing: 0
+SKETCH 18 PRE: |  ydrag=0 | bkey=0 | blue=(blue_room_8=0 and correct_position=0) = 0 |cube_pos=(144,39) |Last_room_color=5 |INACTIVE
+SKETCH 19 PRE Computation 
+ydragon function called
+ydragon detecte dragons called
+cluster size5Cluster size: 161 color: 193 in filtered: 1
+
+Cluster size: 174 color: 193 in filtered: 1
+
+Cluster size: 20 color: 193 in filtered: 0
+
+Cluster size: 2 color: 193 in filtered: 1
+
+Cluster size: 2 color: 193 in filtered: 1
+
+cluster size after filtering4
+filtered cluster with size: 161
+Detected ydragon with color: 193
+ is_dead0 is_alive0 is_firing0
+ Dragon alive detected by size
+
+not touched 
+Checking items in entire screen for type: black_key
+found yellow_sword at 136 47 cube at 144 39
+ searching around cube
+Cube position: (144, 39)
+ Clusters found: 3 filtered clusters: 0
+cluster size: 20 with color: 193 in filtered cluster included 0
+cluster size: 2 with color: 193 in filtered cluster included 0
+cluster size: 2 with color: 193 in filtered cluster included 0
+ found nothing 
+detect_bkey_printing: 0
+SKETCH 19 PRE: |  ydrag=0 | bkey=0 | black=0 |Last_room_color=5 | !chalice=1 |INACTIVE
+Sketches pre: 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+Setting node state for node with action: 4 ykeyt:0 bkeyt:0 yswrt:1 chalicet:0 ydragon:0 gdragon:0 Last_room_color:5
+----------------------------------------------------- 
+distance to items: ykey: best node = -1 root= 25 ysword: best node = 14 root= 8 bkey: best node = -1 root= -1 chalice: best node = -1 root= -1
+[33;1mlogging::Logger::Stats: [0mdecision-stats: #entries=[0:33227/20598848,] #nodes=1978 #tips=1461 height=[14:8,8,13,8,0,1,] #expansions=291 #sim=1660 total-time=1087.34 simulator-time=0.953979 reset-time=0 get/set-state-time=0.559265 expand-time=0.0125122 update-novelty-time=0.0715332 get-atoms-calls=1659 get-atoms-time=2.13422 novel-atom-time=0.354614
+bfs: total time: 1087.34 seconds
+[32;1mlogging::Logger::Info: [0mexecutable-prefix: len=13, actions=[3,3,5,5,5,5,5,4,4,4,4,4,4,]
+[33;1mlogging::Logger::Stats: [0mstep-stats: acc-reward=0, acc-frames=240
+[33;1mlogging::Logger::Stats: [0mstep-stats: acc-reward=0, acc-frames=255
+[33;1mlogging::Logger::Stats: [0mstep-stats: acc-reward=0, acc-frames=270
+[33;1mlogging::Logger::Stats: [0mstep-stats: acc-reward=0, acc-frames=285
+[33;1mlogging::Logger::Stats: [0mstep-stats: acc-reward=0, acc-frames=300
+[33;1mlogging::Logger::Stats: [0mstep-stats: acc-reward=0, acc-frames=315
+[33;1mlogging::Logger::Stats: [0mstep-stats: acc-reward=0, acc-frames=330
+[33;1mlogging::Logger::Stats: [0mstep-stats: acc-reward=0, acc-frames=345
+[33;1mlogging::Logger::Stats: [0mstep-stats: acc-reward=0, acc-frames=360
+[33;1mlogging::Logger::Stats: [0mstep-stats: acc-reward=0, acc-frames=375
+[33;1mlogging::Logger::Stats: [0mstep-stats: acc-reward=0, acc-frames=390
+[33;1mlogging::Logger::Stats: [0mstep-stats: acc-reward=0, acc-frames=405
+[33;1mlogging::Logger::Stats: [0mstep-stats: acc-reward=0, acc-frames=420
+[32;1mlogging::Logger::Info: [0m**** bfs: get branch ****
+[32;1mlogging::Logger::Info: [0mprefix: sz=51, actions=[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4,4,4,2,2,5,5,3,3,3,2,2,4,4,4,3,3,5,5,5,5,5,4,4,4,4,4,4,]
+[32;1mlogging::Logger::Info: [0minput: #nodes=7, #tips=6, height=1
+simulator calls: 0 simulator budget: 5000000
+[32;1mlogging::Logger::Info: [0mqueue: sz=6
+[32;1mlogging::Logger::Info: [0mbfs: stopping search, queue empty=0, simulator budget reached=1, time budget reached=1, fulfillment branch full=1
+Root node preconditions: 
+Setting item state for node with action: 4 ykeyt:0 bkeyt:0 yswrt:1 chalicet:0 ydragon:0 gdragon:0 Last_room_color:5
+SKETCH 0 PRE Computation 
+
+SKETCH 0 PREc (Acquire Key): | !ykey=1 | ykeyr=0 | !sword_room 0 | INACTIVE
+SKETCH 1 PRE Computation 
+SKETCH 1 PRE go sword room: | ykey=0 | !ysword room=0 | INACTIVE
+SKETCH 2 PRE Computation 
+SKETCH 2 PRE: (get ysword) | !ykey=1 | ysw room=1 | !ysword=0 | INACTIVE
+SKETCH 3 PRE Computation 
+SKETCH 3 PRE: | ysword=1 | ydrag_in_room=1 |  !ydrag=1 |INACTIVE
+SKETCH 4 PRE Computation 
+SKETCH 4 PRE: | ysword=1 | !ydrag=1 ydrag_in_room1 | ACTIVE
+SKETCH 5 PRE Computation 
+ydragon function called
+ydragon detecte dragons called
+cluster size5Cluster size: 161 color: 193 in filtered: 1
+
+Cluster size: 174 color: 193 in filtered: 1
+
+Cluster size: 20 color: 193 in filtered: 0
+
+Cluster size: 2 color: 193 in filtered: 1
+
+Cluster size: 2 color: 193 in filtered: 1
+
+cluster size after filtering4
+filtered cluster with size: 161
+Detected ydragon with color: 193
+ is_dead0 is_alive0 is_firing0
+ Dragon alive detected by size
+SKETCH 5 PRE: | ysword=1 | !gdrag_in_room=1 | INACTIVE
+SKETCH 6 PRE Computation 
+
+already touched
+found cube carrying yellow_sword
+detect_ysword_printing: 1
+ydragon function called
+ydragon detecte dragons called
+cluster size5Cluster size: 161 color: 193 in filtered: 1
+
+Cluster size: 174 color: 193 in filtered: 1
+
+Cluster size: 20 color: 193 in filtered: 0
+
+Cluster size: 2 color: 193 in filtered: 1
+
+Cluster size: 2 color: 193 in filtered: 1
+
+cluster size after filtering4
+filtered cluster with size: 161
+Detected ydragon with color: 193
+ is_dead0 is_alive0 is_firing0
+ Dragon alive detected by size
+gdragonr function called
+dragon_type gdragondetect_dragons_in_room:  Cluster size 161 is_alive 0 is_firing 0 is_dead 0
+ Dragon detected by size
+gdragon function called
+cluster size5Cluster size: 161 color: 193 in filtered: 1
+
+Cluster size: 174 color: 193 in filtered: 1
+
+Cluster size: 20 color: 193 in filtered: 0
+
+Cluster size: 2 color: 193 in filtered: 1
+
+Cluster size: 2 color: 193 in filtered: 1
+
+cluster size after filtering4
+filtered cluster with size: 161
+filtered cluster with size: 174
+filtered cluster with size: 2
+filtered cluster with size: 2
+SKETCH 6 PRE: | ysword=1 | ydrag=0 | gdrag_in_room=0 | !gdrag=1 | INACTIVE
+SKETCH 7 PRE Computation 
+
+not touched 
+Checking items in entire screen for type: black_key
+found yellow_sword at 136 47 cube at 144 39
+ searching around cube
+Cube position: (144, 39)
+ Clusters found: 3 filtered clusters: 0
+cluster size: 20 with color: 193 in filtered cluster included 0
+cluster size: 2 with color: 193 in filtered cluster included 0
+cluster size: 2 with color: 193 in filtered cluster included 0
+ found nothing 
+detect_bkey_printing: 0
+gdragon function called
+cluster size5Cluster size: 161 color: 193 in filtered: 1
+
+Cluster size: 174 color: 193 in filtered: 1
+
+Cluster size: 20 color: 193 in filtered: 0
+
+Cluster size: 2 color: 193 in filtered: 1
+
+Cluster size: 2 color: 193 in filtered: 1
+
+cluster size after filtering4
+filtered cluster with size: 161
+filtered cluster with size: 174
+filtered cluster with size: 2
+filtered cluster with size: 2
+SKETCH 7 PRE: (get bkey) | !bkey=1 | bkey room=0 | ysword=1 | gdrag=0 | INACTIVE
+SKETCH 8.5 PRE Computation 
+ydragon function called
+ydragon detecte dragons called
+cluster size5Cluster size: 161 color: 193 in filtered: 1
+
+Cluster size: 174 color: 193 in filtered: 1
+
+Cluster size: 20 color: 193 in filtered: 0
+
+Cluster size: 2 color: 193 in filtered: 1
+
+Cluster size: 2 color: 193 in filtered: 1
+
+cluster size after filtering4
+filtered cluster with size: 161
+Detected ydragon with color: 193
+ is_dead0 is_alive0 is_firing0
+ Dragon alive detected by size
+
+not touched 
+Checking items in entire screen for type: black_key
+found yellow_sword at 136 47 cube at 144 39
+ searching around cube
+Cube position: (144, 39)
+ Clusters found: 3 filtered clusters: 0
+cluster size: 20 with color: 193 in filtered cluster included 0
+cluster size: 2 with color: 193 in filtered cluster included 0
+cluster size: 2 with color: 193 in filtered cluster included 0
+ found nothing 
+detect_bkey_printing: 0
+dragon_type ydragondetect_dragons_in_room:  Cluster size 161 is_alive 0 is_firing 0 is_dead 0
+ Dragon detected by size
+SKETCH 8.5 PRE: | ysword=1 | ydrag_in_room=1 |  !ydrag=1 | bkey0INACTIVE
+SKETCH 8 PRE Computation 
+ydragon function called
+ydragon detecte dragons called
+cluster size5Cluster size: 161 color: 193 in filtered: 1
+
+Cluster size: 174 color: 193 in filtered: 1
+
+Cluster size: 20 color: 193 in filtered: 0
+
+Cluster size: 2 color: 193 in filtered: 1
+
+Cluster size: 2 color: 193 in filtered: 1
+
+cluster size after filtering4
+filtered cluster with size: 161
+Detected ydragon with color: 193
+ is_dead0 is_alive0 is_firing0
+ Dragon alive detected by size
+
+not touched 
+Checking items in entire screen for type: black_key
+found yellow_sword at 136 47 cube at 144 39
+ searching around cube
+Cube position: (144, 39)
+ Clusters found: 3 filtered clusters: 0
+cluster size: 20 with color: 193 in filtered cluster included 0
+cluster size: 2 with color: 193 in filtered cluster included 0
+cluster size: 2 with color: 193 in filtered cluster included 0
+ found nothing 
+detect_bkey_printing: 0
+dragon_type ydragondetect_dragons_in_room:  Cluster size 161 is_alive 0 is_firing 0 is_dead 0
+ Dragon detected by size
+SKETCH 8 PRE (reach ydragon_room with bkey): | !ydrag_in_room=0 |  ydrag=0 | bkey0 swordr=1 |!blue_room_9=1 cube_color = 157 (is_blue=0) |Last_room_color=5INACTIVE
+SKETCH 9 PRE Computation 
+ydragon function called
+ydragon detecte dragons called
+cluster size5Cluster size: 161 color: 193 in filtered: 1
+
+Cluster size: 174 color: 193 in filtered: 1
+
+Cluster size: 20 color: 193 in filtered: 0
+
+Cluster size: 2 color: 193 in filtered: 1
+
+Cluster size: 2 color: 193 in filtered: 1
+
+cluster size after filtering4
+filtered cluster with size: 161
+Detected ydragon with color: 193
+ is_dead0 is_alive0 is_firing0
+ Dragon alive detected by size
+
+not touched 
+Checking items in entire screen for type: black_key
+found yellow_sword at 136 47 cube at 144 39
+ searching around cube
+Cube position: (144, 39)
+ Clusters found: 3 filtered clusters: 0
+cluster size: 20 with color: 193 in filtered cluster included 0
+cluster size: 2 with color: 193 in filtered cluster included 0
+cluster size: 2 with color: 193 in filtered cluster included 0
+ found nothing 
+detect_bkey_printing: 0
+dragon_type ydragondetect_dragons_in_room:  Cluster size 161 is_alive 0 is_firing 0 is_dead 0
+ Dragon detected by size
+SKETCH 9 PRE: | ydrag_in_room=1 |  ydrag=0 | bkey=0 | !blue_room_6=1 |Last_room_color=5 |INACTIVE
+SKETCH 10 PRE Computation 
+ydragon function called
+ydragon detecte dragons called
+cluster size5Cluster size: 161 color: 193 in filtered: 1
+
+Cluster size: 174 color: 193 in filtered: 1
+
+Cluster size: 20 color: 193 in filtered: 0
+
+Cluster size: 2 color: 193 in filtered: 1
+
+Cluster size: 2 color: 193 in filtered: 1
+
+cluster size after filtering4
+filtered cluster with size: 161
+Detected ydragon with color: 193
+ is_dead0 is_alive0 is_firing0
+ Dragon alive detected by size
+
+not touched 
+Checking items in entire screen for type: black_key
+found yellow_sword at 136 47 cube at 144 39
+ searching around cube
+Cube position: (144, 39)
+ Clusters found: 3 filtered clusters: 0
+cluster size: 20 with color: 193 in filtered cluster included 0
+cluster size: 2 with color: 193 in filtered cluster included 0
+cluster size: 2 with color: 193 in filtered cluster included 0
+ found nothing 
+detect_bkey_printing: 0
+dragon_type ydragondetect_dragons_in_room:  Cluster size 161 is_alive 0 is_firing 0 is_dead 0
+ Dragon detected by size
+SKETCH 10 PRE (get to room 9 x 135-160 y 146 178): | ydrag_in_room=1 |  ydrag=0 | bkey=0 | !correct_position=1 | blue_room_6=0 |cube_pos=(144,39) |Last_room_color=5 |INACTIVE
+SKETCH 11 PRE Computation 
+ydragon function called
+ydragon detecte dragons called
+cluster size5Cluster size: 161 color: 193 in filtered: 1
+
+Cluster size: 174 color: 193 in filtered: 1
+
+Cluster size: 20 color: 193 in filtered: 0
+
+Cluster size: 2 color: 193 in filtered: 1
+
+Cluster size: 2 color: 193 in filtered: 1
+
+cluster size after filtering4
+filtered cluster with size: 161
+Detected ydragon with color: 193
+ is_dead0 is_alive0 is_firing0
+ Dragon alive detected by size
+
+not touched 
+Checking items in entire screen for type: black_key
+found yellow_sword at 136 47 cube at 144 39
+ searching around cube
+Cube position: (144, 39)
+ Clusters found: 3 filtered clusters: 0
+cluster size: 20 with color: 193 in filtered cluster included 0
+cluster size: 2 with color: 193 in filtered cluster included 0
+cluster size: 2 with color: 193 in filtered cluster included 0
+ found nothing 
+detect_bkey_printing: 0
+SKETCH 11 PRE (2 step of maze): |  ydrag=0 | bkey=0 |cube_pos=(144,39) | blue2= (blue_room_9=0 and correct_position_2=0) = 0 | !blue=(blue_room_6=0 and !correct_position=1) = 1 |Last_room_color=5 |INACTIVE
+SKETCH 12 PRE Computation 
+ydragon function called
+ydragon detecte dragons called
+cluster size5Cluster size: 161 color: 193 in filtered: 1
+
+Cluster size: 174 color: 193 in filtered: 1
+
+Cluster size: 20 color: 193 in filtered: 0
+
+Cluster size: 2 color: 193 in filtered: 1
+
+Cluster size: 2 color: 193 in filtered: 1
+
+cluster size after filtering4
+filtered cluster with size: 161
+Detected ydragon with color: 193
+ is_dead0 is_alive0 is_firing0
+ Dragon alive detected by size
+
+not touched 
+Checking items in entire screen for type: black_key
+found yellow_sword at 136 47 cube at 144 39
+ searching around cube
+Cube position: (144, 39)
+ Clusters found: 3 filtered clusters: 0
+cluster size: 20 with color: 193 in filtered cluster included 0
+cluster size: 2 with color: 193 in filtered cluster included 0
+cluster size: 2 with color: 193 in filtered cluster included 0
+ found nothing 
+detect_bkey_printing: 0
+SKETCH 12 PRE(reach room 9 2time): |  ydrag=0 | bkey=0 | blue=(blue_room_6=0 and correct_position=0) = 0 |!blue_2=(blue_room_9=0 and correct_position_2=1) = 1 |cube_pos=(144,39) |Last_room_color=5 |INACTIVE
+SKETCH 13 PRE Computation 
+ydragon function called
+ydragon detecte dragons called
+cluster size5Cluster size: 161 color: 193 in filtered: 1
+
+Cluster size: 174 color: 193 in filtered: 1
+
+Cluster size: 20 color: 193 in filtered: 0
+
+Cluster size: 2 color: 193 in filtered: 1
+
+Cluster size: 2 color: 193 in filtered: 1
+
+cluster size after filtering4
+filtered cluster with size: 161
+Detected ydragon with color: 193
+ is_dead0 is_alive0 is_firing0
+ Dragon alive detected by size
+
+not touched 
+Checking items in entire screen for type: black_key
+found yellow_sword at 136 47 cube at 144 39
+ searching around cube
+Cube position: (144, 39)
+ Clusters found: 3 filtered clusters: 0
+cluster size: 20 with color: 193 in filtered cluster included 0
+cluster size: 2 with color: 193 in filtered cluster included 0
+cluster size: 2 with color: 193 in filtered cluster included 0
+ found nothing 
+detect_bkey_printing: 0
+SKETCH 13 PRE(reach room 8 1time): |  ydrag=0 | bkey=0 | blue=(blue_room_9=0 and correct_position=1) = 0 |!blue_2=(blue_room_8=0 and correct_position_2=0) = 1 |cube_pos=(144,39) |Last_room_color=5 |INACTIVE
+SKETCH 14 PRE Computation 
+ydragon function called
+ydragon detecte dragons called
+cluster size5Cluster size: 161 color: 193 in filtered: 1
+
+Cluster size: 174 color: 193 in filtered: 1
+
+Cluster size: 20 color: 193 in filtered: 0
+
+Cluster size: 2 color: 193 in filtered: 1
+
+Cluster size: 2 color: 193 in filtered: 1
+
+cluster size after filtering4
+filtered cluster with size: 161
+Detected ydragon with color: 193
+ is_dead0 is_alive0 is_firing0
+ Dragon alive detected by size
+
+not touched 
+Checking items in entire screen for type: black_key
+found yellow_sword at 136 47 cube at 144 39
+ searching around cube
+Cube position: (144, 39)
+ Clusters found: 3 filtered clusters: 0
+cluster size: 20 with color: 193 in filtered cluster included 0
+cluster size: 2 with color: 193 in filtered cluster included 0
+cluster size: 2 with color: 193 in filtered cluster included 0
+ found nothing 
+detect_bkey_printing: 0
+SKETCH 14 PRE(halfway): |  ydrag=0 | bkey=0 | blue=(blue_room_8=0 and correct_position=0) = 0 |!blue_2=(blue_room_10=0 and correct_position_2=1) = 1 |cube_pos=(144,39) |Last_room_color=5 |INACTIVE
+SKETCH 15 PRE Computation 
+ydragon function called
+ydragon detecte dragons called
+cluster size5Cluster size: 161 color: 193 in filtered: 1
+
+Cluster size: 174 color: 193 in filtered: 1
+
+Cluster size: 20 color: 193 in filtered: 0
+
+Cluster size: 2 color: 193 in filtered: 1
+
+Cluster size: 2 color: 193 in filtered: 1
+
+cluster size after filtering4
+filtered cluster with size: 161
+Detected ydragon with color: 193
+ is_dead0 is_alive0 is_firing0
+ Dragon alive detected by size
+
+not touched 
+Checking items in entire screen for type: black_key
+found yellow_sword at 136 47 cube at 144 39
+ searching around cube
+Cube position: (144, 39)
+ Clusters found: 3 filtered clusters: 0
+cluster size: 20 with color: 193 in filtered cluster included 0
+cluster size: 2 with color: 193 in filtered cluster included 0
+cluster size: 2 with color: 193 in filtered cluster included 0
+ found nothing 
+detect_bkey_printing: 0
+SKETCH 15 PRE(halfway --> 7): |  ydrag=0 | bkey=0 | blue=(blue_room_10=0 and correct_position=1) = 0 |!blue_2=(blue_room_7=0 and correct_position_2=0) = 1 |cube_pos=(144,39) |Last_room_color=5 |INACTIVE
+SKETCH 16 PRE Computation 
+ydragon function called
+ydragon detecte dragons called
+cluster size5Cluster size: 161 color: 193 in filtered: 1
+
+Cluster size: 174 color: 193 in filtered: 1
+
+Cluster size: 20 color: 193 in filtered: 0
+
+Cluster size: 2 color: 193 in filtered: 1
+
+Cluster size: 2 color: 193 in filtered: 1
+
+cluster size after filtering4
+filtered cluster with size: 161
+Detected ydragon with color: 193
+ is_dead0 is_alive0 is_firing0
+ Dragon alive detected by size
+
+not touched 
+Checking items in entire screen for type: black_key
+found yellow_sword at 136 47 cube at 144 39
+ searching around cube
+Cube position: (144, 39)
+ Clusters found: 3 filtered clusters: 0
+cluster size: 20 with color: 193 in filtered cluster included 0
+cluster size: 2 with color: 193 in filtered cluster included 0
+cluster size: 2 with color: 193 in filtered cluster included 0
+ found nothing 
+detect_bkey_printing: 0
+SKETCH 16 PRE(7 --> 9): |  ydrag=0 | bkey=0 | blue=(blue_room_7=0 and correct_position=0) = 0 |!blue_2=(blue_room_9=0 and correct_position_2=0) = 1 |cube_pos=(144,39) |Last_room_color=5 |INACTIVE
+SKETCH 17 PRE Computation 
+ydragon function called
+ydragon detecte dragons called
+cluster size5Cluster size: 161 color: 193 in filtered: 1
+
+Cluster size: 174 color: 193 in filtered: 1
+
+Cluster size: 20 color: 193 in filtered: 0
+
+Cluster size: 2 color: 193 in filtered: 1
+
+Cluster size: 2 color: 193 in filtered: 1
+
+cluster size after filtering4
+filtered cluster with size: 161
+Detected ydragon with color: 193
+ is_dead0 is_alive0 is_firing0
+ Dragon alive detected by size
+
+not touched 
+Checking items in entire screen for type: black_key
+found yellow_sword at 136 47 cube at 144 39
+ searching around cube
+Cube position: (144, 39)
+ Clusters found: 3 filtered clusters: 0
+cluster size: 20 with color: 193 in filtered cluster included 0
+cluster size: 2 with color: 193 in filtered cluster included 0
+cluster size: 2 with color: 193 in filtered cluster included 0
+ found nothing 
+detect_bkey_printing: 0
+SKETCH 17 PRE(7 --> 9--> 8): |  ydrag=0 | bkey=0 | blue=(blue_room_9=0 and correct_position=0) = 0 |!blue_2=(blue_room_8=0 and correct_position_2=0) = 1 |cube_pos=(144,39) |Last_room_color=5 |INACTIVE
+SKETCH 18 PRE Computation 
+ydragon function called
+ydragon detecte dragons called
+cluster size5Cluster size: 161 color: 193 in filtered: 1
+
+Cluster size: 174 color: 193 in filtered: 1
+
+Cluster size: 20 color: 193 in filtered: 0
+
+Cluster size: 2 color: 193 in filtered: 1
+
+Cluster size: 2 color: 193 in filtered: 1
+
+cluster size after filtering4
+filtered cluster with size: 161
+Detected ydragon with color: 193
+ is_dead0 is_alive0 is_firing0
+ Dragon alive detected by size
+
+not touched 
+Checking items in entire screen for type: black_key
+found yellow_sword at 136 47 cube at 144 39
+ searching around cube
+Cube position: (144, 39)
+ Clusters found: 3 filtered clusters: 0
+cluster size: 20 with color: 193 in filtered cluster included 0
+cluster size: 2 with color: 193 in filtered cluster included 0
+cluster size: 2 with color: 193 in filtered cluster included 0
+ found nothing 
+detect_bkey_printing: 0
+SKETCH 18 PRE: |  ydrag=0 | bkey=0 | blue=(blue_room_8=0 and correct_position=0) = 0 |cube_pos=(144,39) |Last_room_color=5 |INACTIVE
+SKETCH 19 PRE Computation 
+ydragon function called
+ydragon detecte dragons called
+cluster size5Cluster size: 161 color: 193 in filtered: 1
+
+Cluster size: 174 color: 193 in filtered: 1
+
+Cluster size: 20 color: 193 in filtered: 0
+
+Cluster size: 2 color: 193 in filtered: 1
+
+Cluster size: 2 color: 193 in filtered: 1
+
+cluster size after filtering4
+filtered cluster with size: 161
+Detected ydragon with color: 193
+ is_dead0 is_alive0 is_firing0
+ Dragon alive detected by size
+
+not touched 
+Checking items in entire screen for type: black_key
+found yellow_sword at 136 47 cube at 144 39
+ searching around cube
+Cube position: (144, 39)
+ Clusters found: 3 filtered clusters: 0
+cluster size: 20 with color: 193 in filtered cluster included 0
+cluster size: 2 with color: 193 in filtered cluster included 0
+cluster size: 2 with color: 193 in filtered cluster included 0
+ found nothing 
+detect_bkey_printing: 0
+SKETCH 19 PRE: |  ydrag=0 | bkey=0 | black=0 |Last_room_color=5 | !chalice=1 |INACTIVE
+Sketches pre: 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+Setting node state for node with action: 4 ykeyt:0 bkeyt:0 yswrt:1 chalicet:0 ydragon:0 gdragon:0 Last_room_color:5
+---------------------------------------------------------------------------------
+sketches exploitation with depth lookahead
+Action in fulfillment branch: 5 3 5 5 4 3 3 
+At fulfillment branch end, chalicer is 0
+Setting item state for node with action: 3 ykeyt:0 bkeyt:0 yswrt:1 chalicet:0 ydragon:1 gdragon:0 Last_room_color:2
+checking sketches preconditions and goals for best node: 3
+ykeyt: 0 parents_ykeyt: 0 yswrt: 1 parents_yswrt: 1 ydragon1 parents: 0 gdragon0 parents: 0 last_room_color: 2
+Setting item state for node with action: 3 ykeyt:0 bkeyt:0 yswrt:1 chalicet:0 ydragon:1 gdragon:0 Last_room_color:2
+SKETCH 0 GOAL Computation 
+SKETCH 0 GOAL: IN PROGRESS | ykey=0
+SKETCH 1 GOAL Computation 
+SKETCH 1 GOAL: MOVING | yswr=0 | ykey=0
+SKETCH 2 GOAL Computation 
+SKETCH 2 GOAL: REACHED | ysword=1
+SKETCH 3 GOAL Computation 
+SKETCH 3 GOAL: REACHED | ysword=1 | ydragon_in room=1
+SKETCH 4 GOAL Computation 
+SKETCH 4 GOAL: REACHED | ysword=1 | ydragon_killed=1  or sword_dragon=0 | ydragon_distance=0 curr_dist=-1 prev_dist=-1 | what exactly curr: sword not found | what exactly curr: sword not found | ydragon_in_room=1
+SKETCH 5 GOAL Computation 
+gdragonr function called
+dragon_type gdragondetect_dragons_in_room:  Cluster size 154 is_alive 0 is_firing 0 is_dead 0
+ Dragon detected by size
+ydragon function called
+
+not touched 
+Checking items in entire screen for type: black_key
+ searching around cube
+Cube position: (16, 129)
+ Clusters found: 3 filtered clusters: 0
+cluster size: 48 with color: 193 in filtered cluster included 0
+cluster size: 32 with color: 193 in filtered cluster included 0
+cluster size: 2 with color: 193 in filtered cluster included 0
+ found nothing 
+detect_bkey_printing: 0
+SKETCH 5 GOAL: MOVING | ysword=1 | gdragon_in room=0 |bkey 0
+SKETCH 6 GOAL Computation 
+
+already touched
+detect_ysword_printing: 1
+gdragon function called
+cluster size5Cluster size: 80 color: 147 in filtered: 1
+
+Cluster size: 154 color: 193 in filtered: 1
+
+Cluster size: 2 color: 193 in filtered: 1
+
+Cluster size: 80 color: 147 in filtered: 1
+
+Cluster size: 1 color: 147 in filtered: 1
+
+cluster size after filtering5
+filtered cluster with size: 80
+filtered cluster with size: 154
+filtered cluster with size: 2
+filtered cluster with size: 80
+filtered cluster with size: 1
+gdragonr function called
+dragon_type gdragondetect_dragons_in_room:  Cluster size 154 is_alive 0 is_firing 0 is_dead 0
+ Dragon detected by size
+Detecting items on screen...0
+SKETCH 6 GOAL: MOVING | ysword=1 | gdragon_killed=0  or sword_dragon=0 | gdragon_in_room=0
+SKETCH 7 GOAL Computation 
+
+not touched 
+Checking items in entire screen for type: black_key
+ searching around cube
+Cube position: (16, 129)
+ Clusters found: 3 filtered clusters: 0
+cluster size: 48 with color: 193 in filtered cluster included 0
+cluster size: 32 with color: 193 in filtered cluster included 0
+cluster size: 2 with color: 193 in filtered cluster included 0
+ found nothing 
+detect_bkey_printing: 0
+black_key is not above cube
+SKETCH 7 GOAL: MOVING | bkey=0 | is_key_above_cube=0
+SKETCH 8 GOAL Computation 
+
+not touched 
+Checking items in entire screen for type: black_key
+ searching around cube
+Cube position: (16, 129)
+ Clusters found: 3 filtered clusters: 0
+cluster size: 48 with color: 193 in filtered cluster included 0
+cluster size: 32 with color: 193 in filtered cluster included 0
+cluster size: 2 with color: 193 in filtered cluster included 0
+ found nothing 
+detect_bkey_printing: 0
+dragon_type ydragondetect_dragons_in_room:  Cluster size 154 is_alive 0 is_firing 0 is_dead 1
+ydragon function called
+SKETCH 8 GOAL: MOVING | bkey=0 | ydragon_in room=1 | ydragon_killed=1
+SKETCH 8 GOAL Computation 
+
+not touched 
+Checking items in entire screen for type: black_key
+ searching around cube
+Cube position: (16, 129)
+ Clusters found: 3 filtered clusters: 0
+cluster size: 48 with color: 193 in filtered cluster included 0
+cluster size: 32 with color: 193 in filtered cluster included 0
+cluster size: 2 with color: 193 in filtered cluster included 0
+ found nothing 
+detect_bkey_printing: 0
+dragon_type ydragondetect_dragons_in_room:  Cluster size 154 is_alive 0 is_firing 0 is_dead 1
+ydragon function called
+SKETCH 8 GOAL: MOVING | bkey=0 | ydragon_in room=1 | ydragon_killed=1
+SKETCH 9 GOAL Computation 
+
+not touched 
+Checking items in entire screen for type: black_key
+ searching around cube
+Cube position: (16, 129)
+ Clusters found: 3 filtered clusters: 0
+cluster size: 48 with color: 193 in filtered cluster included 0
+cluster size: 32 with color: 193 in filtered cluster included 0
+cluster size: 2 with color: 193 in filtered cluster included 0
+ found nothing 
+detect_bkey_printing: 0
+dragon_type ydragondetect_dragons_in_room:  Cluster size 154 is_alive 0 is_firing 0 is_dead 1
+SKETCH 9 GOAL: MOVING | bkey=0 | !ydragon_in room=0 |blue_room_6=0 |Last_room_color=2
+SKETCH 10 GOAL Computation 
+
+not touched 
+Checking items in entire screen for type: black_key
+ searching around cube
+Cube position: (16, 129)
+ Clusters found: 3 filtered clusters: 0
+cluster size: 48 with color: 193 in filtered cluster included 0
+cluster size: 32 with color: 193 in filtered cluster included 0
+cluster size: 2 with color: 193 in filtered cluster included 0
+ found nothing 
+detect_bkey_printing: 0
+SKETCH 10 GOAL(get to room 9 x 135-160 y 146 178) : MOVING | bkey=0 | blue=0 |cube_pos=(16,129) |blue_room_9=0 |Last_room_color=2
+SKETCH 11 GOAL Computation 
+
+not touched 
+Checking items in entire screen for type: black_key
+ searching around cube
+Cube position: (16, 129)
+ Clusters found: 3 filtered clusters: 0
+cluster size: 48 with color: 193 in filtered cluster included 0
+cluster size: 32 with color: 193 in filtered cluster included 0
+cluster size: 2 with color: 193 in filtered cluster included 0
+ found nothing 
+detect_bkey_printing: 0
+SKETCH 11 GOAL: MOVING | bkey=0 | blue=(blue_room_6=0 and correct_position=1) = 0 |cube_pos=(16,129) |Last_room_color=2
+SKETCH 12 GOAL Computation 
+
+not touched 
+Checking items in entire screen for type: black_key
+ searching around cube
+Cube position: (16, 129)
+ Clusters found: 3 filtered clusters: 0
+cluster size: 48 with color: 193 in filtered cluster included 0
+cluster size: 32 with color: 193 in filtered cluster included 0
+cluster size: 2 with color: 193 in filtered cluster included 0
+ found nothing 
+detect_bkey_printing: 0
+SKETCH 12 GOAL: MOVING | bkey=0 | blue=(blue_room_9=0 and correct_position=0) = 0 |cube_pos=(16,129) |Last_room_color=2
+SKETCH 13 GOAL Computation 
+
+not touched 
+Checking items in entire screen for type: black_key
+ searching around cube
+Cube position: (16, 129)
+ Clusters found: 3 filtered clusters: 0
+cluster size: 48 with color: 193 in filtered cluster included 0
+cluster size: 32 with color: 193 in filtered cluster included 0
+cluster size: 2 with color: 193 in filtered cluster included 0
+ found nothing 
+detect_bkey_printing: 0
+SKETCH 13 GOAL: MOVING | bkey=0 | blue=(blue_room_8=0 and correct_position=0) = 0 |cube_pos=(16,129) |Last_room_color=2
+SKETCH 14 GOAL Computation 
+
+not touched 
+Checking items in entire screen for type: black_key
+ searching around cube
+Cube position: (16, 129)
+ Clusters found: 3 filtered clusters: 0
+cluster size: 48 with color: 193 in filtered cluster included 0
+cluster size: 32 with color: 193 in filtered cluster included 0
+cluster size: 2 with color: 193 in filtered cluster included 0
+ found nothing 
+detect_bkey_printing: 0
+SKETCH 14 GOAL: MOVING | bkey=0 | blue=(blue_room_10=0 and correct_position=0) = 0 |cube_pos=(16,129) |Last_room_color=2
+SKETCH 15 GOAL Computation 
+
+not touched 
+Checking items in entire screen for type: black_key
+ searching around cube
+Cube position: (16, 129)
+ Clusters found: 3 filtered clusters: 0
+cluster size: 48 with color: 193 in filtered cluster included 0
+cluster size: 32 with color: 193 in filtered cluster included 0
+cluster size: 2 with color: 193 in filtered cluster included 0
+ found nothing 
+detect_bkey_printing: 0
+SKETCH 15 GOAL (halfway-->7): MOVING | bkey=0 | blue=(blue_room_7=0 and correct_position=0) = 0 |cube_pos=(16,129) |Last_room_color=2
+SKETCH 16 GOAL Computation 
+
+not touched 
+Checking items in entire screen for type: black_key
+ searching around cube
+Cube position: (16, 129)
+ Clusters found: 3 filtered clusters: 0
+cluster size: 48 with color: 193 in filtered cluster included 0
+cluster size: 32 with color: 193 in filtered cluster included 0
+cluster size: 2 with color: 193 in filtered cluster included 0
+ found nothing 
+detect_bkey_printing: 0
+SKETCH 16 GOAL (halfway-->7-->9): MOVING | bkey=0 | blue=(blue_room_9=0 and correct_position=0) = 0 |cube_pos=(16,129) |Last_room_color=2
+SKETCH 17 GOAL Computation 
+
+not touched 
+Checking items in entire screen for type: black_key
+ searching around cube
+Cube position: (16, 129)
+ Clusters found: 3 filtered clusters: 0
+cluster size: 48 with color: 193 in filtered cluster included 0
+cluster size: 32 with color: 193 in filtered cluster included 0
+cluster size: 2 with color: 193 in filtered cluster included 0
+ found nothing 
+detect_bkey_printing: 0
+SKETCH 17 GOAL (halfway-->7-->9): MOVING | bkey=0 | blue=(blue_room_8=0 and correct_position=0) = 0 |cube_pos=(16,129) |Last_room_color=2
+SKETCH 18 GOAL Computation 
+
+not touched 
+Checking items in entire screen for type: black_key
+ searching around cube
+Cube position: (16, 129)
+ Clusters found: 3 filtered clusters: 0
+cluster size: 48 with color: 193 in filtered cluster included 0
+cluster size: 32 with color: 193 in filtered cluster included 0
+cluster size: 2 with color: 193 in filtered cluster included 0
+ found nothing 
+detect_bkey_printing: 0
+SKETCH 18 GOAL: MOVING | bkey=0 | chalicer=0 | last_room_color=2 | reached=0
+SKETCH 19 GOAL Computation 
+
+not touched 
+Checking items in entire screen for type: black_key
+ searching around cube
+Cube position: (16, 129)
+ Clusters found: 3 filtered clusters: 0
+cluster size: 48 with color: 193 in filtered cluster included 0
+cluster size: 32 with color: 193 in filtered cluster included 0
+cluster size: 2 with color: 193 in filtered cluster included 0
+ found nothing 
+detect_bkey_printing: 0
+SKETCH 19 GOAL: MOVING | bkey=0 | chalicer=0 | last_room_color=2 | reached=0
+Sketches post: 0 0 1 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+Setting node state for node with action: 3 ykeyt:0 bkeyt:0 yswrt:1 chalicet:0 ydragon:1 gdragon:0 Last_room_color:2
+Setting item state for node with action: 3 ykeyt:0 bkeyt:0 yswrt:1 chalicet:0 ydragon:1 gdragon:0 Last_room_color:2
+SKETCH 0 PRE Computation 
+
+SKETCH 0 PREc (Acquire Key): | !ykey=1 | ykeyr=0 | !sword_room 1 | INACTIVE
+SKETCH 1 PRE Computation 
+SKETCH 1 PRE go sword room: | ykey=0 | !ysword room=1 | INACTIVE
+SKETCH 2 PRE Computation 
+SKETCH 2 PRE: (get ysword) | !ykey=1 | ysw room=0 | !ysword=0 | INACTIVE
+SKETCH 3 PRE Computation 
+SKETCH 3 PRE: | ysword=1 | ydrag_in_room=1 |  !ydrag=0 |INACTIVE
+SKETCH 4 PRE Computation 
+SKETCH 4 PRE: | ysword=1 | !ydrag=0 ydrag_in_room1 | INACTIVE
+SKETCH 5 PRE Computation 
+ydragon function called
+SKETCH 5 PRE: | ysword=1 | !gdrag_in_room=1 | ACTIVE
+SKETCH 6 PRE Computation 
+
+already touched
+detect_ysword_printing: 1
+ydragon function called
+gdragonr function called
+dragon_type gdragondetect_dragons_in_room:  Cluster size 154 is_alive 0 is_firing 0 is_dead 0
+ Dragon detected by size
+gdragon function called
+cluster size5Cluster size: 80 color: 147 in filtered: 1
+
+Cluster size: 154 color: 193 in filtered: 1
+
+Cluster size: 2 color: 193 in filtered: 1
+
+Cluster size: 80 color: 147 in filtered: 1
+
+Cluster size: 1 color: 147 in filtered: 1
+
+cluster size after filtering5
+filtered cluster with size: 80
+filtered cluster with size: 154
+filtered cluster with size: 2
+filtered cluster with size: 80
+filtered cluster with size: 1
+SKETCH 6 PRE: | ysword=1 | ydrag=1 | gdrag_in_room=0 | !gdrag=1 | INACTIVE
+SKETCH 7 PRE Computation 
+
+not touched 
+Checking items in entire screen for type: black_key
+ searching around cube
+Cube position: (16, 129)
+ Clusters found: 3 filtered clusters: 0
+cluster size: 48 with color: 193 in filtered cluster included 0
+cluster size: 32 with color: 193 in filtered cluster included 0
+cluster size: 2 with color: 193 in filtered cluster included 0
+ found nothing 
+detect_bkey_printing: 0
+gdragon function called
+cluster size5Cluster size: 80 color: 147 in filtered: 1
+
+Cluster size: 154 color: 193 in filtered: 1
+
+Cluster size: 2 color: 193 in filtered: 1
+
+Cluster size: 80 color: 147 in filtered: 1
+
+Cluster size: 1 color: 147 in filtered: 1
+
+cluster size after filtering5
+filtered cluster with size: 80
+filtered cluster with size: 154
+filtered cluster with size: 2
+filtered cluster with size: 80
+filtered cluster with size: 1
+SKETCH 7 PRE: (get bkey) | !bkey=1 | bkey room=0 | ysword=1 | gdrag=0 | INACTIVE
+SKETCH 8.5 PRE Computation 
+ydragon function called
+
+not touched 
+Checking items in entire screen for type: black_key
+ searching around cube
+Cube position: (16, 129)
+ Clusters found: 3 filtered clusters: 0
+cluster size: 48 with color: 193 in filtered cluster included 0
+cluster size: 32 with color: 193 in filtered cluster included 0
+cluster size: 2 with color: 193 in filtered cluster included 0
+ found nothing 
+detect_bkey_printing: 0
+dragon_type ydragondetect_dragons_in_room:  Cluster size 154 is_alive 0 is_firing 0 is_dead 1
+SKETCH 8.5 PRE: | ysword=1 | ydrag_in_room=1 |  !ydrag=0 | bkey0INACTIVE
+SKETCH 8 PRE Computation 
+ydragon function called
+
+not touched 
+Checking items in entire screen for type: black_key
+ searching around cube
+Cube position: (16, 129)
+ Clusters found: 3 filtered clusters: 0
+cluster size: 48 with color: 193 in filtered cluster included 0
+cluster size: 32 with color: 193 in filtered cluster included 0
+cluster size: 2 with color: 193 in filtered cluster included 0
+ found nothing 
+detect_bkey_printing: 0
+dragon_type ydragondetect_dragons_in_room:  Cluster size 154 is_alive 0 is_firing 0 is_dead 1
+SKETCH 8 PRE (reach ydragon_room with bkey): | !ydrag_in_room=0 |  ydrag=1 | bkey0 swordr=0 |!blue_room_9=1 cube_color = 147 (is_blue=0) |Last_room_color=2INACTIVE
+SKETCH 9 PRE Computation 
+ydragon function called
+
+not touched 
+Checking items in entire screen for type: black_key
+ searching around cube
+Cube position: (16, 129)
+ Clusters found: 3 filtered clusters: 0
+cluster size: 48 with color: 193 in filtered cluster included 0
+cluster size: 32 with color: 193 in filtered cluster included 0
+cluster size: 2 with color: 193 in filtered cluster included 0
+ found nothing 
+detect_bkey_printing: 0
+dragon_type ydragondetect_dragons_in_room:  Cluster size 154 is_alive 0 is_firing 0 is_dead 1
+SKETCH 9 PRE: | ydrag_in_room=1 |  ydrag=1 | bkey=0 | !blue_room_6=1 |Last_room_color=2 |INACTIVE
+SKETCH 10 PRE Computation 
+ydragon function called
+
+not touched 
+Checking items in entire screen for type: black_key
+ searching around cube
+Cube position: (16, 129)
+ Clusters found: 3 filtered clusters: 0
+cluster size: 48 with color: 193 in filtered cluster included 0
+cluster size: 32 with color: 193 in filtered cluster included 0
+cluster size: 2 with color: 193 in filtered cluster included 0
+ found nothing 
+detect_bkey_printing: 0
+dragon_type ydragondetect_dragons_in_room:  Cluster size 154 is_alive 0 is_firing 0 is_dead 1
+SKETCH 10 PRE (get to room 9 x 135-160 y 146 178): | ydrag_in_room=1 |  ydrag=1 | bkey=0 | !correct_position=1 | blue_room_6=0 |cube_pos=(16,129) |Last_room_color=2 |INACTIVE
+SKETCH 11 PRE Computation 
+ydragon function called
+
+not touched 
+Checking items in entire screen for type: black_key
+ searching around cube
+Cube position: (16, 129)
+ Clusters found: 3 filtered clusters: 0
+cluster size: 48 with color: 193 in filtered cluster included 0
+cluster size: 32 with color: 193 in filtered cluster included 0
+cluster size: 2 with color: 193 in filtered cluster included 0
+ found nothing 
+detect_bkey_printing: 0
+SKETCH 11 PRE (2 step of maze): |  ydrag=1 | bkey=0 |cube_pos=(16,129) | blue2= (blue_room_9=0 and correct_position_2=0) = 0 | !blue=(blue_room_6=0 and !correct_position=1) = 1 |Last_room_color=2 |INACTIVE
+SKETCH 12 PRE Computation 
+ydragon function called
+
+not touched 
+Checking items in entire screen for type: black_key
+ searching around cube
+Cube position: (16, 129)
+ Clusters found: 3 filtered clusters: 0
+cluster size: 48 with color: 193 in filtered cluster included 0
+cluster size: 32 with color: 193 in filtered cluster included 0
+cluster size: 2 with color: 193 in filtered cluster included 0
+ found nothing 
+detect_bkey_printing: 0
+SKETCH 12 PRE(reach room 9 2time): |  ydrag=1 | bkey=0 | blue=(blue_room_6=0 and correct_position=0) = 0 |!blue_2=(blue_room_9=0 and correct_position_2=0) = 1 |cube_pos=(16,129) |Last_room_color=2 |INACTIVE
+SKETCH 13 PRE Computation 
+ydragon function called
+
+not touched 
+Checking items in entire screen for type: black_key
+ searching around cube
+Cube position: (16, 129)
+ Clusters found: 3 filtered clusters: 0
+cluster size: 48 with color: 193 in filtered cluster included 0
+cluster size: 32 with color: 193 in filtered cluster included 0
+cluster size: 2 with color: 193 in filtered cluster included 0
+ found nothing 
+detect_bkey_printing: 0
+SKETCH 13 PRE(reach room 8 1time): |  ydrag=1 | bkey=0 | blue=(blue_room_9=0 and correct_position=0) = 0 |!blue_2=(blue_room_8=0 and correct_position_2=0) = 1 |cube_pos=(16,129) |Last_room_color=2 |INACTIVE
+SKETCH 14 PRE Computation 
+ydragon function called
+
+not touched 
+Checking items in entire screen for type: black_key
+ searching around cube
+Cube position: (16, 129)
+ Clusters found: 3 filtered clusters: 0
+cluster size: 48 with color: 193 in filtered cluster included 0
+cluster size: 32 with color: 193 in filtered cluster included 0
+cluster size: 2 with color: 193 in filtered cluster included 0
+ found nothing 
+detect_bkey_printing: 0
+SKETCH 14 PRE(halfway): |  ydrag=1 | bkey=0 | blue=(blue_room_8=0 and correct_position=0) = 0 |!blue_2=(blue_room_10=0 and correct_position_2=0) = 1 |cube_pos=(16,129) |Last_room_color=2 |INACTIVE
+SKETCH 15 PRE Computation 
+ydragon function called
+
+not touched 
+Checking items in entire screen for type: black_key
+ searching around cube
+Cube position: (16, 129)
+ Clusters found: 3 filtered clusters: 0
+cluster size: 48 with color: 193 in filtered cluster included 0
+cluster size: 32 with color: 193 in filtered cluster included 0
+cluster size: 2 with color: 193 in filtered cluster included 0
+ found nothing 
+detect_bkey_printing: 0
+SKETCH 15 PRE(halfway --> 7): |  ydrag=1 | bkey=0 | blue=(blue_room_10=0 and correct_position=0) = 0 |!blue_2=(blue_room_7=0 and correct_position_2=0) = 1 |cube_pos=(16,129) |Last_room_color=2 |INACTIVE
+SKETCH 16 PRE Computation 
+ydragon function called
+
+not touched 
+Checking items in entire screen for type: black_key
+ searching around cube
+Cube position: (16, 129)
+ Clusters found: 3 filtered clusters: 0
+cluster size: 48 with color: 193 in filtered cluster included 0
+cluster size: 32 with color: 193 in filtered cluster included 0
+cluster size: 2 with color: 193 in filtered cluster included 0
+ found nothing 
+detect_bkey_printing: 0
+SKETCH 16 PRE(7 --> 9): |  ydrag=1 | bkey=0 | blue=(blue_room_7=0 and correct_position=0) = 0 |!blue_2=(blue_room_9=0 and correct_position_2=0) = 1 |cube_pos=(16,129) |Last_room_color=2 |INACTIVE
+SKETCH 17 PRE Computation 
+ydragon function called
+
+not touched 
+Checking items in entire screen for type: black_key
+ searching around cube
+Cube position: (16, 129)
+ Clusters found: 3 filtered clusters: 0
+cluster size: 48 with color: 193 in filtered cluster included 0
+cluster size: 32 with color: 193 in filtered cluster included 0
+cluster size: 2 with color: 193 in filtered cluster included 0
+ found nothing 
+detect_bkey_printing: 0
+SKETCH 17 PRE(7 --> 9--> 8): |  ydrag=1 | bkey=0 | blue=(blue_room_9=0 and correct_position=0) = 0 |!blue_2=(blue_room_8=0 and correct_position_2=0) = 1 |cube_pos=(16,129) |Last_room_color=2 |INACTIVE
+SKETCH 18 PRE Computation 
+ydragon function called
+
+not touched 
+Checking items in entire screen for type: black_key
+ searching around cube
+Cube position: (16, 129)
+ Clusters found: 3 filtered clusters: 0
+cluster size: 48 with color: 193 in filtered cluster included 0
+cluster size: 32 with color: 193 in filtered cluster included 0
+cluster size: 2 with color: 193 in filtered cluster included 0
+ found nothing 
+detect_bkey_printing: 0
+SKETCH 18 PRE: |  ydrag=1 | bkey=0 | blue=(blue_room_8=0 and correct_position=0) = 0 |cube_pos=(16,129) |Last_room_color=2 |INACTIVE
+SKETCH 19 PRE Computation 
+ydragon function called
+
+not touched 
+Checking items in entire screen for type: black_key
+ searching around cube
+Cube position: (16, 129)
+ Clusters found: 3 filtered clusters: 0
+cluster size: 48 with color: 193 in filtered cluster included 0
+cluster size: 32 with color: 193 in filtered cluster included 0
+cluster size: 2 with color: 193 in filtered cluster included 0
+ found nothing 
+detect_bkey_printing: 0
+SKETCH 19 PRE: |  ydrag=1 | bkey=0 | black=0 |Last_room_color=2 | !chalice=1 |INACTIVE
+Sketches pre: 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+Setting node state for node with action: 3 ykeyt:0 bkeyt:0 yswrt:1 chalicet:0 ydragon:1 gdragon:0 Last_room_color:2
+----------------------------------------------------- 
+distance to items: ykey: best node = -1 root= -1 ysword: best node = -1 root= 14 bkey: best node = -1 root= -1 chalice: best node = -1 root= -1
+[33;1mlogging::Logger::Stats: [0mdecision-stats: #entries=[0:49930/20598848,] #nodes=1879 #tips=1566 height=[8:7,7,7,7,0,2,] #expansions=312 #sim=1260 total-time=774.129 simulator-time=1.26807 reset-time=0 get/set-state-time=0.21582 expand-time=0.0106201 update-novelty-time=0.0631104 get-atoms-calls=1259 get-atoms-time=2.94092 novel-atom-time=0.239258
+bfs: total time: 774.129 seconds
+[32;1mlogging::Logger::Info: [0mexecutable-prefix: len=7, actions=[5,3,5,5,4,3,3,]
+[33;1mlogging::Logger::Stats: [0mstep-stats: acc-reward=0, acc-frames=435
+[33;1mlogging::Logger::Stats: [0mstep-stats: acc-reward=0, acc-frames=450
+[33;1mlogging::Logger::Stats: [0mstep-stats: acc-reward=0, acc-frames=465
+[33;1mlogging::Logger::Stats: [0mstep-stats: acc-reward=0, acc-frames=480
+[33;1mlogging::Logger::Stats: [0mstep-stats: acc-reward=0, acc-frames=495
+[33;1mlogging::Logger::Stats: [0mstep-stats: acc-reward=0, acc-frames=510
+[33;1mlogging::Logger::Stats: [0mstep-stats: acc-reward=0, acc-frames=525
+[32;1mlogging::Logger::Info: [0m**** bfs: get branch ****
+[32;1mlogging::Logger::Info: [0mprefix: sz=58, actions=[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4,4,4,2,2,5,5,3,3,3,2,2,4,4,4,3,3,5,5,5,5,5,4,4,4,4,4,4,5,3,5,5,4,3,3,]
+[32;1mlogging::Logger::Info: [0minput: #nodes=1, #tips=1, height=0
+simulator calls: 0 simulator budget: 5000000
+[32;1mlogging::Logger::Info: [0mqueue: sz=1
