@@ -3149,7 +3149,6 @@ struct SimPlanner : Planner {
                 bool correct_position = (cube_pos.first >= 0  && cube_pos.first<=23 && cube_pos.second >= 18 && cube_pos.second <= 50);
                 bool blue_room_10 = planner.Last_room_color == 6;
                 bool blue = (blue_room_10 && correct_position);
-                
                 bool goal_achieved = key  && blue; 
                 if(printing_sketches_){
                 std::cout << "SKETCH 11 GOAL: " << (goal_achieved ? "REACHED" : "MOVING") 
