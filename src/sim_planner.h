@@ -2954,7 +2954,7 @@ struct SimPlanner : Planner {
             },
             "Pick up black key"
         });
-        /*  //reach green room first 
+         //reach green room first 
         sketches_.push_back(Sketch{
             [this](const SimPlanner& planner, const std::vector<pixel_t>& prev, const std::vector<pixel_t>& curr) {
                 if(printing_sketches_) std::cout << "SKETCH 8.5 PRE Computation " << std::endl;
@@ -2983,7 +2983,7 @@ struct SimPlanner : Planner {
                 return goal_achieved;
             },
             "reach dragon room with bkey"
-        });*/
+        });
           //reach ydragon_room_with bkey
         sketches_.push_back(Sketch{
             [this](const SimPlanner& planner, const std::vector<pixel_t>& prev, const std::vector<pixel_t>& curr) {
