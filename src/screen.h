@@ -29,8 +29,8 @@ struct MyALEScreen {
     
     //patch sizes: 
     //if change this --> need to change in main.cc 458, 459 
-    static const size_t patch_width_ = 10; //10
-    static const size_t patch_height_ = 15; //15
+    static const size_t patch_width_ = 5; //10
+    static const size_t patch_height_ = 10; //15
     static const size_t screen_height__ = 210; 
     static const size_t screen_width__ = 160;
     static const size_t num_patches_x_ = screen_width__ / patch_width_; //16
