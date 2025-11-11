@@ -623,9 +623,9 @@ struct SimPlanner : Planner {
             if(is_pink) Last_room_color = 13; // Set Last_room_color to 9 for normal pink room
             else {
                 if (color_match_at(67,190, "red") && color_match_at(90, 190, "red")) {
-                    Last_room_color = 12; // Special case for red in the yellow room
+                    Last_room_color = 12; // Special case for red  after purple room
                 } else  {
-                    Last_room_color = 4; // Special case for red in the purple room
+                    Last_room_color = 4; // Special case for red after pink room
                 }
             } // Set Last_room_color to 4 for normal red room
             regions.push_back({{7, 18}, {152, 179}});
@@ -2875,7 +2875,7 @@ struct SimPlanner : Planner {
                 bool gdrag_in_room = planner.gdragonr(curr,prev, printing_sketches_);
                 bool ydrag = planner.ydragon_killed(curr, prev, printing_sketches_);
                 bool bkey = planner.bkey(curr,prev,printing_sketches_);
-                bool goal_achieved = sword && ydrag && (gdrag_in_room || bkey ); //added bkey as alternative goal || bkey;
+                bool goal_achieved = sword && ydrag && (gdrag_in_room); //added bkey as alternative goal || bkey;
                 if(printing_sketches_){
                 std::cout << "SKETCH 5 GOAL: " << (goal_achieved ? "REACHED" : "MOVING") <<  " | ysword=" << sword  << " | gdragon_in room=" << gdrag_in_room << " |bkey " << bkey << std::endl;
                 }
