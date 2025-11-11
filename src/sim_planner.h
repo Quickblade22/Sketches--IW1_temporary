@@ -2881,10 +2881,10 @@ struct SimPlanner : Planner {
                 if(printing_sketches_){
                 std::cout << "SKETCH 5 GOAL: " << (goal_achieved ? "REACHED" : "MOVING") <<  " | ysword=" << sword  << " | gdragon_in room=" << gdrag_in_room << " |bkey " << bkey << std::endl;
                 }
-               
+                 
                 return goal_achieved;
             },
-            "reach d"
+            "reach green dragon room"
         });
         //kill gdragon
         sketches_.push_back(Sketch{
