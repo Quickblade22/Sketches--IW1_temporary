@@ -524,6 +524,8 @@ struct SimPlanner : Planner {
         pixel_t current_room_color = screen_pixels[SCREEN_WIDTH * 5 + 5]; 
        
         pixel_t special_yellow_case = screen_pixels[SCREEN_WIDTH * 80 + 80]; //82 80
+        pixel_t special_red_case = screen_pixels[SCREEN_WIDTH * 190 + 67]; //67 190
+        pixel_t special_red_case2 = screen_pixels[SCREEN_WIDTH * 190 + 90]; //90 190
         //mutable int Last_room_color = 1; // 0 yellow throne, 1 yellow 2 green 3 purpel 4 red 5 light green 6 blue 7 black 8 red 9 pink 
         if (color_match(current_room_color, COLORS.at("yellow"))) {
             Last_room_color = 1;
@@ -544,14 +546,11 @@ struct SimPlanner : Planner {
         } 
         else if (color_match(current_room_color, COLORS.at("pink"))) Last_room_color = 9; 
         else if (color_match(current_room_color, COLORS.at("red"))) {
-            if (Last_room_color == 3) {
-                Last_room_color = 4; // Special case for red in the yellow room
-            } else if (Last_room_color == 7 || Last_room_color == 9) {
-                Last_room_color = 8; // Special case for red in the purple room
-                
-            } else {
-                Last_room_color = -1; // General case for red
-            }
+             if (special_red_case == COLORS.at("red") && special_red_case2 == COLORS.at("red")) {
+                    Last_room_color = 12; // Special case for red in the yellow room
+                } else  {
+                    Last_room_color = 4; // Special case for red in the purple room
+                }
         } else {
             
              if (printing_debug)std::cout << "Unknown room color: " << static_cast<int>(current_room_color) << std::endl;
@@ -592,7 +591,7 @@ struct SimPlanner : Planner {
         }
        
         // Special case for red room when coming from black or pink
-        if (is_red && (Last_room_color == 7 || Last_room_color == 9)) {
+        if (is_red && !(color_match_at(67,190, "red") && color_match_at(90, 190, "red"))) {
             regions.push_back(entrance_down);
         }
 
@@ -623,12 +622,11 @@ struct SimPlanner : Planner {
         }else if (is_red || is_pink) {
             if(is_pink) Last_room_color = 13; // Set Last_room_color to 9 for normal pink room
             else {
-                if (Last_room_color == 3) {
-                    Last_room_color = 4; // Special case for red in the yellow room
-                } else if (Last_room_color == 11 || Last_room_color == 13) {
-                    Last_room_color = 12; // Special case for red in the purple room
-                
-            }
+                if (color_match_at(67,190, "red") && color_match_at(90, 190, "red")) {
+                    Last_room_color = 12; // Special case for red in the yellow room
+                } else  {
+                    Last_room_color = 4; // Special case for red in the purple room
+                }
             } // Set Last_room_color to 4 for normal red room
             regions.push_back({{7, 18}, {152, 179}});
         } 
@@ -1203,7 +1201,7 @@ struct SimPlanner : Planner {
         std::pair<int,int> temp = {-1,-1};
         std::vector<std::pair<std::pair<int,int>, std::pair<int, int>>> regions = regions_for_cube(current);
         //need to see if this problematic ? 
-        if((Last_room_color >= 6 && Last_room_color <= 10) ||Last_room_color == 4) {
+        if((Last_room_color >= 6 && Last_room_color <= 10) || Last_room_color == 4) {
            //std::cout<< "using database" << std::endl;
             temp = find_cube_using_database_comparison(current);  //for the blue room use 
             if (temp.first != -1) temp = find_cube_without_reference(current, regions); 
