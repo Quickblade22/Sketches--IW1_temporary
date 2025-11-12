@@ -586,7 +586,7 @@ struct SimPlanner : Planner {
         
         if (is_green || is_light_green || is_red||is_pink) {
             regions.push_back(entrance_up);
-        }else{
+        }else if( !is_blue) {
             regions.push_back(entrance_down);
         }
        
@@ -669,6 +669,7 @@ struct SimPlanner : Planner {
                     regions.push_back({{87, 82}, {96, 195}});      // Upper-right
                 } else {
                     Last_room_color = 6; 
+                    regions.push_back(entrance_down);
                     regions.push_back({{0, 19}, {24, 50}});
                     regions.push_back({{134, 19}, {160, 50}});
                     regions.push_back({{15, 50}, {24, 83}});
@@ -1201,15 +1202,20 @@ struct SimPlanner : Planner {
         std::pair<int,int> temp = {-1,-1};
         std::vector<std::pair<std::pair<int,int>, std::pair<int, int>>> regions = regions_for_cube(current);
         //need to see if this problematic ? 
-        if((Last_room_color >= 6 && Last_room_color <= 10) || Last_room_color == 4) {
+        /*if((Last_room_color >= 6 && Last_room_color <= 10) || Last_room_color == 4) {
            //std::cout<< "using database" << std::endl;
             temp = find_cube_using_database_comparison(current);  //for the blue room use 
-            if (temp.first != -1) temp = find_cube_without_reference(current, regions); 
+            if (temp.first == -1) temp = find_cube_without_reference(current, regions); 
         }else{
               temp = find_cube_without_reference(current, regions); 
              
                //if (temp.first != -1) temp = find_cube_using_database_comparison(current);  
-        }
+        }*/
+            temp = find_cube_without_reference(current, regions); 
+            if((temp.first == -1 || temp.second == -1)) {
+                //std::cout<< "using database" << std::endl;
+                temp = find_cube_using_database_comparison(current);  //for the blue room use 
+            }
         return temp;
     }
         // Helper function to get cube center coordinates

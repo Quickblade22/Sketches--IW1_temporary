@@ -62,7 +62,8 @@ void run_episode(ALEInterface &env,
                  bool execute_single_action,
                  size_t frameskip,
                  size_t max_execution_length_in_frames,
-                 vector<Action> &prefix) {
+                 vector<Action> &prefix, 
+                 ALEInterface &sim) {
     assert(prefix.empty());
     reset_global_variables();
 
@@ -101,7 +102,7 @@ void run_episode(ALEInterface &env,
                 assert(node->parent_->state_ != nullptr);
             }
 
-            node = planner.get_branch(env, prefix, node, last_reward, branch);
+            node = planner.get_branch(sim, prefix, node, last_reward, branch);
             g_acc_simulator_time += planner.simulator_time();
             g_acc_simulator_calls += planner.simulator_calls();
             g_max_simulator_calls = std::max(g_max_simulator_calls, planner.simulator_calls());
@@ -160,6 +161,12 @@ void run_episode(ALEInterface &env,
         // prune branch if got positive reward
         if( execute_single_action || ((prefix_length_to_execute == 0) && (last_reward > 0)) )
             branch.clear();
+        if(branch.empty()) {
+        std::cout<< "resetting background image" << std::endl;
+        MyALEScreen::reset_background_image(sim);
+        MyALEScreen::create_background_image(sim);
+        }
+
     }
 
     // cleanup
@@ -548,7 +555,7 @@ int main(int argc, char **argv) {
     for( int k = 0; k < opt_episodes; ++k ) {
         vector<Action> prefix;
         float start_time = Utils::read_time_in_seconds();
-        run_episode(env, *planner, initial_noops, opt_lookahead_caching, opt_prefix_length_to_execute, opt_execute_single_action, opt_frameskip, opt_max_execution_length_in_frames, prefix);
+        run_episode(env, *planner, initial_noops, opt_lookahead_caching, opt_prefix_length_to_execute, opt_execute_single_action, opt_frameskip, opt_max_execution_length_in_frames, prefix, sim);
         float elapsed_time = Utils::read_time_in_seconds() - start_time;
         logging::Logger::Stats
           << "episode-stats:"
