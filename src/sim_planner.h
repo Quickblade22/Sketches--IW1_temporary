@@ -254,7 +254,7 @@ struct SimPlanner : Planner {
         }
         else {
             assert((screen_features >= 3) && (node->parent_ != nullptr));
-            MyALEScreen screen(sim_, screen_features, &node->feature_atoms_, &node->screen_pixels_,&node->parent_->feature_atoms_);
+            MyALEScreen screen(sim_, screen_features, &node->feature_atoms_, &node->screen_pixels_, root_room, &node->parent_->feature_atoms_);
         }
         get_atoms_time_ += Utils::read_time_in_seconds() - start_time;
     }
