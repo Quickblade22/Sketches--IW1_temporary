@@ -137,6 +137,12 @@ struct MyALEScreen {
         initial_background_image_ = std::vector<pixel_t>(width_ * height_, 0);
         num_initial_background_pixels_ = width_ * height_;
     }
+    static void reset_background_image(ALEInterface &ale) {
+        size_t width_ = ale.getScreen().width();
+        size_t height_ = ale.getScreen().height();
+        background_.clear();
+        background_.resize(width_ * height_, 0);
+    }
     // Add color constants and helper functions
     const std::map<std::string, pixel_t> COLORS = {
         {"yellow", 193}, {"blue", 85}, {"red", 129}, {"black", 0},
