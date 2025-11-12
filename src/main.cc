@@ -102,7 +102,7 @@ void run_episode(ALEInterface &env,
                 assert(node->parent_->state_ != nullptr);
             }
 
-            node = planner.get_branch(sim, prefix, node, last_reward, branch);
+            node = planner.get_branch(env, prefix, node, last_reward, branch);
             g_acc_simulator_time += planner.simulator_time();
             g_acc_simulator_calls += planner.simulator_calls();
             g_max_simulator_calls = std::max(g_max_simulator_calls, planner.simulator_calls());
