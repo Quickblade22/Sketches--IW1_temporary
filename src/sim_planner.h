@@ -2716,6 +2716,7 @@ struct SimPlanner : Planner {
         printing_sketches_ = false;
         return sketches_post;
     }
+   
     void initalize_sketches_adventure() {
         sketches_.clear();
         // Sketch 0: Acquire yellow key
@@ -2855,7 +2856,7 @@ struct SimPlanner : Planner {
                 if(printing_sketches_) std::cout << "SKETCH 4 PRE Computation " << std::endl;
                 bool sword = planner.ysword(curr,prev,printing_sketches_functions);
                 bool ydrag = planner.ydragon_killed(curr,prev, planner.printing_sketches_functions);
-                bool ydrag_in_room = planner.ydragonr(curr,prev,  planner.printing_sketches_functions); 
+                bool ydrag_in_room = planner.ydragonr(curr,prev, planner.printing_sketches_functions); 
                 bool cond = sword && !ydrag && ydrag_in_room;
                 //planner.calculate_distance_from_goal(curr);
                 if(printing_sketches_){
@@ -2903,7 +2904,7 @@ struct SimPlanner : Planner {
                 bool gdrag = planner.gdragon_killed(curr, prev, printing_sketches_);
                 auto current_room = planner.regions_for_cube(curr);
                 bool current_room_green = (Last_room_color == 2); //green room
-                bool cond = sword && ydrag && !gdrag_in_room && !gdrag; //D == 1  &&  && current_room_green
+                bool cond = sword && ydrag && !gdrag_in_room && !gdrag; //D == 1  &&  && current_room_green && !gdrag
                 if(printing_sketches_){
                 std::cout << "SKETCH 5 PRE:" << " | ysword=" << sword << " | !gdrag_in_room=" << !gdrag_in_room << " | " << (cond ? "ACTIVE" : "INACTIVE") << std::endl;
                 }
@@ -2916,7 +2917,7 @@ struct SimPlanner : Planner {
                 bool gdrag_in_room = planner.gdragonr(curr,prev, printing_sketches_);
                 bool ydrag = planner.ydragon_killed(curr, prev, printing_sketches_);
                 bool bkey = planner.bkey(curr,prev,printing_sketches_);
-                bool goal_achieved = sword && ydrag && (gdrag_in_room); //added bkey as alternative goal || bkey;
+                bool goal_achieved = sword && ydrag && (gdrag_in_room || bkey); //added bkey as alternative goal || bkey;
                 if(printing_sketches_){
                 std::cout << "SKETCH 5 GOAL: " << (goal_achieved ? "REACHED" : "MOVING") <<  " | ysword=" << sword  << " | gdragon_in room=" << gdrag_in_room << " |bkey " << bkey << std::endl;
                 }
@@ -2933,7 +2934,8 @@ struct SimPlanner : Planner {
                 bool ydrag = planner.ydragon_killed(curr, prev, printing_sketches_);
                 bool gdrag_in_room = planner.gdragonr(curr, prev,  printing_sketches_); 
                 bool gdrag = planner.gdragon_killed(curr, prev,  printing_sketches_);
-                bool cond = sword && ydrag && gdrag_in_room && !gdrag;
+                bool cube_color_blue = curr[5 * SCREEN_WIDTH + 5] == COLORS.at("blue");
+                bool cond = sword && ydrag && gdrag_in_room && !gdrag ; //&& !cube_color_blue
                 //planner.calculate_distance_from_goal(curr);
                 if(printing_sketches_){
                 std::cout << "SKETCH 6 PRE:" << " | ysword=" << sword << " | ydrag=" << ydrag << " | gdrag_in_room=" << gdrag_in_room << " | !gdrag=" << !gdrag << " | " << (cond ? "ACTIVE" : "INACTIVE") << std::endl;
@@ -2962,6 +2964,45 @@ struct SimPlanner : Planner {
             },
             "kill gdragon"
         });
+        //go to bkeyr
+         sketches_.push_back(Sketch{
+            [this](const SimPlanner& planner, const std::vector<pixel_t>& prev, const std::vector<pixel_t>& curr) {
+                if(printing_sketches_) std::cout << "SKETCH 6.5 PRE Computation " << std::endl;
+                bool key = planner.bkey(curr,prev,printing_sketches_);
+                bool sword = planner.ysword(curr,prev,planner.printing_sketches_functions);
+                bool room = planner.bkeyr(curr,prev);
+                bool bkey = planner.bkey(curr,prev,printing_sketches_);
+                bool gdrag = planner.gdragon_killed(curr, prev, printing_sketches_);
+                bool cond = !room && sword && !key && gdrag && !bkey; //D == 1  && && gdrag
+                if(printing_sketches_){
+                std::cout << "SKETCH 6.5 PRE: (get bkey)" 
+                << " | !bkey=" << !key << " | bkey room=" << room << " | ysword=" << sword
+                << " | gdrag=" << gdrag << " | " 
+                << (cond ? "ACTIVE" : "INACTIVE") << std::endl;
+                }
+                return cond;
+            },
+            [this](const SimPlanner& planner, const std::vector<pixel_t>& prev, const std::vector<pixel_t>& curr, const std::vector<pixel_t>& prevs) {
+                if(printing_sketches_) std::cout << "SKETCH 6.5 GOAL Computation " << std::endl;
+                bool key = planner.bkey(curr,prev,printing_sketches_);
+                bool key_above_cube = planner.is_key_above_cube(curr, prev, printing_sketches_);
+                bool sword = planner.ysword(curr,prev,planner.printing_sketches_functions);
+                bool room = planner.bkeyr(curr,prev);
+                bool bkey_found = (room || (key && key_above_cube));
+                bool gdrag = planner.gdragon_killed(curr, prev, printing_sketches_);
+                bool goal_achieved =  bkey_found && sword && gdrag; //&& is_key_above_cube; //&& !key; //&& D==1;
+                if(printing_sketches_){
+                std::cout << "SKETCH 6.5 GOAL: " << (goal_achieved ? "REACHED" : "MOVING") 
+                <<  " | !bkey=" << !key  
+                << " sword" << sword 
+                <<  " gdrag=" << gdrag << " | bkey room=" << room << std::endl;
+                }
+                //if(goal_achieved) std::cout << "SKETCH 4 GOAL REACHED " << current_node->action_ << std::endl;
+                //<< " | ysword_dist: " << dist_curr << " (prev: " << dist_prev << ")" 
+                return goal_achieved;
+            },
+            "Pick up black key"
+        });
         //get bkey
          sketches_.push_back(Sketch{
             [this](const SimPlanner& planner, const std::vector<pixel_t>& prev, const std::vector<pixel_t>& curr) {
@@ -2969,7 +3010,7 @@ struct SimPlanner : Planner {
                 bool key = planner.bkey(curr,prev,printing_sketches_);
                 bool sword = planner.ysword(curr,prev,planner.printing_sketches_functions);
                 bool room = planner.bkeyr(curr,prev);
-                bool gdrag = planner.gdragon_killed(curr, prev, printing_sketches_);
+                bool gdrag = planner.gdragon_killed(curr, prev, planner.printing_sketches_);
                 bool cond = room && sword && !key && gdrag; //D == 1  && && gdrag
                 if(printing_sketches_){
                 std::cout << "SKETCH 7 PRE: (get bkey)" 
@@ -2993,8 +3034,7 @@ struct SimPlanner : Planner {
             },
             "Pick up black key"
         });
-        
-          //reach ydragon_room_with bkey
+        //reach ydragon_room_with bkey
         sketches_.push_back(Sketch{
             [this](const SimPlanner& planner, const std::vector<pixel_t>& prev, const std::vector<pixel_t>& curr) {
                 if(printing_sketches_) std::cout << "SKETCH 8 PRE Computation " << std::endl;
@@ -3039,20 +3079,21 @@ struct SimPlanner : Planner {
             },
             "reach dragon room with bkey"
         });                                           
-       
         //sketch to reach the start of the blue maze room--> setting to just 9 problem that moves from 6 left to 9
          sketches_.push_back(Sketch{
             [this](const SimPlanner& planner, const std::vector<pixel_t>& prev, const std::vector<pixel_t>& curr) {
                 if(printing_sketches_) std::cout << "SKETCH 9 PRE Computation " << std::endl;
-                bool ydrag = planner.ydragon_killed(curr, prev,  printing_sketches_);
+                //bool ydrag = planner.ydragon_killed(curr, prev,  printing_sketches_);
                 bool key = planner.bkey(curr,prev,printing_sketches_);
                 auto temp = planner.regions_for_cube(curr);
                 bool blue_room_10 = planner.Last_room_color == 6;
                 bool ydrag_in_room = planner.ydragonr(curr, prev, printing_sketches_);
                 bool gdrag = planner.gdragon_killed(curr, prev, printing_sketches_);
-                bool cond = ydrag_in_room && ydrag && key && !blue_room_10 && gdrag; //D == 1  &&
+                bool cond = ydrag_in_room  && key && !blue_room_10 && gdrag; //D == 1  &&
                 if(printing_sketches_){
-                std::cout << "SKETCH 9 PRE:"  << " | ydrag_in_room=" << ydrag_in_room << " | " << " ydrag=" << ydrag << " |" 
+                std::cout << "SKETCH 9 PRE:"  << " | ydrag_in_room=" << ydrag_in_room 
+                //<< " | " << " ydrag=" << ydrag 
+                << " |" 
                 <<  " bkey="<< key 
                 << " | !blue_room_6=" << !blue_room_10 << " |Last_room_color=" << planner.Last_room_color
                 << " |" << (cond ? "ACTIVE" : "INACTIVE") << std::endl;
@@ -3063,13 +3104,14 @@ struct SimPlanner : Planner {
                 if(printing_sketches_) std::cout << "SKETCH 9 GOAL Computation " << std::endl;
                 //planner.calculate_distance_from_goal(curr);
                 bool key = planner.bkey(curr,prev,printing_sketches_);
-                bool ydrag_in_room = planner.ydragonr(curr, prevs, printing_sketches_);
+                //bool ydrag_in_room = planner.ydragonr(curr, prevs, printing_sketches_);
                 bool blue_room_10 = planner.Last_room_color == 6;
                 bool gdrag = planner.gdragon_killed(curr, prev, printing_sketches_);
-                bool goal_achieved = key && !ydrag_in_room && blue_room_10 && gdrag;
+                bool goal_achieved = key  && blue_room_10 && gdrag; //&& !ydrag_in_room
                 if(printing_sketches_){
                 std::cout << "SKETCH 9 GOAL: " << (goal_achieved ? "REACHED" : "MOVING") 
-                <<  " | bkey=" << key  << " | !ydragon_in room=" << !ydrag_in_room 
+                <<  " | bkey=" << key  
+                //<< " | !ydragon_in room=" << !ydrag_in_room 
                 <<  " |blue_room_6=" << blue_room_10 << " |Last_room_color=" << planner.Last_room_color
                 << std::endl;
                 }
@@ -3078,23 +3120,59 @@ struct SimPlanner : Planner {
             },
             "reach start of maze"
         });
-
-        //intermediate sketch --> reach room 9 with bkey
+        //sketch to reach the end of blue maze room
+         sketches_.push_back(Sketch{
+            [this](const SimPlanner& planner, const std::vector<pixel_t>& prev, const std::vector<pixel_t>& curr) {
+                if(printing_sketches_) std::cout << "SKETCH 9.5 PRE Computation " << std::endl;
+                bool key = planner.bkey(curr,prev,printing_sketches_);
+                auto temp = planner.regions_for_cube(curr);
+                bool blue_room_10 = (planner.Last_room_color >= 6 && planner.Last_room_color <=10);
+                bool gdrag = planner.gdragon_killed(curr, prev, printing_sketches_);
+                bool cond = key && blue_room_10 && gdrag; //D == 1  &&
+                if(printing_sketches_){
+                std::cout << "SKETCH 9.5 PRE:"  << " |" 
+                <<  " bkey="<< key 
+                << " | !blue_room_6=" << !blue_room_10 << " |Last_room_color=" << planner.Last_room_color
+                << " |" << (cond ? "ACTIVE" : "INACTIVE") << std::endl;
+                }
+                return cond;
+            },
+            [this](const SimPlanner& planner, const std::vector<pixel_t>& prev, const std::vector<pixel_t>& curr, const std::vector<pixel_t>& prevs) {
+                if(printing_sketches_) std::cout << "SKETCH 9.5 GOAL Computation " << std::endl;
+                //planner.calculate_distance_from_goal(curr);
+                bool key = planner.bkey(curr,prev,printing_sketches_);
+                bool blue_room_10 = planner.Last_room_color == 11;
+                bool gdrag = planner.gdragon_killed(curr, prev, printing_sketches_);
+                bool goal_achieved = key  && blue_room_10 && gdrag;
+                if(printing_sketches_){
+                std::cout << "SKETCH 9.5 GOAL: " << (goal_achieved ? "REACHED" : "MOVING") 
+                <<  " | bkey=" << key  
+                <<  " |blue_room_11=" << blue_room_10 << " |Last_room_color=" << planner.Last_room_color
+                << std::endl;
+                }
+               
+                return goal_achieved;
+            },
+            "reach start of maze"
+        });
+        //intermediate sketch --> reach room 9 with bkey (lower half of 9)
          sketches_.push_back(Sketch{
             [this](const SimPlanner& planner, const std::vector<pixel_t>& prev, const std::vector<pixel_t>& curr) {
                 if(printing_sketches_) std::cout << "SKETCH 10 PRE Computation " << std::endl;
-                bool ydrag = planner.ydragon_killed(curr, prev,  printing_sketches_);
+                //bool ydrag = planner.ydragon_killed(curr, prev,  printing_sketches_);
                 bool key = planner.bkey(curr,prev,printing_sketches_);
                 auto temp = planner.regions_for_cube(curr);
-                auto cube_pos = planner.highlight_cube(curr, prev);
-                bool correct_position = (cube_pos.first >= 0 && cube_pos.first <= 25 && cube_pos.second >= 17 && cube_pos.second <= 50);
+                auto cube_pos = planner.highlight_cube(curr, prev);                                                                //50
+                bool correct_position = (cube_pos.first >= 0 && cube_pos.first <= 25 && cube_pos.second >= 17 && cube_pos.second <= 115);
                 bool blue_room_6 = planner.Last_room_color == 6;
                 bool gdrag = planner.gdragon_killed(curr, prev, printing_sketches_);
                 //bool blue_room_9 = planner.Last_room_color == 6;
-                bool ydrag_in_room = planner.ydragonr(curr, prev, printing_sketches_);
-                bool cond =  ydrag && key && !correct_position  && blue_room_6 && gdrag; //D == 1  && && blue_room_9
+                //bool ydrag_in_room = planner.ydragonr(curr, prev, printing_sketches_);
+                bool cond =   key && !correct_position  && blue_room_6 && gdrag; //D == 1  && && blue_room_9 ydrag &&
                 if(printing_sketches_){
-                std::cout << "SKETCH 10 PRE (get to room 9 x 135-160 y 146 178):"  << " | ydrag_in_room=" << ydrag_in_room << " | " << " ydrag=" << ydrag << " |" 
+                std::cout << "SKETCH 10 PRE (get to room 9 x 135-160 y 146 178):"  
+                //<< " | ydrag_in_room=" << ydrag_in_room << " | " << " ydrag=" << ydrag 
+                << " |" 
                 <<  " bkey="<< key  << " | !correct_position=" << !correct_position << " | blue_room_6=" << blue_room_6 
                 << " |cube_pos=(" << cube_pos.first << "," << cube_pos.second << ")" << " |Last_room_color=" << planner.Last_room_color
                 << " |" << (cond ? "ACTIVE" : "INACTIVE") << std::endl;
@@ -3122,31 +3200,81 @@ struct SimPlanner : Planner {
             },
             "reach room 9 with bkey"
         });
-
-        //intermediate sketch to sovle the blue maze room --> reach room 6 from room 9
-         sketches_.push_back(Sketch{
+        //intermediate sketch --> reach room 9 with bkey (upper half of 9)
+        sketches_.push_back(Sketch{
             [this](const SimPlanner& planner, const std::vector<pixel_t>& prev, const std::vector<pixel_t>& curr) {
-                if(printing_sketches_) std::cout << "SKETCH 11 PRE Computation " << std::endl;
-                bool ydrag = planner.ydragon_killed(curr, prev,  printing_sketches_);
+                if(printing_sketches_) std::cout << "SKETCH 10.5 PRE Computation " << std::endl;
+                //bool ydrag = planner.ydragon_killed(curr, prev,  printing_sketches_);
                 bool key = planner.bkey(curr,prev,printing_sketches_);
                 auto temp = planner.regions_for_cube(curr);
-                auto cube_pos = planner.highlight_cube(curr, prev);
-
-                bool correct_position = (cube_pos.first >= 0  && cube_pos.first<=23 && cube_pos.second >= 18 && cube_pos.second <= 50);
-                bool blue_room_10 = planner.Last_room_color == 6;
+                auto cube_pos = planner.highlight_cube(curr, prev); 
+                //(cube_pos.first >= 0  && cube_pos.first<=23 && cube_pos.second >= 18 && cube_pos.second <= 50);   with room 6                                                                                 //114             
+                bool correct_position = (cube_pos.first >= 135  && cube_pos.first <= 160 && cube_pos.second >= 82 && cube_pos.second <= 114);
+                bool blue_room_10 = planner.Last_room_color == 9;
                 bool blue = (blue_room_10 && correct_position);
-                //bool correct_position_2 = (cube_pos.first >= 119  && cube_pos.first <= 160 && cube_pos.second >= 82 && cube_pos.second <= 114);
+                //bool correct_position_2 = 
                 bool correct_position_2 = (cube_pos.first >= 135  && cube_pos.first <= 160 && cube_pos.second >= 146 && cube_pos.second <= 178);
                 bool blue_room_9 = planner.Last_room_color == 9;
                 bool blue_2 = (blue_room_9 && correct_position_2);
-                bool cond =  ydrag && key && !blue && blue_2; //D == 1  &&
+                bool cond =  key && !blue && blue_2; //D == 1  &&  ydrag &&
                 if(printing_sketches_){
-                std::cout << "SKETCH 11 PRE (2 step of maze):"  << " | " 
-                << " ydrag=" << ydrag << " |" 
+                std::cout << "SKETCH 10.5 PRE (2 step of maze):"  << " | " 
+                //<< " ydrag=" << ydrag << " |" 
                 <<  " bkey="<< key 
                 << " |cube_pos=(" << cube_pos.first << "," << cube_pos.second << ")"
                 << " | blue2= (" << "blue_room_9=" << blue_room_9 << " and correct_position_2=" << correct_position_2 << ") = "<< blue_2
-                << " | !blue=(" << "blue_room_6=" << blue_room_10 << " and !correct_position=" << !correct_position << ") = "<< !blue 
+                << " | !blue=(" << "blue_room_9=" << blue_room_10 << " and correct_position=" << correct_position << ") = "<< !blue 
+                << " |Last_room_color=" << planner.Last_room_color
+                << " |" << (cond ? "ACTIVE" : "INACTIVE") << std::endl;
+                }
+                return cond;
+            },
+            [this](const SimPlanner& planner, const std::vector<pixel_t>& prev, const std::vector<pixel_t>& curr, const std::vector<pixel_t>& prevs) {
+                if(printing_sketches_) std::cout << "SKETCH 10.5 GOAL Computation " << std::endl;
+                //planner.calculate_distance_from_goal(curr);
+                bool key = planner.bkey(curr,prev,printing_sketches_);
+                auto temp = planner.regions_for_cube(curr);
+                auto cube_pos = planner.highlight_cube(curr, prev);                                                                //50  
+                bool correct_position = (cube_pos.first >= 135  && cube_pos.first <= 160 && cube_pos.second >= 82 && cube_pos.second <= 114); //(cube_pos.first >= 0  && cube_pos.first<=23 && cube_pos.second >= 18 && cube_pos.second <= 50); 
+                bool blue_room_10 = planner.Last_room_color == 9;
+                bool blue = (blue_room_10 && correct_position);
+                bool goal_achieved = key  && blue; 
+                if(printing_sketches_){
+                std::cout << "SKETCH 10.5 GOAL: " << (goal_achieved ? "REACHED" : "MOVING") 
+                <<  " | bkey=" << key  
+                << " | blue=(" << "blue_room_9=" << blue_room_10 << " and correct_position=" << correct_position << ") = "<< blue
+                << " |cube_pos=(" << cube_pos.first << "," << cube_pos.second << ")" << " |Last_room_color=" << planner.Last_room_color
+                << std::endl;
+                }
+               
+                return goal_achieved;
+            },
+            "2 step of maze"
+        });
+        //intermediate sketch to sovle the blue maze room --> reach room 6 from room 9 (lower half of 6)
+        sketches_.push_back(Sketch{
+            [this](const SimPlanner& planner, const std::vector<pixel_t>& prev, const std::vector<pixel_t>& curr) {
+                if(printing_sketches_) std::cout << "SKETCH 11 PRE Computation " << std::endl;
+                //bool ydrag = planner.ydragon_killed(curr, prev,  printing_sketches_);
+                bool key = planner.bkey(curr,prev,printing_sketches_);
+                auto temp = planner.regions_for_cube(curr);
+                auto cube_pos = planner.highlight_cube(curr, prev); 
+                                                                                                          //18                      50 --> previously 18 - 114             
+                bool correct_position = (cube_pos.first >= 0  && cube_pos.first<=24 && cube_pos.second >= 82 && cube_pos.second <= 114);
+                bool blue_room_10 = planner.Last_room_color == 6;
+                bool blue = (blue_room_10 && correct_position);
+                bool correct_position_2 = (cube_pos.first >= 135  && cube_pos.first <= 160 && cube_pos.second >= 82 && cube_pos.second <= 114);
+                //bool correct_position_2 = (cube_pos.first >= 135  && cube_pos.first <= 160 && cube_pos.second >= 146 && cube_pos.second <= 178);
+                bool blue_room_9 = planner.Last_room_color == 9;
+                bool blue_2 = (blue_room_9 && correct_position_2);
+                bool cond =  key && !blue && blue_2; //D == 1  &&  ydrag &&
+                if(printing_sketches_){
+                std::cout << "SKETCH 11 PRE (2 step of maze):"  << " | " 
+                //<< " ydrag=" << ydrag << " |" 
+                <<  " bkey="<< key 
+                << " |cube_pos=(" << cube_pos.first << "," << cube_pos.second << ")"
+                << " | blue2= (" << "blue_room_9=" << blue_room_9 << " and correct_position_2=" << correct_position_2 << ") = "<< blue_2
+                << " | !blue=(" << "blue_room_6=" << blue_room_10 << " and correct_position=" << correct_position << ") = "<< !blue 
                 << " |Last_room_color=" << planner.Last_room_color
                 << " |" << (cond ? "ACTIVE" : "INACTIVE") << std::endl;
                 }
@@ -3157,15 +3285,66 @@ struct SimPlanner : Planner {
                 //planner.calculate_distance_from_goal(curr);
                 bool key = planner.bkey(curr,prev,printing_sketches_);
                 auto temp = planner.regions_for_cube(curr);
-                auto cube_pos = planner.highlight_cube(curr, prev);
-                bool correct_position = (cube_pos.first >= 0  && cube_pos.first<=23 && cube_pos.second >= 18 && cube_pos.second <= 50);
+                auto cube_pos = planner.highlight_cube(curr, prev);                                                                //50  
+                bool correct_position = (cube_pos.first >= 0  && cube_pos.first<=24 && cube_pos.second >= 82 && cube_pos.second <= 114); 
                 bool blue_room_10 = planner.Last_room_color == 6;
                 bool blue = (blue_room_10 && correct_position);
                 bool goal_achieved = key  && blue; 
                 if(printing_sketches_){
                 std::cout << "SKETCH 11 GOAL: " << (goal_achieved ? "REACHED" : "MOVING") 
                 <<  " | bkey=" << key  
-                << " | blue=(" << "blue_room_6=" << blue_room_10 << " and correct_position=" << !correct_position << ") = "<< blue
+                << " | blue=(" << "blue_room_6=" << blue_room_10 << " and correct_position=" << correct_position << ") = "<< blue
+                << " |cube_pos=(" << cube_pos.first << "," << cube_pos.second << ")" << " |Last_room_color=" << planner.Last_room_color
+                << std::endl;
+                }
+               
+                return goal_achieved;
+            },
+            "2 step of maze"
+        });
+        //intermediate sketch to sovle the blue maze room --> reach room 6 upper from room 6 
+        sketches_.push_back(Sketch{
+            [this](const SimPlanner& planner, const std::vector<pixel_t>& prev, const std::vector<pixel_t>& curr) {
+                if(printing_sketches_) std::cout << "SKETCH 11.5 PRE Computation " << std::endl;
+                //bool ydrag = planner.ydragon_killed(curr, prev,  printing_sketches_);
+                bool key = planner.bkey(curr,prev,printing_sketches_);
+                auto temp = planner.regions_for_cube(curr);
+                auto cube_pos = planner.highlight_cube(curr, prev); 
+                                                                                                          //18                      50 --> previously 18 - 114             
+                bool correct_position = (cube_pos.first >= 0  && cube_pos.first<=24 && cube_pos.second >= 82 && cube_pos.second <= 114);
+                bool blue_room_10 = planner.Last_room_color == 6;
+                bool blue = (blue_room_10 && correct_position);
+                bool correct_position_2 = (cube_pos.first >= 0  && cube_pos.first <= 24 && cube_pos.second >= 18 && cube_pos.second <= 50);
+                //bool correct_position_2 = (cube_pos.first >= 135  && cube_pos.first <= 160 && cube_pos.second >= 146 && cube_pos.second <= 178);
+                bool blue_room_9 = planner.Last_room_color == 6;
+                bool blue_2 = (blue_room_9 && correct_position_2);
+                bool cond =  key && blue && !blue_2; //D == 1  &&  ydrag &&
+                if(printing_sketches_){
+                std::cout << "SKETCH 11.5 PRE (2 step of maze):"  << " | " 
+                //<< " ydrag=" << ydrag << " |" 
+                <<  " bkey="<< key 
+                << " |cube_pos=(" << cube_pos.first << "," << cube_pos.second << ")"
+                << " | !blue2= (" << "blue_room_9=" << blue_room_9 << " and correct_position_2=" << correct_position_2 << ") = "<< !blue_2
+                << " | blue=(" << "blue_room_6=" << blue_room_10 << " and correct_position=" << correct_position << ") = "<< blue 
+                << " |Last_room_color=" << planner.Last_room_color
+                << " |" << (cond ? "ACTIVE" : "INACTIVE") << std::endl;
+                }
+                return cond;
+            },
+            [this](const SimPlanner& planner, const std::vector<pixel_t>& prev, const std::vector<pixel_t>& curr, const std::vector<pixel_t>& prevs) {
+                if(printing_sketches_) std::cout << "SKETCH 11.5 GOAL Computation " << std::endl;
+                //planner.calculate_distance_from_goal(curr);
+                bool key = planner.bkey(curr,prev,printing_sketches_);
+                auto temp = planner.regions_for_cube(curr);
+                auto cube_pos = planner.highlight_cube(curr, prev);                                                                //50  
+                bool correct_position = (cube_pos.first >= 0  && cube_pos.first<=24 && cube_pos.second >= 18 && cube_pos.second <= 50); 
+                bool blue_room_10 = planner.Last_room_color == 6;
+                bool blue = (blue_room_10 && correct_position);
+                bool goal_achieved = key  && blue; 
+                if(printing_sketches_){
+                std::cout << "SKETCH 11.5 GOAL: " << (goal_achieved ? "REACHED" : "MOVING") 
+                <<  " | bkey=" << key  
+                << " | blue=(" << "blue_room_6=" << blue_room_10 << " and correct_position=" << correct_position << ") = "<< blue
                 << " |cube_pos=(" << cube_pos.first << "," << cube_pos.second << ")" << " |Last_room_color=" << planner.Last_room_color
                 << std::endl;
                 }
@@ -3178,21 +3357,22 @@ struct SimPlanner : Planner {
          sketches_.push_back(Sketch{
             [this](const SimPlanner& planner, const std::vector<pixel_t>& prev, const std::vector<pixel_t>& curr) {
                 if(printing_sketches_) std::cout << "SKETCH 12 PRE Computation " << std::endl;
-                bool ydrag = planner.ydragon_killed(curr, prev,  printing_sketches_);
+                //bool ydrag = planner.ydragon_killed(curr, prev,  printing_sketches_);
                 bool key = planner.bkey(curr,prev,printing_sketches_);
                 auto temp = planner.regions_for_cube(curr);
                 auto cube_pos = planner.highlight_cube(curr, prev);
-
-                bool correct_position = (cube_pos.first >= 0  && cube_pos.first<=23 && cube_pos.second >= 18 && cube_pos.second <= 50);
+                                                                                                                                //114
+                bool correct_position = (cube_pos.first >= 0  && cube_pos.first<=24 && cube_pos.second >= 18 && cube_pos.second <= 50);
                 bool blue_room_10 = planner.Last_room_color == 6;
                 bool blue = (blue_room_10 && correct_position);
 
                 bool correct_position_2 = (cube_pos.first >= 135 && cube_pos.first <= 160 && cube_pos.second >= 18 && cube_pos.second <= 50);
                 bool blue_room_9 = planner.Last_room_color == 9;
                 bool blue_2 = (blue_room_9 && correct_position_2);
-                bool cond = ydrag && key && blue && !blue_2; //D == 1  &&
+                bool cond = key && blue && !blue_2; //D == 1  &&  ydrag &&
                 if(printing_sketches_){
-                std::cout << "SKETCH 12 PRE(reach room 9 2time):" << " | " << " ydrag=" << ydrag << " |" 
+                std::cout << "SKETCH 12 PRE(reach room 9 2time):" << " | " 
+                //<< " ydrag=" << ydrag << " |" 
                 <<  " bkey="<< key 
                 << " | blue=(" << "blue_room_6=" << blue_room_10 << " and correct_position=" << correct_position << ") = "<< blue
                 << " |!blue_2=(" << "blue_room_9=" << blue_room_9 << " and correct_position_2=" << correct_position_2 << ") = "<< !blue_2
@@ -3229,7 +3409,7 @@ struct SimPlanner : Planner {
          sketches_.push_back(Sketch{
             [this](const SimPlanner& planner, const std::vector<pixel_t>& prev, const std::vector<pixel_t>& curr) {
                 if(printing_sketches_) std::cout << "SKETCH 13 PRE Computation " << std::endl;
-                bool ydrag = planner.ydragon_killed(curr, prev,  printing_sketches_);
+                //bool ydrag = planner.ydragon_killed(curr, prev,  printing_sketches_);
                 bool key = planner.bkey(curr,prev,printing_sketches_);
                 auto temp = planner.regions_for_cube(curr);
                 auto cube_pos = planner.highlight_cube(curr, prev);
@@ -3242,9 +3422,10 @@ struct SimPlanner : Planner {
                 bool blue_room_9 = planner.Last_room_color == 8;
                 bool blue_2 = (blue_room_9 && correct_position_2);
 
-                bool cond = ydrag && key && blue && !blue_2; //D == 1  &&
+                bool cond = key && blue && !blue_2; //D == 1  && ydrag && 
                 if(printing_sketches_){
-                std::cout << "SKETCH 13 PRE(reach room 8 1time):" << " | " << " ydrag=" << ydrag << " |" 
+                std::cout << "SKETCH 13 PRE(reach room 8 1time):" << " | " 
+                //<< " ydrag=" << ydrag << " |" 
                 <<  " bkey="<< key 
                 << " | blue=(" << "blue_room_9=" << blue_room_10 << " and correct_position=" << correct_position << ") = "<< blue
                 << " |!blue_2=(" << "blue_room_8=" << blue_room_9 << " and correct_position_2=" << correct_position_2 << ") = "<< !blue_2
@@ -3281,7 +3462,7 @@ struct SimPlanner : Planner {
          sketches_.push_back(Sketch{
             [this](const SimPlanner& planner, const std::vector<pixel_t>& prev, const std::vector<pixel_t>& curr) {
                 if(printing_sketches_) std::cout << "SKETCH 14 PRE Computation " << std::endl;
-                bool ydrag = planner.ydragon_killed(curr, prev,  printing_sketches_);
+                //bool ydrag = planner.ydragon_killed(curr, prev,  printing_sketches_);
                 bool key = planner.bkey(curr,prev,printing_sketches_);
                 auto temp = planner.regions_for_cube(curr);
                 auto cube_pos = planner.highlight_cube(curr, prev);
@@ -3294,9 +3475,10 @@ struct SimPlanner : Planner {
                 bool blue_room_9 = planner.Last_room_color == 10;
                 bool blue_2 = (blue_room_9 && correct_position_2);
 
-                bool cond = ydrag && key && blue && !blue_2; //D == 1  &&
+                bool cond =  key && blue && !blue_2; //D == 1  && ydrag &&
                 if(printing_sketches_){
-                std::cout << "SKETCH 14 PRE(halfway):" << " | " << " ydrag=" << ydrag << " |" 
+                std::cout << "SKETCH 14 PRE(halfway):" << " | " 
+                //<< " ydrag=" << ydrag << " |" 
                 <<  " bkey="<< key 
                 << " | blue=(" << "blue_room_8=" << blue_room_10 << " and correct_position=" << correct_position << ") = "<< blue
                 << " |!blue_2=(" << "blue_room_10=" << blue_room_9 << " and correct_position_2=" << correct_position_2 << ") = "<< !blue_2
@@ -3333,7 +3515,7 @@ struct SimPlanner : Planner {
          sketches_.push_back(Sketch{
             [this](const SimPlanner& planner, const std::vector<pixel_t>& prev, const std::vector<pixel_t>& curr) {
                 if(printing_sketches_) std::cout << "SKETCH 15 PRE Computation " << std::endl;
-                bool ydrag = planner.ydragon_killed(curr, prev,  printing_sketches_);
+                //bool ydrag = planner.ydragon_killed(curr, prev,  printing_sketches_);
                 bool key = planner.bkey(curr,prev,printing_sketches_);
                 auto temp = planner.regions_for_cube(curr);
                 auto cube_pos = planner.highlight_cube(curr, prev);
@@ -3346,10 +3528,11 @@ struct SimPlanner : Planner {
                 bool blue_room_9 = planner.Last_room_color == 7;
                 bool blue_2 = (blue_room_9 && correct_position_2);
 
-                bool cond = ydrag && key && blue && !blue_2; //D == 1  &&
+                bool cond =key && blue && !blue_2; //D == 1  &&  ydrag && 
                 if(printing_sketches_){
-                std::cout << "SKETCH 15 PRE(halfway --> 7):" << " | " << " ydrag=" << ydrag << " |" 
-                <<  " bkey="<< key 
+                std::cout << "SKETCH 15 PRE(halfway --> 7):" << " | " 
+                //<< " ydrag=" << ydrag << " |" 
+                << " bkey="<< key 
                 << " | blue=(" << "blue_room_10=" << blue_room_10 << " and correct_position=" << correct_position << ") = "<< blue
                 << " |!blue_2=(" << "blue_room_7=" << blue_room_9 << " and correct_position_2=" << correct_position_2 << ") = "<< !blue_2
                 << " |cube_pos=(" << cube_pos.first << "," << cube_pos.second << ")" << " |Last_room_color=" << planner.Last_room_color
@@ -3385,7 +3568,7 @@ struct SimPlanner : Planner {
          sketches_.push_back(Sketch{
             [this](const SimPlanner& planner, const std::vector<pixel_t>& prev, const std::vector<pixel_t>& curr) {
                 if(printing_sketches_) std::cout << "SKETCH 16 PRE Computation " << std::endl;
-                bool ydrag = planner.ydragon_killed(curr, prev,  printing_sketches_);
+                //bool ydrag = planner.ydragon_killed(curr, prev,  printing_sketches_);
                 bool key = planner.bkey(curr,prev,printing_sketches_);
                 auto temp = planner.regions_for_cube(curr);
                 auto cube_pos = planner.highlight_cube(curr, prev);
@@ -3398,9 +3581,10 @@ struct SimPlanner : Planner {
                 bool blue_room_9 = planner.Last_room_color == 9;
                 bool blue_2 = (blue_room_9 && correct_position_2);
 
-                bool cond = ydrag && key && blue && !blue_2; //D == 1  &&
+                bool cond =  key && blue && !blue_2; //D == 1  && ydrag &&
                 if(printing_sketches_){
-                std::cout << "SKETCH 16 PRE(7 --> 9):" << " | " << " ydrag=" << ydrag << " |" 
+                std::cout << "SKETCH 16 PRE(7 --> 9):" << " | " 
+                //<< " ydrag=" << ydrag << " |" 
                 <<  " bkey="<< key 
                 << " | blue=(" << "blue_room_7=" << blue_room_10 << " and correct_position=" << correct_position << ") = "<< blue
                 << " |!blue_2=(" << "blue_room_9=" << blue_room_9 << " and correct_position_2=" << correct_position_2 << ") = "<< !blue_2
@@ -3437,7 +3621,7 @@ struct SimPlanner : Planner {
          sketches_.push_back(Sketch{
             [this](const SimPlanner& planner, const std::vector<pixel_t>& prev, const std::vector<pixel_t>& curr) {
                 if(printing_sketches_) std::cout << "SKETCH 17 PRE Computation " << std::endl;
-                bool ydrag = planner.ydragon_killed(curr, prev,  printing_sketches_);
+                //bool ydrag = planner.ydragon_killed(curr, prev,  printing_sketches_);
                 bool key = planner.bkey(curr,prev,printing_sketches_);
                 auto temp = planner.regions_for_cube(curr);
                 auto cube_pos = planner.highlight_cube(curr, prev);
@@ -3450,9 +3634,10 @@ struct SimPlanner : Planner {
                 bool blue_room_9 = planner.Last_room_color == 8;
                 bool blue_2 = (blue_room_9 && correct_position_2);
 
-                bool cond = ydrag && key && blue && !blue_2; //D == 1  &&
+                bool cond =  key && blue && !blue_2; //D == 1  && ydrag &&
                 if(printing_sketches_){
-                std::cout << "SKETCH 17 PRE(7 --> 9--> 8):" << " | " << " ydrag=" << ydrag << " |" 
+                std::cout << "SKETCH 17 PRE(7 --> 9--> 8):" << " | " 
+                //<< " ydrag=" << ydrag << " |" 
                 <<  " bkey="<< key 
                 << " | blue=(" << "blue_room_9=" << blue_room_10 << " and correct_position=" << correct_position << ") = "<< blue
                 << " |!blue_2=(" << "blue_room_8=" << blue_room_9 << " and correct_position_2=" << correct_position_2 << ") = "<< !blue_2
@@ -3489,16 +3674,18 @@ struct SimPlanner : Planner {
         sketches_.push_back(Sketch{
             [this](const SimPlanner& planner, const std::vector<pixel_t>& prev, const std::vector<pixel_t>& curr) {
                 if(printing_sketches_) std::cout << "SKETCH 18 PRE Computation " << std::endl;
-                bool ydrag = planner.ydragon_killed(curr, prev,  printing_sketches_);
+                //bool ydrag = planner.ydragon_killed(curr, prev,  printing_sketches_);
                 bool key = planner.bkey(curr,prev,printing_sketches_);
                 auto temp = planner.regions_for_cube(curr);
                 auto cube_pos = planner.highlight_cube(curr, prev);
                 bool correct_position = (cube_pos.first >= 71 && cube_pos.first  <= 87 && cube_pos.second >= 2 && cube_pos.second <= 104);
                 bool blue_room_10 = planner.Last_room_color == 8;
                 bool blue = (blue_room_10 && correct_position);
-                bool cond =  ydrag && key && blue; //D == 1  &&
+                bool cond =   key && blue; //D == 1  && ydrag &&
                 if(printing_sketches_){
-                std::cout << "SKETCH 18 PRE:"  << " | " << " ydrag=" << ydrag << " |" <<  " bkey="<< key 
+                std::cout << "SKETCH 18 PRE:"  << " | " 
+                //<< " ydrag=" << ydrag << " |" 
+                <<  " bkey="<< key 
                  << " | blue=(" << "blue_room_8=" << blue_room_10 << " and correct_position=" << correct_position << ") = "<< blue
                  << " |cube_pos=(" << cube_pos.first << "," << cube_pos.second << ")"  << " |Last_room_color=" << planner.Last_room_color
                 << " |" << (cond ? "ACTIVE" : "INACTIVE") << std::endl;
@@ -3528,14 +3715,15 @@ struct SimPlanner : Planner {
         sketches_.push_back(Sketch{
             [this](const SimPlanner& planner, const std::vector<pixel_t>& prev, const std::vector<pixel_t>& curr) {
                 if(printing_sketches_) std::cout << "SKETCH 19 PRE Computation " << std::endl;
-                bool ydrag = planner.ydragon_killed(curr, prev,  printing_sketches_);
+                //bool ydrag = planner.ydragon_killed(curr, prev,  printing_sketches_);
                 bool key = planner.bkey(curr,prev,printing_sketches_);
                 auto temp = planner.regions_for_cube(curr);
                 bool black = planner.Last_room_color == 11;  
                 bool chalice = planner.chalicer(curr,prev, printing_sketches_);    
-                bool cond =  ydrag && key && black && !chalice; //D == 1  &&
+                bool cond =   key && black && !chalice; //D == 1  && ydrag &&
                 if(printing_sketches_){
-                std::cout << "SKETCH 19 PRE:"   " | " << " ydrag=" << ydrag << " |" <<  " bkey="<< key
+                std::cout << "SKETCH 19 PRE:"   " | " //<< " ydrag=" << ydrag << " |" 
+                <<  " bkey="<< key
                  << " | black=" << black << " |Last_room_color=" << planner.Last_room_color << " | !chalice=" << !chalice
                 << " |" << (cond ? "ACTIVE" : "INACTIVE") << std::endl;
                 }

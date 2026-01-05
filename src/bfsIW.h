@@ -471,7 +471,7 @@ struct BfsIW : SimPlanner {
             assert((node->num_children_ == 0) && (node->first_child_ == nullptr));
             assert(node->visited_ || (node->is_info_valid_ != 2));
             if( node->is_info_valid_ != 2 ) {
-                update_info(node, screen_features_, alpha_, use_alpha_to_update_reward_for_death_, root->node_Last_room_color);
+                update_info(node, screen_features_, alpha_, use_alpha_to_update_reward_for_death_);
                 assert((node->num_children_ == 0) && (node->first_child_ == nullptr));
                 node->visited_ = true;
                 
@@ -498,6 +498,8 @@ struct BfsIW : SimPlanner {
             if (fulfillment_branch_.empty()) {
 
                 for (size_t i = 0; i < node->post.size(); ++i) {
+                    if((root->pre[15] || root->pre[13] || root->pre[14]))printing_sketches_debug = true;
+                    else printing_sketches_debug = false;
                     if (root->pre[i] && node->post[i]) {
                         // Reconstruct branch from root to this node
                         std::deque<Action> temp_branch;
@@ -516,12 +518,16 @@ struct BfsIW : SimPlanner {
             
             // check termination at this node
             if( node->terminal_ ) {
+                if(printing_sketches_debug){
+                    std:: cout << "Reached terminal node at depth " << node->depth_ << " with action " << node->action_ << std::endl;
+                }
                 logging::Logger::Continuation(logging::Logger::Debug) << "t" << "," << std::flush;
                 continue;
             }
 
             // verify max repetitions of feature atoms (screen mode)
             if( node->frame_rep_ > int(max_rep_) ) {
+                if(printing_sketches_debug) std:: cout << "Reached max repetitions of feature atoms " << node->frame_rep_ << " max rep: "<< max_rep_ << std::endl;
                 logging::Logger::Continuation(logging::Logger::Debug) << "r" << node->frame_rep_ << "," << std::flush;
                 continue;
             }
@@ -536,7 +542,9 @@ struct BfsIW : SimPlanner {
                 // prune node using novelty
                 if( novelty_table[atom] <= node->depth_ ) {
                     //std::cout<< "pruning node with atom " << atom << " at depth " << node->depth_ << std::endl;
+                    if(printing_sketches_debug) std:: cout << "Pruning node with action "<< node->action_ << "and parent node is " << node->parent_->action_ << " due to novelty " << std::endl;
                     logging::Logger::Continuation(logging::Logger::Debug) << "p" << "," << std::flush;
+                    ++pruned_nodes_;
                     continue;
                 }
 
