@@ -14,6 +14,7 @@
 #include "logger.h"
 
 struct BfsIW : SimPlanner {
+    mutable size_t pruned_nodes_;
     const int screen_features_;
     const float time_budget_;
     const bool novelty_subtables_;
@@ -63,7 +64,7 @@ struct BfsIW : SimPlanner {
         break_ties_using_rewards_(break_ties_using_rewards), game(games) ,depth_to_search(look_ahead) {
            if(game == 0) initalize_sketches_adventure();
            else if (game == 1) initialize_sketches_private_eye(); 
-           
+        pruned_nodes_ = 0;
            //initialize_sketches_seaquest();
            /* if(game == 0) initialize_sketches();
             else if (game == 1) initialize_sketches_breakout(); 
@@ -101,8 +102,8 @@ struct BfsIW : SimPlanner {
     }
     const bool printing_debug = false; // Set to true to enable debug printing
     const bool transition_printing_debug = true; // Set to true to enable transition debug printing
-    const bool transtion_printing_debug_adventure = (game == 0) ? true : false; // Set to true to enable transition debug printing for adventure
-    const bool transition_printing_debug_private_eye = (game == 1) ? true : false; // Set to true to enable transition debug printing for private eye
+    const bool transtion_printing_debug_adventure = false; 
+    const bool transition_printing_debug_private_eye = true;
     //const bool transition_printing_debugs = true; // Set to true to enable transition debug printing
     virtual Node* get_branch(ALEInterface &env,
                              const std::vector<Action> &prefix,
@@ -123,7 +124,7 @@ struct BfsIW : SimPlanner {
 
         // reset stats and start timer
         reset_stats();
-        float start_time = Utils::read_time_in_seconds();
+        float start_time = Utils::read_time_in_seconds();                   
         float debug_time = 0.0f;
         float debug_time_stop = 0.0f;                        
         // novelty table
@@ -427,6 +428,7 @@ struct BfsIW : SimPlanner {
         total_time_ = Utils::read_time_in_seconds() - start_time + debug_time_stop;
         print_stats(logging::Logger::Stats, *root, novelty_table_map);
         if(impotant_debug) std::cout << "bfs: total time: " << total_time_ << " seconds" << std::endl;
+        std::cout << "Number of expansions: " << num_expansions_  << " Number of pruned nodes: " << pruned_nodes_ << " so a percentage of " << (pruned_nodes_ * 100.0 / num_expansions_) << "%" <<std::endl ;
         // return root node
         return root;
     }
@@ -612,6 +614,7 @@ struct BfsIW : SimPlanner {
         expand_time_ = 0;
         root_height_ = 0;
         random_decision_ = false;
+        pruned_nodes_ = 0;
         fulfillment_branch_.clear();
     }
 
