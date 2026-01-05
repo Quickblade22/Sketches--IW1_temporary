@@ -31,9 +31,7 @@ From: ubuntu:22.04
         libavcodec-dev \
         libswscale-dev \
         libswresample-dev
-    #nanobind
-    pip3 install nanobind
-    
+
     # Clone and build ALE
     cd /opt
     git clone https://github.com/mgbellemare/Arcade-Learning-Environment.git
