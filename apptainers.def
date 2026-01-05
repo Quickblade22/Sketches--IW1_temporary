@@ -42,7 +42,7 @@ From: ubuntu:22.04
 
     # Clone and build your project
     cd /opt
-    git clone -b flexible_patches_regular_patch_size https://github.com/Quickblade22/Sketches--IW1_temporary.git
+    git clone -b flexible_patches https://github.com/Quickblade22/Sketches--IW1_temporary.git
     cd Sketches--IW1_temporary/src
     
     # Build the project
