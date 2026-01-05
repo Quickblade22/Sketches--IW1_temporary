@@ -14,6 +14,7 @@
 #include "logger.h"
 
 struct BfsIW : SimPlanner {
+    mutable size_t pruned_nodes_;
     const int screen_features_;
     const float time_budget_;
     const bool novelty_subtables_;
@@ -63,7 +64,7 @@ struct BfsIW : SimPlanner {
         break_ties_using_rewards_(break_ties_using_rewards), game(games) ,depth_to_search(look_ahead) {
            if(game == 0) initalize_sketches_adventure();
            else if (game == 1) initialize_sketches_private_eye(); 
-           
+        pruned_nodes_ = 0;
            //initialize_sketches_seaquest();
            /* if(game == 0) initialize_sketches();
             else if (game == 1) initialize_sketches_breakout(); 
@@ -101,8 +102,8 @@ struct BfsIW : SimPlanner {
     }
     const bool printing_debug = false; // Set to true to enable debug printing
     const bool transition_printing_debug = true; // Set to true to enable transition debug printing
-    const bool transtion_printing_debug_adventure = (game == 0) ? true : false; // Set to true to enable transition debug printing for adventure
-    const bool transition_printing_debug_private_eye = (game == 1) ? true : false; // Set to true to enable transition debug printing for private eye
+    const bool transtion_printing_debug_adventure = false; 
+    const bool transition_printing_debug_private_eye = true;
     //const bool transition_printing_debugs = true; // Set to true to enable transition debug printing
     virtual Node* get_branch(ALEInterface &env,
                              const std::vector<Action> &prefix,
@@ -123,7 +124,7 @@ struct BfsIW : SimPlanner {
 
         // reset stats and start timer
         reset_stats();
-        float start_time = Utils::read_time_in_seconds();
+        float start_time = Utils::read_time_in_seconds();                   
         float debug_time = 0.0f;
         float debug_time_stop = 0.0f;                        
         // novelty table
@@ -238,13 +239,9 @@ struct BfsIW : SimPlanner {
                 
                 if(!fulfillment_branch_.empty()) {
                     branch.insert(branch.end(), fulfillment_branch_.begin(), fulfillment_branch_.end());
-                    std::cout << " Started froom room " << root->node_Last_room_color  << " Action in fulfillment branch: " ; 
+                    std::cout << "Action in fulfillment branch: "; 
                     for(const auto& act:fulfillment_branch_) std::cout << act << " " ;
-                    std::cout << " to complete sketch: " ;
-                    for (int i = 0; i < root->pre.size(); ++i) {
-                        std::cout << (root->pre[i] ? "1" : "0") << "  | ";
-                    }
-                    std::cout << " ended in room: " << best_node->node_Last_room_color << std::endl;
+                    std::cout  << std::endl;
                     Node* temp_node_parent = (best_node->parent_ != nullptr && !best_node->parent_->screen_pixels_.empty()) ? best_node->parent_ : best_node;
                     if(transtion_printing_debug_adventure) {
                             debug_time = Utils::read_time_in_seconds();
@@ -431,6 +428,7 @@ struct BfsIW : SimPlanner {
         total_time_ = Utils::read_time_in_seconds() - start_time + debug_time_stop;
         print_stats(logging::Logger::Stats, *root, novelty_table_map);
         if(impotant_debug) std::cout << "bfs: total time: " << total_time_ << " seconds" << std::endl;
+        std::cout << "Number of expansions: " << num_expansions_  << " Number of pruned nodes: " << pruned_nodes_ << " so a percentage of " << (pruned_nodes_ * 100.0 / num_expansions_) << "%" <<std::endl ;
         // return root node
         return root;
     }
@@ -475,7 +473,7 @@ struct BfsIW : SimPlanner {
             assert((node->num_children_ == 0) && (node->first_child_ == nullptr));
             assert(node->visited_ || (node->is_info_valid_ != 2));
             if( node->is_info_valid_ != 2 ) {
-                update_info(node, screen_features_, alpha_, use_alpha_to_update_reward_for_death_, root->node_Last_room_color);
+                update_info(node, screen_features_, alpha_, use_alpha_to_update_reward_for_death_);
                 assert((node->num_children_ == 0) && (node->first_child_ == nullptr));
                 node->visited_ = true;
                 
@@ -502,6 +500,8 @@ struct BfsIW : SimPlanner {
             if (fulfillment_branch_.empty()) {
 
                 for (size_t i = 0; i < node->post.size(); ++i) {
+                    if((root->pre[15] || root->pre[13] || root->pre[14]))printing_sketches_debug = true;
+                    else printing_sketches_debug = false;
                     if (root->pre[i] && node->post[i]) {
                         // Reconstruct branch from root to this node
                         std::deque<Action> temp_branch;
@@ -520,12 +520,16 @@ struct BfsIW : SimPlanner {
             
             // check termination at this node
             if( node->terminal_ ) {
+                if(printing_sketches_debug){
+                    std:: cout << "Reached terminal node at depth " << node->depth_ << " with action " << node->action_ << std::endl;
+                }
                 logging::Logger::Continuation(logging::Logger::Debug) << "t" << "," << std::flush;
                 continue;
             }
 
             // verify max repetitions of feature atoms (screen mode)
             if( node->frame_rep_ > int(max_rep_) ) {
+                if(printing_sketches_debug) std:: cout << "Reached max repetitions of feature atoms " << node->frame_rep_ << " max rep: "<< max_rep_ << std::endl;
                 logging::Logger::Continuation(logging::Logger::Debug) << "r" << node->frame_rep_ << "," << std::flush;
                 continue;
             }
@@ -540,7 +544,9 @@ struct BfsIW : SimPlanner {
                 // prune node using novelty
                 if( novelty_table[atom] <= node->depth_ ) {
                     //std::cout<< "pruning node with atom " << atom << " at depth " << node->depth_ << std::endl;
+                    if(printing_sketches_debug) std:: cout << "Pruning node with action "<< node->action_ << "and parent node is " << node->parent_->action_ << " due to novelty " << std::endl;
                     logging::Logger::Continuation(logging::Logger::Debug) << "p" << "," << std::flush;
+                    ++pruned_nodes_;
                     continue;
                 }
 
@@ -608,6 +614,7 @@ struct BfsIW : SimPlanner {
         expand_time_ = 0;
         root_height_ = 0;
         random_decision_ = false;
+        pruned_nodes_ = 0;
         fulfillment_branch_.clear();
     }
 
